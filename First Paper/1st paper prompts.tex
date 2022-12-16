@@ -1,0 +1,163 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\setmainfont{Adobe Garamond Pro}
+\usepackage{enumitem}
+\newcommand{\qe}{\begin{enumerate}[align=left,style=nextline,leftmargin=17pt,labelsep=5pt,font=\normalfont, topsep=10pt, itemsep=20pt]}
+\newcommand{\qee}{\begin{enumerate}[align=left,style=nextline,leftmargin=17pt,labelsep=5pt,font=\normalfont, topsep=10pt]}
+\newcommand{\ze}{\end{enumerate}}
+\newcommand{\p}{\item}
+\newcommand{\e}{\emph}
+\newcommand{\tbf}{\textbf}
+\newcommand{\thus}{
+
+\vspace{5pt}\hrule
+
+}
+\usepackage{lipsum}
+\title{First Paper Guidelines and Prompts}
+\author{Phil 2400: M\&E Core Seminar}
+\date{February 1, 2018}
+
+\begin{document}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{10pt}
+\maketitle
+
+Papers should be somewhere between 1400 and 2500 words.  (This is approximately 5 to 9 pages, 12pt., double spaced.)  They need not include an introduction, but they should at some point state \e{clearly} what thesis you take yourself to be defending.  \underline{\textbf{This thesis statement should be underlined and bolded}}.
+
+You may write on any topic we have discussed in class.  (Extra-mural paper topics are not permitted---that is to say, you should only cite and discuss readings which have been assigned.  You should also only \e{read} the readings which have been assigned for class.  The point of these papers is for you to engage philosophically with the ideas we have encountered, and not to report on what others who have engaged with the work have said, or engage with what others who have engaged with the work have said.  The paper is not a book report---it is an opportunity for you to think through some complicated material and report the fruits of those intellectual labors.)
+
+If you would like some guidance, then here are some suggestions for paper topics.  (If you are not going to write on one of these topics, then please meet with me to discuss your proposed paper topic.)
+	\qe
+	\p According to Frege, a sentence usually \e{denotes}\footnote{ Or `refers to', or `designates'---I am taking all of these to be equivalent.} its referent (a truth-value) and \e{expresses} its conventional sense.  However, in some sentential contexts---namely, the opaque contexts---a sentence may \e{denote} its conventional sense.  Thus, in the sentence
+		\qee
+		\p[(A)] Amy believes that Hesperus $=$ Phosphorus.
+		\ze 
+	The denotation of `Hesperus $=$ Phosphorus' is not its truth-value, but rather its conventional sense.\footnote{ By `conventional sense', I mean the sense that it expresses when it appears unembedded, as a standalone sentence. }
+	
+	So, the \e{referent} of `Hesperus $=$ Phosphorus', as it appears in (A), is the conventional sense of `Hesperus $=$ Phosphorus'.  What is the \e{sense} of `Hesperus $=$ Phosphorus', as it appears in (A)?  
+	
+	(It must have a sense, since the sense of (A) is built out of the senses of its parts, per the compositionality of sense.  And we can embed (A) in further belief reports, as follows:
+		\qee
+		\p[(B)] Bill believes that Amy believes that Hesperus $=$ Phosphorus.
+		\ze 
+	And here, the referent of `Amy believes that Hesperus $=$ Phosphourus' must be its conventional sense.  So (A) must have a sense.  So `Hesperus $=$ Phosphorus' must have a sense, when it appears in (A).)
+		
+		So it seems that, not only must `Hesperus $=$ Phosphorus' have a sense, its sense must have a sense.  And since we can embed (B) in a further belief reports, without end,
+		\qee
+		\p[(C)] Cathy believes that Bill believes that Amy believes that Hesperus $=$ Phosphorus.
+		\p[(D)] Daniel believes that Cathy believes that Bill believes that Amy believes that Hesperus $=$ Phosphorus.
+		\p[(E)] Esther believes that Daniel believes that Cathy believes that Bill believes that Amy believes that Hesperus $=$ Phosphorus.
+		\p[] $\vdots$
+		\ze 
+	it must be that there is an infinite \e{hierarchy} of senses which are denoted in each of (A), (B), (C), (D), (E), $\dots$:
+		\qee
+		\p[(A')] The sense of `Hesperus $=$ Phosphorus'.
+		\p[(B')] The sense of the sense of `Hesperus $=$ Phosphorus'.
+		\p[(C')] The sense of the sense of  the sense of  `Hesperus $=$ Phosphorus'.
+		\p[(D')] The sense of the sense of  the sense of the sense of  `Hesperus $=$ Phosphorus'.
+		\p[(E')] The sense of the sense of the sense of  the sense of the sense of  `Hesperus $=$ Phosphorus'.
+		\p[] $\vdots$
+		\ze 
+	
+	Your mission, should you choose to accept it: either (1) argue that Frege is not committed to an infinite hierarchy of senses (that is, argue that something has gone wrong in the above argument); (2) defend Frege's commitment to the infinite hierarchy of senses (that is, explain why this is a natural or intuitive thing to think, if you are a Fregean); or (3) suggest an emendment to Frege's view which retains the dual theory of meaning (sense and reference), but avoids commitment to the infinite hierarchy, while still allowing Frege to solve his two puzzles.
+	
+	\p According to Frege, a sentence usually \e{denotes}\footnote{ Or `refers to', or `designates'---I am taking all of these to be equivalent.} its referent (a truth-value) and \e{expresses} its conventional sense.  However, in some sentential contexts---namely, the opaque contexts---a sentence may \e{denote} its conventional sense.  Thus, in the sentence (Bel):
+		\qee
+		\p[(Bel)] Amy believes that Hesperus $=$ Phosphorus.
+		\ze 
+	The denotation of `Hesperus $=$ Phosphorus' is not its truth-value, but rather its conventional sense.\footnote{ By `conventional sense', I mean the sense that it expresses when it appears unembedded, as a standalone sentence. }
+	
+	Consider the sentences (Bec1) and (Bec2):
+		\qee
+		\p[(Bec1)]  The window shattered because Mark Twain threw a rock at it.
+		\p[(Bec2)]  The window shattered because Hesperus $=$ Phosphorus.
+		\ze 
+(Bec1) is true, while (Bec2) is false.  Yet `Mark Twain threw a rock at it' and `Hesperus $=$ Phosphorus' are both true.   So Frege should not say that the sentential context
+		\begin{center}
+		The window shattered because \underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}.
+		\end{center}
+	is transparent.  (If it were transparent, then `Hesperus $=$ Phosphorus' and `Mark Twain threw a rock at it' would just refer to their truth-values in that context, and there would be no difference in truth-value between (Bec1) and (Bec2).)   But, if he says that this sentential context is opaque, then the following inference should be invalid,
+	
+			\begin{center}
+			\begin{minipage}{320pt}
+			\qee
+			\p[P1)] The window shattered because Mark Twain threw a rock at it.
+			\p[P2)] Mark Twain $=$ Sam Clemens.	
+				\thus
+			\p[C)] The window shattered because Sam Clemens threw a rock at it.
+			\end{enumerate}
+			\end{minipage}
+			\end{center}
+			
+in the same way that \e{this} inference is, according to Frege, invalid:
+
+			\begin{center}
+			\begin{minipage}{250pt}
+			\qee
+			\p[P1)] Amy believes that Hesperus is the evening star.
+			\p[P2)] Hesperus $=$ Phosphorus.	
+				\thus
+			\p[C)] Amy believes that Phosphorus is the evening star.
+			\end{enumerate}
+			\end{minipage}
+			\end{center}
+			
+Yet it appears that the first inference is \e{valid}, and not invalid.  So it appears as though the sentential context 
+		\begin{center}
+		The window shattered because \underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}.
+		\end{center}
+should be transparent.
+
+So we have a puzzle.  On the one hand, we have a good argument that this sentential context should be opaque.  At the same time, we have a good argument that this sentential context should be transparent.
+
+	Your mission, should you choose to accept it, is to solve this puzzle for Frege (that is, to say, on Frege's behalf, which of the arguments given above goes wrong, and where it goes wrong).  This could, of course, involve revising or refining some aspects of Frege's view.  (If so, you should make it clear when you are revising or refining and when you are reporting Frege's view.)
+	
+	\p Kripke provides three main arguments against Descriptivism, a view which he attributes to Frege.  (These are what we called the `modal' argument, the `semantic' argument, and the `epistemic' argument.)  He attributes Descriptivism to Frege is because he is thinking of Fregean senses for proper names as something like definite descriptions, so that `Hesperus' is synonymous with something like `the first star (heavenly body) visible in the evening'.  As we've seen, however, Frege is not entirely clear about what senses are.  So there is a glimmer of hope that, if we fill out the details in the right way, Frege's dual theory of meaning (in terms of sense and reference) will be able to steer clear of Kripke's arguments
+	
+	Your mission, should you choose to accept it, is to suggest an refinement or revision of Frege's view which both allows Frege to solve his two puzzles and to allows him to evade Kripke's arguments.  That is: your task is to find some way of making sense of \e{sense} which doesn't fall prey to the modal, epistemic, or semantic arguments (or any of Kripke's variants thereof).
+	
+	\p  Suppose that there is a lottery being held this weekend.  Five people have purchased tickets, and you are one of them.  Distinguish the following possibilities:
+		\qee
+		\p[-] $w_1 :$ the world in which the person holding ticket 1 (this is you) wins the lottery.
+		\p[-] $w_2 :$ the world in which the person holding ticket 2 wins the lottery.
+		\p[-] $w_3 :$ the world in which the person holding ticket 3 wins the lottery.
+		\p[-] $w_4 :$ the world in which the person holding ticket 4 wins the lottery.
+		\p[-] $w_{5} :$ the world in which the person holding ticket 5 wins the lottery.
+		\ze 
+	
+	You introduce the name `Lucky' as follows: \e{let `Lucky' denote the holder of the winning ticket of the lottery held this weekend}.  Given that you have introduced the name `Lucky' in this way, Kripke holds that you are in a position to know the proposition expressed by (\tbf{L}):
+			\qee
+			\p[(\tbf{L})] Lucky will win the lottery.
+			\ze 
+	Suppose that, in fact, you will win the lottery---so you are Lucky.  So (\tbf{L}) is true in $w_1$, and false in $w_2, w_3, w_4$, and $w_5$.    So you know the proposition $\{ w_1 \}$.  In $w_1$, the proposition expressed by (\tbf{Y}) is true:
+			\qee
+			\p[(\tbf{Y})] You will win the lottery.
+			\ze 
+So you know the proposition expressed by (\tbf{Y}).  So you know that you will win the lottery.
+
+But this appears ridiculous---you can't come to know that you will win the lottery by going through this little naming ceremony.  Let's make the argument I went through above a bit more rigorous:
+	\begin{center}
+	\begin{minipage}{340pt}
+	\begin{enumerate}
+	\p[P1.] You are in a position to know that (\tbf{L}).
+	\p[P2.] If you are in a position to know that (\tbf{L}), then you are in a position to rule out all possibilities in which (\tbf{L}) is false.
+	\p[P3.] (\tbf{L}) is only false in $w_2, w_3, w_4,$ and $w_5$.
+	\thus 
+	\p[C1.] You are in a position to rule out the possibilities $w_2, w_3, w_4,$ and $w_5$.
+	\p[P4.] (\tbf{Y}) is true in $w_1$.
+	\p[P5.] If you are in a position to rule out all but possibilities in which (\tbf{Y}) is true, then you are in a position to know that (\tbf{Y}).
+	\thus
+	\p[C2.] You are in a position to know that (\tbf{Y}).
+	\end{enumerate}
+	\end{minipage}
+	\end{center}
+
+This argument presents us with a puzzle: the premises appear very well motivated, and the argument appears valid, yet the conclusion appears ridiculous.	
+	
+Your mission, should you choose to accept it, is to either respond to this argument by arguing against one of its premises (or arguing that the argument is invalid), or to defend its conclusion.  (In responding, you should be aware and wary of both Frege's and Kripke's arguments; and, if the things you end up saying conflict with one of their arguments, then you should engage with \e{that} argument, too.  For instance, if you reject (P3) by claiming that `Lucky' does not refer to you in $w_2, w_3, w_4,$ and $w_5$, then you will have to address Kripke's arguments that `Lucky' is rigid.)
+	\ze 
+	
+
+\end{document}

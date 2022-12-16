@@ -1,0 +1,175 @@
+\documentclass[10pt,leqno]{article}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[adobe-garamond]{mathdesign}
+\AtBeginDocument{%
+  \let\mathbb\relax
+  \DeclareMathAlphabet\PazoBB{U}{fplmbb}{m}{n}%
+  \newcommand{\mathbb}{\PazoBB}%
+  \let\mathcal\relax
+  \DeclareMathAlphabet{\OMScal}{OMS}{cmsy}{m}{n}
+  \newcommand{\mathcal}{\OMScal}%
+}
+\usepackage{fontspec}
+\setmainfont{Adobe Garamond Pro}
+\usepackage{enumitem}
+\newcommand{\qe}{\begin{enumerate}}
+\newcommand{\qef}{\begin{enumerate}[leftmargin=0cm,labelsep=10pt]}
+\newcommand{\ze}{\end{enumerate}}
+\newcommand{\p}{\item}
+\newcommand{\e}{\emph}
+\newcommand{\argu}[2]{\begin{center}
+\begin{minipage}{#1}
+	\begin{enumerate}
+	#2
+	\end{enumerate}
+\end{minipage}
+\end{center}}
+\newcommand{\s}{\textsc}
+\newcommand{\tbf}{\textbf}
+\newcommand{\qq}[1]{\ulcorner #1 \urcorner}
+\newcommand{\would}{ \,\,\Box\!\!\to }
+\newcommand{\V}[1]{\llbracket #1 \rrbracket}
+\newcommand{\thus}{
+
+\vspace{5pt}\hrule
+
+}
+\newcommand{\qd}{\begin{quote} \begin{description}
+    [align=left,style=nextline,leftmargin=*,labelsep=0pt,font=\normalfont]}
+\newcommand{\zd}{\end{description} \end{quote}}
+\usepackage{lipsum}
+\title{Third Paper Guidelines and Prompts}
+\author{Phil 2400: M\&E Core Seminar}
+\date{Due: December 4th, 2018}
+
+\begin{document}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{10pt}
+\maketitle
+
+Papers should be somewhere between 1400 and 2500 words.  (This is approximately 5 to 9 pages, 12pt., double spaced.)  They need not include an introduction, but they should at some point state \e{clearly} what thesis you take yourself to be defending.  \underline{\textbf{This thesis statement}} \underline{\tbf{should be underlined and bolded}}.
+
+You may write on any topic we have discussed in class.  (Extra-mural paper topics are not permitted---that is to say, you should only cite and discuss readings which have been assigned.  You should also only \e{read} the readings which have been assigned for class (unless the prompt explicitly directs you to read something extramural).  The point of these papers is for you to engage philosophically with the ideas we have encountered, and not to report on what others who have engaged with the work have said, or engage with what others who have engaged with the work have said.  The paper is not a book report---it is an opportunity for you to think through some complicated material and report the fruits of those intellectual labors.)
+
+If you would like some guidance, then here are some suggestions for paper topics.  (If you are not going to write on one of these topics, then please meet with me to discuss your proposed paper topic.)
+ 
+	\qef
+	\p On Stalnaker's theory of conditionals, a subjunctive (or `counterfactual') conditional $\ulcorner A \would C \urcorner$ is true at a world $w$ iff $C$ is true at the most similar $A$-world to $w$.  That is, 
+			\[\tag{$\Box\!\!\to$}\label{would}
+			\V{A \would C}^w = 1 \quad \text{ iff } \quad \V{C}^{f(A, w)} = 1
+			\] 
+	where $f(A, w)$ is the most similar $A$-world to $w$.  
+	
+	Stalnaker assumed that, if $w$ was an $A$-world, $\V{A}^w = 1$, then $f(A, w)$ would be $w$ itself.  
+		\[\tag{\s{Centering}}\label{centering}
+		(\forall A) (\forall w) \,\,(\V{A}^w = 1 \to f(A, w) = w )
+		\]	
+	This assumption (known as `centering') is enough to validate the inference rule \e{modus ponens} for the subjunctive conditional, which says that the inference from $\qq{A \would C}$ and $\qq{A}$ to  $\qq{C}$ is deductively valid.
+		\[\tag{\s{Modus Ponens}}\label{mp}
+			\begin{array}{l}
+			A \would C	\\
+			A						\\\hline
+			C
+			\end{array}
+		\]
+	Firstly, explain why, given \eqref{would}, \ref{centering} is equivalent to \ref{mp}.  That is: show that, given \ref{would}, you can derive  \ref{mp} from \ref{centering}, and that, given \eqref{would}, you can derive \ref{centering} from \ref{mp}.  (I would use conditional proof to show that centering implies modus ponens, and I'd then use conditional proof to show that, if centering is violated, then there will be counterexamples to modus ponens---establishing the contrapositive of: if modus ponens is valid, then centering holds.)
+	
+%	From \eqref{would} and the first premise, $\V{C}^{f(A, w)} = 1$.  From the second premise, $\V{A}^w = 1$.  From centering, $f(A, w) = w$.  So $\V{C}^w = 1$.
+	
+%	Suppose that $f(A, w) \neq w$ for some $w$ and some $A$ such that $\V{A}^w = 1$.  Then, 
+	
+	Secondly, consider the following (putative) counterexample to \eqref{mp}.  (Background: in the US presidential election of 2000, there were three candidates: Gore, Bush, and Nader.  Gore and Nader were liberals, Bush was a conservative.  Both Bush and Gore received the majority of the vote; Nader received less than 5\% of the vote.  In the end, Bush won.)
+		\argu{200pt}{
+		\p[] If Gore hadn't won, then, if a liberal had won, Nader would have won.
+		\p[] Gore didn't win.
+		\thus
+		\p[] If a liberal had won, Nader would have won.
+		}
+	Or, if we use `$G$' for `Gore wins', `$N$' for `Nader wins', and `$L$' for `A liberal wins':
+		\[\begin{array}{l}
+		\neg G \would (L \would N)	\\
+		\neg G										\\\hline
+		L \would N
+		\end{array}
+		\]
+	
+	I claim: the premises of this argument are true, yet its conclusion is false.  Had a liberal won, \e{Gore} would have won, not Nader.  This shows that \ref{mp} is invalid.
+	
+	I can strengthen this argument by appealing to the inference rule known as `exportation':
+			\[\tag{\s{Exportation}}\label{exp}
+			\begin{array}{l}
+			(A \wedge B) \would C							\\\hline
+			A \would (B \would C)
+			\end{array}
+		\]
+Then, \ref{exp} tells us that \e{this} inference is valid:
+		\argu{300pt}{
+		\p[] If Gore hadn't won and a liberal had won, then Nader would have won.
+		\thus
+		\p[] If Gore hadn't won, then, had a liberal won, Nader would have won.
+		}
+Or:
+	\[
+	\begin{array}{l}
+	(\neg G \wedge L) \would N		\\\hline
+	\neg G \would (L \would N)
+	\end{array}
+	\]
+So, if \ref{exp} is valid, then, if \ref{mp} is valid, \e{this} inference is also valid:
+		\[
+	\begin{array}{l}
+	(\neg G \wedge L) \would N		\\
+	\neg G												\\\hline
+	L \would N
+	\end{array}
+	\]
+But these premises are clearly true, yet its conclusion is clearly false.   Since \ref{exp} is valid, \ref{mp} is invalid.
+
+Your mission, should you choose to accept it, is to do one of the following:
+	\qe
+	\p Defend Stalnaker's logic against this attack by defending \s{modus ponens}.
+	\p Emend Stalnaker's logic so as to invalidate \s{modus ponens}.
+	\ze 
+In either case, you should engage with the strengthened version of the argument against \ref{mp} I offered above---the one which appeals to \ref{exp}.  (If you choose (a), explain where this argument goes wrong---is \ref{exp} invalid?  Is one of the premises false?  If you choose (b), explain whether your emendment validates \ref{exp} or not.) 
+
+\p Here's an argument against contextualism about knowledge attributions: Consider the following case.  It's Friday, and you and I need to deposit a check at the bank, but it doesn't much matter whether the check is deposited this week or the next.  In this context, we have this conversation:
+	\qe
+	\p[Me:] Let's go to the bank tomorrow.
+	\p[You:] Do you know that they're open on Saturday?
+	\p[Me:] Yeah, I was there on Saturday a few weeks ago; I know that they're open on Saturday.
+	\ze 
+We skip the bank, and go out to a dinner party.  At the party, Daniel tells us that he will have to leave early to deposit a check---it's a mortgage payment, and if it doesn't get deposited this week, he'll lose his house.  In this context, we have this conversation:
+	\qe
+	\p[You:] Oh, don't leave---you can deposit it tomorrow.
+	\p[Daniel:] Is the bank  open tomorrow?
+	\p[You:] Dmitri said that he knows that it's open on Saturdays.
+	\p[Me:] \# I didn't say that!
+	\ze 
+Here, it seems as though I've misspoken.  I \e{did} say that I know the bank is open on Saturday.  But, according to the contextualist, I haven't misspoken.  Because I was speaking in the low-stakes context, my utterance of ``I know that they're open on Saturday'' expressed the proposition that I meet the low-stakes standards for knowledge.   Because you were speaking in the high-stakes context, \e{your} utterance of ``Dmitri said that he knows that it's open on Saturdays'' expressed the proposition that I said that I meet the high-stakes standards for knowledge.  But I \e{didn't} say that.  Compare with the following dialogue:
+	\qe
+	\p[Me:] I'm hungry.
+	\p[] $\vdots$
+	\p[You:] Dmitri said that I'm hungry.
+	\p[Me:] I didn't say that!
+	\ze 
+The meaning of ``I'm hungry'' in my mouth is different from its meaning in your mouth, and for this reason, I can fairly object to your report of my speech act.  It misrepresents me as saying something that I didn't actually say.  But I don't appear to be able to do the same thing when you report me as saying that I know the bank is open.  So: contextualism about knowledge attributions is false.
+
+Your mission, should you choose to accept it, is to either 1) defend Lewis's contextualism from this objection; or 2) develop an alternative version of contextualism which escapes the objection.
+
+\p Williamson argues that no interesting condition is \e{luminous}---that is, there are no non-trivial conditions such that we are in a position to know that they obtain whenever they do.  You mission, should you choose to accept it, is to defend the luminosity of some non-trivial condition from Williamson's attacks.
+
+\p Williamson argues that no interesting condition is \e{luminous}---that is, there are no non-trivial conditions such that we are in a position to know that they obtain whenever they do.  For instance, he argues that you are not always in a position to know that you are cold whenever you are.  His arguments against luminosity appeal to \e{borderline} cases: cases where the condition obtains, but it's not clear (or determinate) that the condition obtains.  But consider the following condition: being \e{determinately} cold.  And consider the following luminosity condition:
+			\begin{description}
+			\item[Luminosity about Determinate Coldness] Necessarily, whenever you are determinately cold, you are in a position to know that you are determinately cold.
+						\[
+						\Box ( \Delta C \to \mathcal{K} \Delta C)
+						\]
+			\end{description}
+	Does Williamson's argument apply even to this condition?  If so, explain why.  If not, explain why not.
+	
+
+	\ze 
+	
+
+\end{document}

@@ -1,0 +1,440 @@
+\documentclass[landscape, two column, full page,reqno]{article}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[adobe-garamond]{mathdesign}
+\AtBeginDocument{%
+  \let\mathbb\relax
+  \DeclareMathAlphabet\PazoBB{U}{fplmbb}{m}{n}%
+  \newcommand{\mathbb}{\PazoBB}%
+  \let\mathcal\relax
+  \DeclareMathAlphabet{\OMScal}{OMS}{cmsy}{m}{n}
+  \newcommand{\mathcal}{\OMScal}%
+}
+\usepackage{enumitem}
+\usepackage{fontspec}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{multicol}
+\setmainfont[Numbers={Proportional,OldStyle}]{Adobe Garamond Pro}
+%SUBFIGURE PACKAGE
+\usepackage{subfig}	
+\usepackage[font=small]{caption}
+\captionsetup[figure]{
+labelfont=sc
+}
+\captionsetup[table]{
+labelfont=sc
+}
+\captionsetup[subfloat]{%
+font=footnotesize, labelfont=normalfont,
+labelformat=parens,labelsep=space,
+listofformat=subparens}
+\captionsetup[subfigure]{font=footnotesize,
+labelformat=parens,labelsep=space, labelfont=normalfont,
+listofformat=subparens}
+%GRAPHICX PACKAGE
+\usepackage{graphicx}
+\graphicspath{{C:/Users/jdg83/Dropbox/0000Desktop/Figures/}}
+%NATBIB
+\usepackage[comma]{natbib}
+%HYPERREF PACKAGE
+\usepackage{xcolor}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[backref=page,linktocpage=true,colorlinks]{hyperref}
+\renewcommand{\backrefxxx}[3]{[\hyperlink{page.#1}{#1}]}
+\hypersetup{
+    colorlinks = true,
+    citecolor = blue,
+    urlcolor = blue,
+    filecolor = blue,
+    linkcolor = blue,
+}
+%PATCH TO ONLY HYPERLINK YEAR OF CITATION
+\usepackage{etoolbox}
+\makeatletter
+% Patch case where name and year are separated by aysep
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@aysep\NAT@spacechar}{\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@aysep\NAT@spacechar\NAT@hyper@{\NAT@date}}{}{}
+% Patch case where name and year are separated by opening bracket
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi}%
+       {\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi\NAT@hyper@{\NAT@date}}
+  {}{}
+\makeatother
+%
+%Titlesec package
+\usepackage{titlesec}
+%Centering and readjusting size of headings
+\titleformat{\section}[hang]
+{\normalfont\sc\filcenter}{\thesection}{1em}{}
+\titleformat{\subsection}[hang]
+{\normalfont\sc\filcenter}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[hang]
+{\normalfont\sc\filcenter}{\thesubsubsection}{1em}{}
+			% in the document preamble: 
+				\let\endgraf\par % because LaTeX doesn't like \par 
+			% in some command arguments 
+				\let\subtitlefont\normalfont % or whatever 
+				
+%FOOTNOTE SPACING
+\usepackage[hang,multiple,splitrule]{footmisc}
+\setlength{\footnotemargin}{4mm}
+
+\newcommand{\qd}{\begin{quote}\begin{description}  [align=left,style=nextline,leftmargin=*,labelsep=0pt,font=\normalfont]}
+\newcommand{\zd}{\end{description}\end{quote}}
+\newcommand{\qef}{\begin{enumerate}[leftmargin=0cm,labelsep=10pt]}
+\newcommand{\qe}{\begin{enumerate}}
+\newcommand{\qer}{\begin{enumerate}[align=left,style=nextline,leftmargin=17pt,labelsep=5pt,font=\normalfont , resume]}
+\newcommand{\qei}{\begin{enumerate}[align=left,style=nextline,leftmargin=15pt, labelsep=10pt,font=\normalfont]}
+\newcommand{\ze}{\end{enumerate}}
+\newcommand{\p}{\item}
+\newcommand{\e}{\emph}
+\newcommand{\s}{\textsc}
+\newcommand{\tbf}{\textbf}
+\newcommand{\fn}{\footnote}
+\newcommand{\argu}[2]{\begin{center}\begin{minipage}{#1} \begin{enumerate}
+	#2
+\end{enumerate}
+\end{minipage}  
+\end{center}}
+\newcommand{\thus}{
+
+\vspace{5pt}
+
+\hrule
+
+\vspace{-3pt}
+
+}
+\newcommand{\qq}[1]{~\ulcorner #1  \urcorner~}
+\newcommand{\V}[1]{\llbracket #1 \rrbracket}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\K}{\mathcal{K}}
+\renewcommand{\u}{\mathfrak{u}}
+\newcommand{\df}{\stackrel{\text{\tiny def}}{=}}
+\newcommand{\fproof}[1]{\begin{center}\begin{fitch} #1 \end{fitch}\end{center}}
+\usepackage{xcolor}
+\usepackage{fancybox}
+
+\definecolor{ShadowColor}{RGB}{30,150,190}
+
+\makeatletter
+\newcommand\Cshadowbox{\VerbBox\@Cshadowbox}
+\def\@Cshadowbox#1{%
+  \setbox\@fancybox\hbox{\fbox{#1}}%
+  \leavevmode\vbox{%
+    \offinterlineskip
+    \dimen@=\shadowsize
+    \advance\dimen@ .5\fboxrule
+    \hbox{\copy\@fancybox\kern.5\fboxrule\lower\shadowsize\hbox{%
+      \color{gray}\vrule \@height\ht\@fancybox \@depth\dp\@fancybox \@width\dimen@}}%
+    \vskip\dimexpr-\dimen@+0.5\fboxrule\relax
+    \moveright\shadowsize\vbox{%
+      \color{gray}\hrule \@width\wd\@fancybox \@height\dimen@}}}
+\makeatother
+
+\newcommand{\csbox}[2]{\begin{center}
+\Cshadowbox{
+\begin{minipage}{#1}
+	#2
+\end{minipage}}
+\end{center}
+}
+
+
+\title{Skepticism and Contextualism}
+\date{November 6th, 2018}
+\author{M\e{{\fontspec{Minion Pro} \&}}E Core}
+
+\usepackage{layout}
+\voffset = -40pt
+\hoffset = -10pt
+\textheight = 450pt
+\textwidth = 680pt
+\setlength{\columnsep}{40pt}
+\begin{document}
+%\layout
+\twocolumn[{%
+ \centering
+\maketitle
+}]
+
+\section{A Modal Logic for Knowledge}
+\qef
+\p Suppose we want to give a logic for claims of the following form:
+			\begin{center}
+			$S$ is in a position to know that $\phi$
+			\end{center}
+where $S$ is a subject, a knower, and $\phi$ is a sentence.
+	\qe
+	\p We can regiment these kinds of claims by using a sentential operator, $\K_S$.  Then, we would write that $S$ is in a position to know that $\phi$ by writing:
+		\[
+		\K_S \phi
+		\]
+	\p If we fix a subject, then we can ignore the subscript (as I will do from here on out), and just write: $\K \phi$.  
+	\p Why `in a position to know'?  Why not just `know'?  The thought is this: \e{belief} is generally taken to be necessary for knowledge.  But $S$ could fail to believe things which they \e{would} know, if only they were to form the belief.  So it looks like we could raise worries about lots of principles for knowledge by simply pointing to cases in which $S$ lacks the relevant belief. 
+		\qe
+		\p For instance, consider the following principle:
+			\begin{description}
+			\p[Closure] For any sentences $\phi$ and $\psi$, $[\K \phi \wedge  \K ( \phi \text{ entails } \psi ) ] \to \K\psi$.
+			\end{description}
+		\p It could be that $S$ knows that $\phi$, and that $\phi$ entails $\psi$, but $S$ simply fails to believe that $\psi$.  Then, $S$ couldn't know that $\psi$.  But, even so, $S$ is \e{in a position to know} that $\psi$.  If they were to form the belief that $\psi$, and base it upon their knowledge that $\phi$, and their knowledge that $\phi$ entails $\psi$, then they would thereby come to know that $\psi$.
+		\p For brevity, I'll say `know' throughout, but we should understand this as shorthand for `is in a position to know'.
+		\ze 
+	\ze
+\p If we interpret the $\K$ operator the same way we interpreted the $\Box$ operator in modal logic, then we can give a possible worlds semantics for knowledge.   We begin with a \e{Kripke} model $< \mathcal{W}, R, V>$, where $\mathcal{W}$ is a set of possible worlds, $R$ is a binary relation on $\mathcal{W}$, and $V$ is a function from atomic sentences $\alpha$ to sets of worlds, $V(\alpha) \subseteq \mathcal{W}$---intuitively, the set of worlds at which $\alpha$ is true.    Then, we may define an \e{interpretation function} $\V{~}$, from pairs of sentences and worlds to $\{ 1, 0 \}$, as follows:
+	\qe
+	\p For any atomic sentence $\alpha$, $\V{\alpha}^w = 1$ iff $w \in V(\alpha)$.
+	\p For any sentence $\phi$, $\V{\neg \phi }^w = 1$ iff $\V{\phi}^w = 0$.
+	\p For any sentences $\phi$, $\psi$, $\V{ \phi \to \psi }^w  = 1$ iff $\V{\phi}^w = 0$ or $\V{\psi}^w = 1$.
+	\p For any sentence $\phi$, $\V{\K \phi}^w = 1$ iff $\V{\phi}^{w^*} = 1$ for all $w^*$ such that $Rww^*$. 
+	\ze 
+\p Just as we did before, we may define the \e{proposition} $\langle \phi \rangle$ to be the set of worlds in which $\phi$ is true:
+			\[
+			\langle \phi \rangle \stackrel{\text{\tiny def}}{=} \{ w \in \mathcal{W} \mid \V{\phi}^w = 1 \}
+			\]
+%	\qe
+%	\p Alternatively, we could begin by defining the set of worlds in which $\phi$ is true, saying that:
+%		\qe
+%		\p For any atomic proposition $\alpha$, $\langle \alpha \rangle = V(\alpha)$.
+%		\p For any proposition $\phi$, $\langle \neg \phi \rangle = \mathcal{W} - \langle \phi \rangle$.
+%		\p For any propositions $\phi, \psi$, $\langle \phi \to \psi \rangle = \langle \neg \phi \rangle \cup \langle \psi \rangle$.
+%		\p For any proposition $\phi$, $\langle \K \phi \rangle = \{ w \in \mathcal{W} \mid  \}$
+%		\ze 
+%	\ze 
+\p A few comments on this model:
+	\qe
+	\p We should think of the worlds in $\mathcal{W}$ as being \e{centered} worlds---since we may want to talk about knowing propositions like that I am $S$, or that it is now 5:00---and, after all, what $S$ knows changes over time, as $S$ gains new evidence.
+	\p We should think of the binary relation $R$ like this: $Rww^*$ iff $w^*$ is consistent with $S$'s evidence at $w$.
+	\p Then, our clause for knowledge says: $S$ knows that $\phi$ iff $\neg \phi$ is inconsistent with $S$'s evidence.
+	\ze 
+\p Let's introduce some more notation: let $E_w$ be the set of possibilities consistent with the evidence $S$ has at $w$.     
+			\[
+			E_w = \{  w^* \in \mathcal{W} \mid Rww^* \}
+			\]
+	\qe
+	\p Then, we may re-formulate our semantics for knowledge, as follows: for any sentence $\phi$, 
+		\[
+		\V{\K \phi}^w = 1 \quad\text{ iff } \quad E_w \subseteq \langle \phi \rangle
+		\]
+	\p That is: $S$ knows that $\phi$ at a world $w$ iff $S$'s evidence at $w$ entails that $\phi$ is true.  
+	\p Equivalently: $S$ knows that $\phi$ at world $w$ iff $S$'s evidence at $w$ rules out all $\neg \phi$ possibilities.  (See figure \ref{1}.)
+	\ze 
+\p Just as when we were discussing metaphysical modality, we may consider different principles governing the accessibility relation $R$ (or, equivalently, principles governing evidence, $E_w$).  Here are some familiar principles:
+	\begin{description}
+	\p[Reflexivity] For any $w$, $Rww$
+	\p[\textcolor{white}{Reflexivity}] \![For any $w$, $w \in E_w$]
+	\p[Symmetry] For any $w, w^*$, if $Rww^*$, then $Rw^*w$. 
+	\p[\textcolor{white}{Symmetry}]  \![For any $w, w^*$, if $w^* \in E_w$, then $w \in E_{w^*}$]
+	\p[Transitivity] For any $w, w^*, w^{**}$, if $Rww^*$ and $Rw^* w^{**}$, then $Rww^{**}$. 
+	\p[\textcolor{white}{Transitivity}] \![For any $w, w^*, w^{**}$, if $w^* \in E_w$ and $w^{**} \in E_{w^*}$, then $w^{**} \in E_w$]
+	\end{description}
+	\qe
+	\p Together with our semantics for `$\K$', these three principles on the accessibility relation $R$ correspond to the following three conditions on \e{knowledge}:
+	\begin{description}
+	\p[Factivity] $\K \phi \to \phi$   \hfill [(T)]
+	\p[Brouwer] $\neg \K \neg \K \phi \to \phi$ \hfill [(B)]
+	\p[Positive Introspection] $\K \phi \to \K \K \phi$ \hfill [(S4)]
+	\end{description}
+	\p If we accept \e{both} symmetry \e{and} transitivity, then we will get the following principle:
+	\begin{description}
+	\p[Negative Introspection] $\neg \K \phi \to \K \neg \K \phi$ \hfill [(S5)]
+	\end{description}
+	\ze 
+\begin{figure}
+\centering
+\subfloat[$S$ does not know that $\phi$ at $w$.\label{1a}]{\includegraphics[scale=0.115]{noknow.eps}}
+\qquad
+\subfloat[$S$ knows that $\phi$ at $w$.\label{1b}]{\includegraphics[scale=0.115]{know.eps}}
+\caption{$\mathcal{W}$ is the set of all worlds.  $\langle \phi \rangle$ is the set of worlds in which $\phi$ is true.  $E_w$ is the set of worlds consistent with $S$'s evidence at $w$.  In \ref{1a}, $E_w$ does not rule out all $\neg \phi$ possibilities.  In \ref{1b}, $E_w$ does rule out all $\neg \phi$ possibilities.\label{1}}
+\end{figure}
+
+\section{A Skeptical Argument}
+\p Here is an argument for skepticism:
+	\argu{250pt}{
+	\p[P1.] $S$ knows that they have hands only if they know that they are not a handless brain in a vat.
+	\p[P2.] $S$ does not know that they are not a handless brain in a vat.
+	\thus
+	\p[C1.] $S$ does not know that they have hands.
+	}
+Let $p \df$ $S$ has hands.  Let $s \df$ $S$ is a handless brain in a vat.   Then, the argument is:
+		\argu{90pt}{
+		\p[P1.] $\K p \to \K \neg s$
+		\p[P2.] $\neg \K \neg s$
+		\thus
+		\p[C1.] $\neg \K p$
+		} 
+	\qe
+	\p More generally, if $p$ is \e{any} ordinary proposition, and $s$ is a skeptical possibility in which $p$ is false, then the same argument applies.  So this argument purports to undermine \e{all} of our ordinary knowledge.
+	\ze 
+\p This argument is valid---we don't have to appeal to the logic of knowledge in order to establish that it is valid.  It's valid so long as \e{modus tollens} is valid.  So, we face three options:
+	\qe
+	\p Deny P1: say that we \e{can} know that we have hands, even though we \e{can't} know that we're not handless brains in vats; 
+	\p Deny P2: say that we \e{can} know that we are not handless brains in vats; or
+	\p Accept C1: say that we don't know that we have hands.
+	\ze 
+\p Accepting the conclusion means accepting that we no next to nothing about the world.  Most epistemologists see this as an unacceptable conclusion.  But it's worth dwelling upon \e{why} it's such a radical conclusion.  Knowledge plays an important role in our normative lives.  For instance,
+	\qe
+	\p  Ignorance can excuse.  If you didn't know that John had an irrational fear of clowns, this will excuse you for dressing up as a scary clown at John's Halloween party.  If you \e{did} know that John had an irrational fear of clowns, then we should blame you for your costume option.
+		\qe
+		\p Accepting skepticism then leads to a universal excuse.
+		\ze 
+	\p Knowledge is (perhaps) the norm of assertion.  You should assert that $\phi$ only if you \e{know} that $\phi$.  If you assert that the Democrats have the majority the House, but you don't know this---if, \e{e.g.}, your source is yesterday's polls---then you have asserted improperly.
+		\qe
+		\p Accepting skepticism then leads to \e{all} assertion being improper.
+		\ze 
+	\ze 
+\p If we attempt to deny P2, we must contend with arguments like the following: 
+	\argu{290pt}{
+	\p[P3.] A handless brain-in-a-vat, being stimulated to have experiences indistinguishable from the experiences of $S$, doesn't know that they have hands.
+	\p[P4.] A handless brain-in-a-vat, being stimulated to have experiences indistinguishable from the experiences of $S$, has exactly the same evidence that $S$ has.
+	\p[P5.] If two people have exactly the same evidence, then either both  know that $\phi$ or neither does.
+	\thus
+	\p[C2.] $S$  doesn't know that they have hands.
+	}
+	\qe
+	\p Here's a more formal argument for the same conclusion: let $w_s$ be a skeptical world in which you are a handless brain in a vat, and let $w$ be the actual world.  Then:
+	\argu{250pt}{
+	\p[P6.] At $w_s$, $S$'s evidence does not rule out $w$.
+	\p[P7.] \tbf{Symmetry}
+	\thus
+	\p[C3.] At $w$, $S$'s evidence does not rule out $w_s$.
+	\p[P8.] $S$ knows that $\phi$ only if $S$'s evidence rules out all $\neg \phi$ possibilities.
+	\thus
+	\p[C4.] $S$ doesn't know that they're not a handless brain-in-a-vat.
+	}
+	\ze 
+
+\p If we deny P1, then we will think that $S$ knows that $p$, even though $S$ doesn't know that they're not in the skeptical scenario.  This means that we will have to deny \tbf{Closure},
+	\begin{description}
+	\item[Closure] For any sentences $\phi$ and $\psi$, 
+		\[
+		[ \K \phi \wedge \K (\phi \text{ entails } \psi) ] \to  \K \psi
+		\]
+	\end{description}
+For $p$ \e{entails} $\neg s$, and $S$ is in a position to know this.  So, from $\K p$ and \tbf{Closure}, it follows that $\K \neg s$.
+	\qe
+	\p Some have attempted to deny closure by appealing to a theory of knowledge like the following: you are in a position to know that $\phi$ iff your evidence rules out the \e{relevant} alternatives to $\phi$.
+	\p The relevant alternatives to $\phi$ need not be the relevant alternatives to $\psi$, even when $\phi$ entails that $\psi$.
+	\p An example from Dretske: in order to know that that animal is a zebra, your evidence must rule out that it is a horse, a mongoose, a giraffe, and a lion.  These are the \e{relevant} alternatives to its being a zebra.  However, your evidence needn't rule out that it is instead a cleverly disguised mule.  This is not a \e{relevant} alternative to its being a zebra.  However, in order to know that that animal is not a cleverly disguised mule, your evidence \e{does} have to rule out that it is a cleverly disguised mule.  Its being a cleverly disguised mule \e{is} a relevant alternative to its \e{not} being a cleverly disguised mule.
+	
+	So: you know that the animal is a zebra, and you know that being a zebra entails not being a cleverly disguised mule, but you don't know that the animal is not a cleverly disguised mule.
+%	\p This is a bit difficult to make sense of---what's to stop me 
+
+%\p Some reasons to not want to deny \tbf{Closure}:
+%	\qe
+%	\p  \tbf{Closure} is taken for granted by the Modal Logic for Knowledge we introduced earlier.  So denying it means revising that logic. 
+%	\p  We standardly draw out the consequences of our beliefs
+%	\ze 
+\ze 
+	
+\section{A Contextualist Modal Logic for Knowledge }
+
+\p The contextualist has a different diagnosis of the skeptical argument: When the skeptic makes the argument, its conclusion is true---but the conclusion of the argument is not in tension with our everyday knowledge ascriptions.
+	\qe
+	\p What $\qq{\text{$S$ knows that $\phi$}}$ means depends upon the context of utterance.
+	\p In everyday conversation, when we say ``$S$ knows that they have hands'', we say something true.  
+	\p When the skeptic says ``$S$ doesn't know that they have hands'', they say something true.
+	\p There's no contradiction here, because this sentence says different things in everyday contexts and in the context of the skeptical argument.
+	\ze 
+\p If we agree with the contextualist, then we should emend our modal logic for knowledge from \S1.  We will still have a \e{Kripke model} $<\mathcal{W}, R, V>$, with a set of possible worlds $\mathcal{W}$, a binary relation $R \subseteq \mathcal{W} \times \mathcal{W}$, and a valuation function $V$ from atomic sentences to subsets of $\mathcal{W}$.  We then add a \e{contextualized} interpretation function, $\V{}$, which is a function from a sentence $\phi$, a \e{context of utterance} $\mathcal{C}$, and a possible world $w$, to $\{ 1, 0 \}$.
+			\[
+			\V{\phi}^{\mathcal{C}, w} \in \{ 0, 1 \}
+			\]
+	\qe
+	\p The function $\V{\phi} \df \lambda \mathcal{C} . \lambda w . \V{\phi}^{\mathcal{C}, w}$ from contexts to functions from possible worlds to $\{ 0, 1 \}$ is the \e{character} of the context-sensitive expression $\qq{\phi}$.
+	\p The function $\V{\phi}^{\mathcal{C}} \df \lambda w. \V{\phi}^{\mathcal{C}, w}$  from possible worlds to $\{ 0, 1 \}$ is the \e{intension} of the sentence $\qq{\phi}$, in the context of utterance $\mathcal{C}$.
+	\p We may define $\langle \phi \rangle^{\mathcal{C}}$ to be the proposition expressed by $\qq{\phi}$ in context $\mathcal{C}$---that is, the set of worlds in which what the sentence says in context $\mathcal{C}$ is true.
+		\[
+		\langle \phi \rangle^\mathcal{C} = \{ w \in \mathcal{W} \mid \V{\phi}^{\mathcal{C}, w} = 1 \}
+		\]
+	If the meaning of $\qq{\phi}$ is not context-sensitive---that is, if $\qq{\phi}$ determines the same intension in every context of utterance, then I'll omit the superscript and just write `$\langle \phi \rangle$' for the proposition that $\qq{\phi}$ expresses.
+	\p What is $\mathcal{C}$?  For us, it is a \e{set of worlds}---intuitively, the set of \e{contextually relevant possibilities}.  Which possibilities are relevant will vary from context to context, so different linguistic contexts will determine a different set of possibilities.
+	\ze 
+\p With a contextualized interpretation function, we retain the same clauses for atomic sentences, $\neg$, and $\to$, 
+	\qe
+	\p For any atomic sentence $\alpha$, $\V{\alpha}^{\mathcal{C}, w} = 1$ iff $w \in V(\alpha)$.
+	\p For any sentence $\phi$, $\V{\neg \phi }^{\mathcal{C}, w} = 1$ iff $\V{\phi}^{\mathcal{C}, w} = 0$.
+	\p For any sentences $\phi$, $\psi$, $\V{ \phi \to \psi }^{\mathcal{C}, w}  = 1$ iff $\V{\phi}^{\mathcal{C}, w} = 0$ or $\V{\psi}^{\mathcal{C}, w} = 1$.
+	\ze 
+	However, the contextualist adds the following clause for $\K$:
+	\qe
+	\p For any sentence $\phi$, $\V{\K \phi}^{\mathcal{C}, w} = 1$ iff $E_w \cap \mathcal{C} \subseteq \langle \phi \rangle^{\mathcal{C}}$.
+	\ze 
+
+\begin{figure}
+\centering
+\subfloat[`$S$ knows that $\phi$' is true at $w$ in context $\mathcal{C}$.\label{2a}]{~~~~\includegraphics[scale=0.115]{knowC.eps}~~~~}
+\qquad
+\subfloat[`$S$ knows that $\phi$' is false at $w$ in context $\mathcal{C}'$.\label{2b}]{~~~~\includegraphics[scale=0.115]{noknowC.eps}~~~~}
+\caption{$\mathcal{W}$ is the set of all worlds.  $\langle \phi \rangle$ is the set of worlds in which $\phi$ is true.  $E_w$ is the set of worlds consistent with $S$'s evidence at $w$.  $\mathcal{C}$ and $\mathcal{C}'$ are the contextually relevant worlds.  In \ref{1a}, $E_w$ rules out all contextually salient $\neg \phi$ possibilities.  In \ref{1b}, $E_w$ does rule out all contextually salient $\neg \phi$ possibilities.\label{2}}
+\end{figure}
+
+
+\p Thus: the contextualist says that $\qq{\text{$S$ knows that $\phi$}}$ is true, when said  at $w$ in context $\mathcal{C}$, iff $\phi$ is true in all \e{contextually relevant} possibilities consistent with $S$'s evidence at $w$. (See figure \ref{2}.)\fn{ I assume that $\phi$ itself not context-sensitive.} 
+	\qe
+	\p Equivalently: $\qq{\text{$S$ knows that $\phi$}}$ is true, when said at $w$ in context $\mathcal{C}$, iff $\phi$ is true in all worlds consistent with $S$'s evidence at $w$---\e{except for those which we are ignoring}.
+	\ze 
+
+%\p Let's introduce a non-context-sensitive sentential operator $\qq{\K_\mathcal{C}}$.  It  has the following truth-conditions:
+%				\qe
+%				\p For any proposition $\phi$, $\V{\K_\mathcal{C} \phi}^{\mathcal{C}^*,w} = 1$ iff $E_w \cap \mathcal{C} \subseteq \langle \phi \rangle^{\mathcal{C}^*}$.
+%				\ze 
+%\p Then, notice that the contextualist accepts the principle of closure \e{in every context}: for every $\mathcal{C}$, 	
+	
+\section{Lewis's Contextualism}
+
+\p Lewis accepts a contextualism of this general form, but says additional things about what evidence is---that is, which worlds are included in $E_w$---and which worlds may be properly ignored---that is, which worlds are allowed to be excluded from the set of contextually relevant worlds, $\mathcal{C}$.
+\p Lewis says that $E_w$ is the set of worlds in which $S$ has the same experience they actually have.
+	\qe
+	\p So: $E_w$ will include the brain-in-a-vat world.
+	\ze 
+\p Lewis's characterization of $\mathcal{C}$ comes by way of a series of \e{rules} about which possibilities may and may not be properly ignored.
+\p He first introduces three rules of \e{prohibition}---three rules about which worlds may \e{not} be properly ignored.
+	\begin{description}
+	\item[Rule of Actuality] Do not ignore $S$'s actual world---that world must be included in $\mathcal{C}$.
+	\item[Rule of Belief] Do not ignore worlds that $S$ believes (or ought to believe) to obtain---those worlds must be included in $\mathcal{C}$.
+	\item[Rule of Resemblance] Do not ignore worlds that saliently resemble worlds you have already not ignored---those worlds must be included in $\mathcal{C}$.
+	\end{description}
+	\qe
+	\p The rule of actuality is needed to guarantee that $\qq{\text{If $S$ knows that $\phi$, then $\phi$}}$ is true in every context of utterance.
+	\p Lewis uses the rule of resemblance to argue that ``$S$ knows that they will not win the lottery'' is false in any context of utterance.  For some ticket actually wins, and the possibility in which $S$ wins saliently resembles the actual possibility.  So the possibility that $S$ wins cannot be properly ignored.
+	\p Lewis also uses the rule of resemblance to handle Gettier cases.  I look at a broken clock and happen to form a true belief about the time.  My belief is true and justified---yet it is false to say ``Dmitri knows the time''.  Why?  Because the actual world saliently resembles  a world in which I look at the clock a bit earlier or later.
+	\ze 
+\p Lewis next introduces three rules of \e{permission}---three rules about which worlds \e{may} be properly ignored.
+	\begin{description}
+	\item[Rule of Reliability] So long as doing so doesn't violate the preceeding rules, possibilities in which reliable processes like perception, memory, and testimony fail may be properly ignored---they may be excluded from $\mathcal{C}$.
+	\item[Rule of Method]  So long as doing so doesn't violate the preceeding rules, possibilities in which inductive inference or inference to the best explanation fail may be properly ignored---they may be excluded from $\mathcal{C}$.
+	\item[Rule of Conservativism] If it is common knowledge in our linguistic community that we standardly \e{do} ignore possibilities, then these possibilities may be ignored---they may be excluded from $\mathcal{C}$.
+ 	\end{description}
+	\qe
+	\p These rules are, for Lewis, \e{defeasible}.  Suppose you learn of a memory-distorting drug which is being tested in this building, and you see an empty vial of the drug in the trash bin where your drink was poured.  Then, possibilities in which your memory is malfunctioning saliently resemble the actual world, and may no longer be properly ignored.
+	\p The rule of reliability accounts for how we may truly say that $S$ knows that they have hands---Cartesian skeptical scenarios notwithstanding.
+	\p The rule of method accounts for how we may truly say that $S$ knows that the sun will rise tomorrow---Humean skeptical scenarios notwithstanding.
+	\ze 
+
+\p Finally, Lewis introduces a rule which is meant to explain why the skeptical argument has such pull:
+	\begin{description}
+	\item[Rule of Attention] A possibility which is not being ignored is not being properly ignored.
+	\end{description}
+	\qe
+	\p So, when the skeptic raises to salience the possibility that $S$ is a handless brain in a vat, being stimulated to have precisely the experiences $S$ is actually having, they \e{thereby} include such possibilities in $\mathcal{C}$.
+	\p With those possibilities included in $\mathcal{C}$, ``$S$ knows that they have hands'' will be false.  For $S$'s actual evidence does not rule those possibilities out. 
+%	\p So, even though, in the epistemology class, the sentence ``$S$ knows that they have hands'' says something false; in 
+	\ze 
+
+
+
+\ze 
+\end{document}

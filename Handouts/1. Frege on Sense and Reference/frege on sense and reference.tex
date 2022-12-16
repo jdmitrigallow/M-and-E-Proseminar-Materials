@@ -1,0 +1,339 @@
+\documentclass[landscape, two column, full page,reqno]{article}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[adobe-garamond]{mathdesign}
+\AtBeginDocument{%
+  \let\mathbb\relax
+  \DeclareMathAlphabet\PazoBB{U}{fplmbb}{m}{n}%
+  \newcommand{\mathbb}{\PazoBB}%
+  \let\mathcal\relax
+  \DeclareMathAlphabet{\OMScal}{OMS}{cmsy}{m}{n}
+  \newcommand{\mathcal}{\OMScal}%
+}
+\usepackage{enumitem}
+\usepackage{fontspec}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{multicol}
+\setmainfont[Numbers={Proportional,OldStyle}]{Adobe Garamond Pro}
+%NATBIB
+\usepackage[comma]{natbib}
+%HYPERREF PACKAGE
+\usepackage{xcolor}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[backref=page,linktocpage=true,colorlinks]{hyperref}
+\renewcommand{\backrefxxx}[3]{[\hyperlink{page.#1}{#1}]}
+\hypersetup{
+    colorlinks = true,
+    citecolor = blue,
+    urlcolor = blue,
+    filecolor = blue,
+    linkcolor = blue,
+}
+%PATCH TO ONLY HYPERLINK YEAR OF CITATION
+\usepackage{etoolbox}
+\makeatletter
+% Patch case where name and year are separated by aysep
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@aysep\NAT@spacechar}{\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@aysep\NAT@spacechar\NAT@hyper@{\NAT@date}}{}{}
+% Patch case where name and year are separated by opening bracket
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi}%
+       {\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi\NAT@hyper@{\NAT@date}}
+  {}{}
+\makeatother
+%
+%Titlesec package
+\usepackage{titlesec}
+%Centering and readjusting size of headings
+\titleformat{\section}[hang]
+{\normalfont\sc\filcenter}{\thesection}{1em}{}
+\titleformat{\subsection}[hang]
+{\normalfont\sc\filcenter}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[hang]
+{\normalfont\sc\filcenter}{\thesubsubsection}{1em}{}
+			% in the document preamble: 
+				\let\endgraf\par % because LaTeX doesn't like \par 
+			% in some command arguments 
+				\let\subtitlefont\normalfont % or whatever 
+				
+%FOOTNOTE SPACING
+\usepackage[hang,multiple,splitrule]{footmisc}
+\setlength{\footnotemargin}{4mm}
+
+\newcommand{\qd}{\begin{quote}\begin{description}  [align=left,style=nextline,leftmargin=*,labelsep=0pt,font=\normalfont]}
+\newcommand{\zd}{\end{description}\end{quote}}
+\newcommand{\qe}{\begin{enumerate}[align=left,style=nextline,leftmargin=17pt,labelsep=5pt,font=\normalfont]}
+\newcommand{\qei}{\begin{enumerate}[align=left,style=nextline,leftmargin=15pt, labelsep=10pt,font=\normalfont]}
+\newcommand{\ze}{\end{enumerate}}
+\newcommand{\p}{\item}
+\newcommand{\e}{\emph}
+\newcommand{\s}{\textsc}
+\newcommand{\tbf}{\textbf}
+\newcommand{\fn}{\footnote}
+\newcommand{\argu}[2]{\begin{center}\begin{minipage}{#1} \begin{enumerate}
+	#2
+\end{enumerate}
+\end{minipage}  
+\end{center}}
+%GRAPHICX PACKAGE
+\usepackage{graphicx}
+\graphicspath{{/Users/jdg83/Desktop/Figures/}}
+\usepackage{xcolor}
+\usepackage{fancybox}
+
+\definecolor{ShadowColor}{RGB}{30,150,190}
+
+\makeatletter
+\newcommand\Cshadowbox{\VerbBox\@Cshadowbox}
+\def\@Cshadowbox#1{%
+  \setbox\@fancybox\hbox{\fbox{#1}}%
+  \leavevmode\vbox{%
+    \offinterlineskip
+    \dimen@=\shadowsize
+    \advance\dimen@ .5\fboxrule
+    \hbox{\copy\@fancybox\kern.5\fboxrule\lower\shadowsize\hbox{%
+      \color{gray}\vrule \@height\ht\@fancybox \@depth\dp\@fancybox \@width\dimen@}}%
+    \vskip\dimexpr-\dimen@+0.5\fboxrule\relax
+    \moveright\shadowsize\vbox{%
+      \color{gray}\hrule \@width\wd\@fancybox \@height\dimen@}}}
+\makeatother
+
+\newcommand{\csbox}[2]{\begin{center}
+\Cshadowbox{
+\begin{minipage}{#1}
+	#2
+\end{minipage}}
+\end{center}
+}
+
+
+\title{Frege, \e{On Sense and Reference}}
+\date{August 28th, 2018}
+\author{M\e{{\fontspec{Minion Pro} \&}}E Core}
+
+\usepackage{layout}
+\voffset = -40pt
+\textheight = 450pt
+\setlength{\columnsep}{20pt}
+\begin{document}
+%\layout
+\twocolumn[{%
+ \centering
+\maketitle
+}]
+
+\section{Frege's First Puzzle}
+\qe
+\p `Hesperus' is the name the Greeks gave to the first star visible in the evening sky (\e{the evening star}).  `Phosphorus' is the name they gave to the last star visible in the morning sky (\e{the morning star}).  It turns out that neither Hesperus nor Phosphorus is a star.  Rather, they are both the planet Venus.
+\p Consider the following two claims:
+	\qe
+	\p[(\tbf{A})] Hesperus $=$ Hesperus
+	\p[(\tbf{B})] Hesperus $=$ Phosphorus 
+	\ze 
+	(\tbf{A}) is \e{a priori}.  (\tbf{B}) is not.  The discovery that (\tbf{B}) was true was a genuine advance in our knowledge.  Not so for (\tbf{A}).  So (\tbf{A}) and (\tbf{B}) must convey different information.  So they must say different things.
+\p  Suppose that identity is a relation between objects.  Then:  
+\qe \p `Hesperus' refers to Venus. So (\tbf{A}) must say that Venus (the object referred to by `Hesperus') bears the identity relation to Venus (the object referred to by `Hesperus').  
+	\p `Phosphorus' refers to Venus.  So (\tbf{B}) must say that Venus (the object referred to be `Hesperus') bears the identity relation to Venus ( the object referred to by `Phosphorus').
+	\ze 
+So (\tbf{A}) and (\tbf{B}) must say the same thing.
+\p So we've seen a compelling argument that (\tbf{A}) and (\tbf{B}) say the same thing; and another compelling argument that (\tbf{A}) and (\tbf{B}) say different things.  This, roughly, is Frege's first puzzle.
+\p In his \e{Begriffschrift}, Frege tried to solve the puzzle by rejecting the claim that identity, $=$, is a relation between objects.  Rather, he contended, it is a relation between \e{names}.
+	\qe
+	\p Thus, `Hesperus $=$ Phosphorus' doesn't say that Venus bears the identity relation to Venus.  Rather, it says that the names `Hesperus' and `Phosphorus' co-refer.
+	\p So (\tbf{A}) asserts a different relation than (\tbf{B}), and the puzzle is solved.
+	\ze 
+\p However, Frege came to reject this solution.  Here are two arguments against it:\label{pitfall}
+	\qe
+	\p The claim (\tbf{B}) appears to be {about} the world, and not about our way of talking about it.  It seems that (\tbf{C}) says the same thing as (\tbf{B}) does,
+		\qe
+		\p[(\tbf{C})] $E \sigma \pi \epsilon \rho o \varsigma = \Phi \omega \sigma \varphi$\'{o}$\rho o \varsigma$
+		\ze 
+	Since, after all, (\tbf{C}) is just (\tbf{B}) translated into Greek.  However, the claim that `$E \sigma \pi \epsilon \rho o \varsigma$' and `$\Phi \omega \sigma \varphi$\'{o}$\rho o \varsigma$' co-refer is a completely different claim than the claim that `Hesperus' and `Phosphorus' co-refer.  So if we accept Frege's first solution, then we're forced to say that (\tbf{B}) and (\tbf{C}) say different things.
+	\p Frege's first solution doesn't solve the problem in general.  Consider (\tbf{D}) and (\tbf{E}):
+		\qe
+		\p[(\tbf{D})] The inventor of bifocals invented bifocals.
+		\p[(\tbf{E})] Benjamin Franklin invented bifocals.
+		\ze 
+	(\tbf{D}) is \e{a priori}.  (\tbf{E}) is not.  Learning (\tbf{E}) is a genuine advance in knowledge.  Not so for (\tbf{D}).  So (\tbf{D}) and (\tbf{E}) must say different things.
+	\ze 
+\p One of the central goals of Frege's \e{On Sense and Reference} is to advance a new solution to the puzzle.  
+
+\subsection{Compositionality, and the Puzzle again}
+\p Frege accepted a principle of the \e{Compositionality of Meaning}, which we can gloss roughly like this:
+	\qd
+	\p[\s{Compositionality of Meaning}] The meanings of whole sentences are determined by the meanings of the parts which compose them.
+	\zd 
+	\qe
+	\p Thus, e.g., the meaning of `Daniel chews' should be determined by the meaning of `Daniel' and the meaning of `chews', together with some simple rules stating how to get whole meanings out of these constituent meanings.
+	\p The important point for our purposes is this: the principle of compositionality tells us that exchanging two parts with the same meaning shouldn't make a difference to the meaning of the whole.  So, e.g., if `masticate' has {the same meaning} as `chew', then `Daniel chews' will have the same meaning as `Daniel masticates'.
+	\ze 
+\p With this behind us, we can re-present the first puzzle like so: the following four claims are individually plausible but jointly inconsistent
+	\qe
+	\p \s{Compositionality of Meaning} \label{1}
+	\p The meaning of `Hesperus' is its referent---the planet Venus.\label{2}
+	\p The meaning of `Phosphorus' is its referent---the planet Venus.\label{3}
+	\p (\tbf{A}) and (\tbf{B}) have different meanings.\label{5}
+	\ze  
+\subsection{Frege's Solution: Sense and Reference}
+\p Frege's new solution to the puzzle finds a way of rejecting \eqref{2} and \eqref{3} while avoiding the pitfalls we saw above (\e{i.e.}, \ref{pitfall}).  His solution is to postulate two distinct aspects of meaning, which he labels \e{sense} (or \e{sinn}) and \e{reference} (or \e{bedeutung}).
+	\qe
+	\p The \e{referent} (\e{bedeutung}) of an expression is the object it designates.
+	\p The \e{sense} (\e{sinn}) of an expression is the `mode of presentation' with which the referent is designated.
+	\ze 
+\p Even though `Hesperus' and `Phosphorus' have the same referent, they have different senses.  For `Hesperus', the mode of presentation is `the first star visible in the evening sky.  For `Phosphorus', the mode of presentation is `the last star visible in the morning sky'.
+	\qe
+	\p Thus the puzzle is solved: (\tbf{A}) and (\tbf{B}) have different meanings, since the sense of `Hesperus' differs from the sense of `Phosphorus'.
+	\p Moreover,  we don't run into the same problems we encountered above.  Frege believes that expressions in different languages can have the same sense.  So `$E \sigma \pi \epsilon \rho o \varsigma$' and `Hesperus' may have the same sense.  And similarly  `$\Phi \omega \sigma \varphi$\'{o}$\rho o \varsigma$' and `Phosphorus' may have the same sense.  Thus `Hesperus $=$ Phosphorus' may have the same meaning as `$E \sigma \pi \epsilon \rho o \varsigma = \Phi \omega \sigma \varphi$\'{o}$\rho o \varsigma$'.
+	\p Similarly, because the solution did not depend upon the meaning of `$=$', we may say that, even though the \e{referent} of `The inventor of bifocals' is the same  as the \e{referent} of `Benjamin Franklin', they nevertheless differ in meaning, because they differ in  \e{sense}.  So `The inventor of bifocals invented bifocals' has a different meaning than `Benjamin Franklin invented bifocals'.
+	\ze 
+\p What are senses?  
+	\qe
+	\p Frege is clear that they are \e{not} ideas.  As Frege is using the term `idea', an idea is something like a mental image.  It is important for him that ideas are not any part of meaning, since he wants meanings to be \e{intersubjective}.  If meanings were not intersubjective, then successful communication would not be possible. 
+	\p So Frege tells us that senses are not ideas, and that they are intersubjective---see p.~39, ``the sign's sense...may be the common property of many...In light of this, one need have no scruples in speaking simply of \e{the} sense''.  (Although see the curious footnote on p.~37.)
+	\p See the telescope analogy on pp.~39--40.  The moon is like the referent---it can be viewed through means other than the telescope, and exists independent of the telescope.  The image on our retina is like the idea---yours and mine differ.  The image projected through the interior of the telescope is like the sense---it is a mode of presentation which you and I may both use to view the moon.
+	\p As already mentioned, expressions in different languages can share the same sense.
+	\p Sense determines reference, but the converse does not hold.  Thus, the sense of `Hesperus' determines that `Hesperus' refers to the planet Venus, but the planet Venus does not determine the sense of `Hesperus'---for there are multiple senses which will determine the referent of the planet Venus (\e{e.g.}, the sense of `Phosphorus').
+	\p It is possible for an expression to have sense without reference.  For instance, `Santa Clause' and `the greatest number' both have sense, but neither has reference.
+	\ze 
+\p Not only do \e{names} like `Hesperus' and `Phosphorus' have senses---\e{all} referring expressions have senses.  What's more, according to Frege, \e{whole sentences} are referring expressions.
+	\qe
+	\p Why should we take whole sentences to refer at all?  I see the following (implicit, and abductive) argument in Frege: Frege claims that just as with names, whole sentences may have sense without reference.  Thus, `Santa Claus is jolly' and `The greatest number is prime' will have sense without reference.  Thus, by saying that sentences may have referents, we can distinguish between sentences like `Santa Claus is jolly' and `Hesperus is Phosphorus'.  One bit of theoretical work that the referents of sentences does, then, is this: it allows us to distinguish sentences which suffer from \e{reference failure} and those that do not.
+	\p If whole sentences refer, then what do they refer to?  Frege says that they refer to their truth-values (`The True' or `The False').    The argument for this (p.~42) isn't entirely satisfying: ``why is [the sense of the sentence] not enough for us?  Because, and to the extent that, we are concerned with its truth-value...We are therefore driven to accepting the \e{truth value} of a sentence as constituting its reference.''
+	\p Notice that this has the consequence that all true sentences have the same referent, and all false sentences have the same referent.  An argument for this conclusion is the so-called \e{slingshot} argument.  Given a sentence $s$, let `$r(s)$' denote the referent of $s$.  We may suppose that any two logically equivalent sentences have the same referent.  And we will suppose that, while exchanging a referring expression with another, co-referring expression may make a difference to the \e{sense} of a sentence, it will not make a different to the \e{reference} of the sentence.  Then,  consider any two true sentences, $p$ and $q$.  The following argument establishes that the referent of $p$ is the referent of $q$.
+		\argu{200pt}{
+			\p[P1.] $r(p) = r(\{ x \mid x=x \wedge p \} = \{ x \mid x=x \})$
+			\p[P2.] $\{ x \mid x=x \wedge p \} = \{ x \mid x=x \wedge q \}$
+			\vspace{5pt} \hrule
+			\p[C1.] $r(p) = r( \{ x \mid x=x \wedge q \} = \{ x \mid x=x \} )$
+			\p[P3.] $r(q) = r( \{ x \mid x=x \wedge q \} = \{ x \mid x=x \} )$
+			\vspace{5pt}\hrule
+			\p[C2.] $r(p) = r(q)$
+			}
+	P1 and P3 follow from our assumption that logically equivalent sentences have the same referent.  P2 is true because we've assumed that both $p$ and $q$ are true.   C1 follows from P1 and P2 by our assumption that exchanging a referring expression with another, co-referring expression does not make a difference to the reference of the expression.  And C2 follows from C1 and P3 by the symmetry and transitivity of identity.
+	\ze 
+\p Frege calls the senses of whole sentences \e{thoughts}.
+	\qe
+	\p (\tbf{A}) and (\tbf{B}) correspond to different thoughts; this difference in meant to explain why (\tbf{A}) is \e{a priori} while (\tbf{B}) is not, how (\tbf{B}) constitutes an advance in our knowledge, while (\tbf{A}) does not.  That is, differences in thought correspond to differences in cognitive significance. \label{a}
+	\p For Frege, a thought is the bearer of truth and falsehood.  If the referent of the sentence $s$ is the True, then the thought expressed by $s$ is true.  If the referent of the sentence $s$ is the False, then the thought expressed by $s$ is false. \label{b}
+	\p Thoughts are preserved in translation.  Thus, `Hesperus $=$ Phosphorus' and  `$E \sigma \pi \epsilon \rho o \varsigma = \Phi \omega \sigma \varphi$\'{o}$\rho o \varsigma$' express the same thought. \label{c}
+	\p For reasons we will soon discuss, thoughts are also taken to be the objects of belief---that is, they are taken to be the referents of \e{that}-clauses in belief reports.  That is, when we say ``John believes that Hesperus $=$ Hesperus'', the referent of ``that Hesperus $=$ Hesperus'' is the \e{thought} expressed by  ``Hesperus $=$ Hesperus'', and not the True. \label{d}
+	\ze 
+\p Nowadays, the objects which play the theoretical roles \eqref{a}---\eqref{d} are called \e{propositions}.   As we will see, while there is general agreement that there is a single entity which plays the theoretical roles of \eqref{b}, \eqref{c}, and \eqref{d}, whether this entity \e{also} plays the theoretical role of explaining differences in cognitive significance, \eqref{a}, is controversial.  (That is: it's controversial whether the thing that explains differences in cognitive significance is also the primary bearer of truth and falsehood, the object of belief, and the thing preserved in translation).
+\p Frege uses the theoretical role \eqref{a} to provide a criterion of how to individuate thoughts.  If a rational person could believe that the sentence $s$ is true while believing that the sentence $s^*$ is false (or \e{vice versa}), then $s$ and $s^*$ express different thoughts.  And, going in the other direction, if no rational person could believe that $s$ is true while believing that $s^*$ is false (or \e{vice versa}), then $s$ and $s^*$ express the same thought.
+	\qd
+	\p[\s{Individuation of Thoughts}] The sentences $s$ and $s^*$ express different thoughts iff a rational person could believe that $s$ and $s^*$ have different truth-values.
+	\zd 
+	\qe
+	\p Thus, \e{e.g.}, ``Mark Twain wrote Huckleberry Finn''  expresses a different thought than ``Sam Clemens wrote Huckleberry Finn''.  And ``John ate an apple'' and ``An apple was eaten by John'' will express the same thought.
+	\ze 
+	
+\section{Frege's Second Puzzle}
+\p The difference between (\tbf{A}) and (\tbf{B}) has to do entirely with the \e{thoughts} they express---that is, it has entirely to do with the \e{senses} of the sentences.  At the level of reference, there is no difference.  All of the component parts have the same reference, and so too does the whole---both sentences refer to the True.
+\p This suggests the following hypothesis: compositionality holds, not only for \e{meanings}, but also for \e{reference}.
+		\qd
+		\p[\s{Compositionality for Reference}]  The referents of whole sentences are determined by the referents of the parts which compose them.
+		\zd 
+		\qe
+		\p \s{Compositionality for Reference} entails the principle that co-referring terms are substitutable \e{salva veritate}.  This principle says that, if `$x$' and `$y$' have the same referent, and if $s[x]$ is a true sentence containing `$x$', then $s[y / x]$---the result of going through $s$ and replacing some occurrence of `$x$' with `$y$'---will also be true.
+		\p Thus, if `Jeffrey' and `Dmitri' have the same {referent}, then the sentences `Jeffrey is bald' and `Dmitri is bald' will have the same referent---that is, either both will be true or both will be false (or perhaps both will fail to refer).
+		\ze 
+\p Suppose that \s{Compositionality for Reference} is true.  Then, co-referring terms will be substitutable \e{salva veritate}.  So the following argument will be valid:
+	\argu{260pt}{
+	\p[P4.]  `The Greeks believed that Hesperus $=$ Hesperus' is true.
+	\p[P5.] `Hesperus' and `Phosphorus' have the same referent.
+	\vspace{5pt} \hrule
+	\p[C3.]  `The Greeks believed that Hesperus $=$ Phosphorus' is true.
+	}
+\p This is Frege's second puzzle.  Recall, the first puzzle was that (\tbf{A}) and (\tbf{B}) had different \e{cognitive significance}---for instance, one was \e{a priori}, the other was not, even though `Hesperus' and `Phosphorus' co-refer.  The second puzzle is that (\tbf{F}) and (\tbf{G}) have different \e{truth-value}, even though `Hesperus' and `Phosphorus' co-refer.
+		\qe
+		\p[(\tbf{F})] The Greeks believed that Hesperus $=$ Hesperus.
+		\p[(\tbf{G})] The Greeks believed that Hesperus $=$ Phosphorus.
+		\ze 
+		\qe
+		\p The distinction between sense and reference, on its own, does nothing to solve this puzzle.  That distinction allows us to say that (\tbf{F}) and (\tbf{G}) express different \e{thoughts}.  It does not, on its own, allow us to say that they designate different \e{referents}.
+		\ze 
+\p Frege's solution to the second puzzle is to deny premise P5 of the argument above.  He denies that, in sentences like (\tbf{G}), `Hesperus' and `Phosphorus' have the same referent.
+		\qe
+		\p Compare the argument above to the following fallacious argument:
+				\argu{240pt}{
+				\p[P6.]  Dmitri wrote `Hesperus $=$ Hesperus' on the board.
+				\p[P7.] `Hesperus' and `Phosphorus' have the same referent.
+				\vspace{5pt} \hrule
+				\p[C4.]  Dmitri wrote `Hesperus $=$ Phosphorus' on the board.
+				}
+		\p This argument is invalid because, in the context of the sentence `Dmitri wrote `Hesperus $=$ Hesperus' on the board', `Hesperus' does \e{not} refer to Venus.  Even though `Hesperus' refers to Venus, ``Hesperus'' refers to the \e{word} `Hesperus'.  Enclosing a word in quotation marks is a way of changing its reference from its usual referent to the word itself.
+		\p Similarly, Frege claims that, in P4, `Hesperus' does not refer to Venus.  Rather, `Hesperus' refers to the usual \e{sense} of the word `Hesperus'.
+		\p Just as enclosing `Hesperus' in quotation marks changes its reference from the planet Venus to the \e{word} `Hesperus', so too does embedding a sentence in a belief report change the sentence's referent from its truth-value to the \e{thought} the sentence expresses.
+		\p That is, in the sentence (\tbf{F}),
+				\qe
+				\p[(\tbf{F})] The Greeks believed that Hesperus $=$ Hesperus
+				\ze 
+			`Hesperus $=$ Hesperus' does not refer to the True; but, instead, it refers to the \e{thought} expressed by `Hesperus $=$ Hesperus'.
+		\ze 
+\p A \e{sentential context} is, roughly, a position within a sentence.  
+	\qe
+	\p So, for instance, in the sentence
+	\begin{center}
+	John Wilkes Booth assassinated Lincoln.
+	\end{center}
+`Lincoln' occurs in a certain sentential position---it fills the blank in 
+	\begin{center}
+	John Wilkes Booth assassinated \underline{~~~~~~~~~~~~~~~}.
+	\end{center}	 
+	This position in the sentence is a sentential context.  
+		\p Similarly, in the sentence
+	\begin{center}
+	Dmitri fears the monster at the end of the book.
+	\end{center}
+`the monster at the end of the book' occurs in a certain sentential context---it fills in the blank in 
+	\begin{center}
+	Dmitri fears \underline{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}.
+	\end{center}
+	\p And, in the sentence 
+		\begin{center}
+		`Venus' has five letters.
+		\end{center}
+	`Venus' occurs in the context
+		\begin{center}
+		`\underline{~~~~~~~~~~}' has five letters.
+		\end{center}
+	\ze 
+\p A sentential context is called \e{transparent} (or \e{extensional}) if, in that context, you can substitute co-referring terms \e{salva veritate}.  And a sentential context is called \e{opaque} (or, perhaps misleadingly, \e{intensional}) if, in that context, substituting co-referring terms can change the truth-value of the expression.
+	\qe
+	\p In `John Wilkes Booth assassinated Lincoln', `Lincoln' uncontroversially appears in a transparent context.  If `John Wilkes Booth assassinated Lincoln' is true, and `Lincoln'  and `the 16th President of the United States' co-refer, then `John Wilkes Booth assassinated the 16th President of the United States' is true also.
+	\p In ``Venus' has five letters', `Venus' uncontroversially appears in an opaque context.   ``Venus' has five letters' is true, `Venus' and `Hesperus' co-refer, yet ``Hesperus' has five letters' is false.
+	\p Frege's claim is that, when it comes to sentences like `Dmitri fears the monster at the end of the book' (sentences involving \e{attitude verbs} like \e{fear}, \e{believe}, \e{know}, \e{hope}, and so on), the context following the attitude verb (known as the \e{prejacent} of the attitude verb) is opaque. 
+		\qe
+		\p Thus, even though `the monster at the end of the book' and `Grover' co-refer, and `Dmitri fears the monster at the end of the book' is true, `Dmitri fears Grover' is false.
+		\p Similarly, even though `Hesperus' and `Phosphorus' co-refer, and `The Greeks believed Hesperus $=$ Hesperus' is true, `The Greeks believed Hesperus $=$ Phosphorus' can still be false.
+		\ze  
+	\ze 
+	\newpage
+\p An argument that attitude verbs do not create opaque contexts (applied to the case of `Hesperus' and `Phosphorus'):
+		\argu{330pt}{
+		\p[P8.] The Greeks knew that Hesperus was the evening star.
+		\vspace{5pt}\hrule
+		\p[C5.] Hesperus has the property of being known by the Greeks to be the evening star.
+		\p[P9.] Hesperus $=$ Phosphorus.
+		\p[P10.] For all $a, b$, if $Fa$ and $a = b$, then $Fb$.
+		\vspace{6pt}\hrule
+		\p[C6.] Phosphorus has the property of being known by the Greeks to be the evening star.
+		\vspace{0pt}\hrule
+		\p[C7.] The Greeks knew that Phosphorus was the evening star.
+		}
+\ze 
+
+
+
+\end{document}

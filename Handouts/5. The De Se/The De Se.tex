@@ -1,0 +1,284 @@
+\documentclass[landscape, two column, full page,reqno]{article}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[adobe-garamond]{mathdesign}
+\AtBeginDocument{%
+  \let\mathbb\relax
+  \DeclareMathAlphabet\PazoBB{U}{fplmbb}{m}{n}%
+  \newcommand{\mathbb}{\PazoBB}%
+  \let\mathcal\relax
+  \DeclareMathAlphabet{\OMScal}{OMS}{cmsy}{m}{n}
+  \newcommand{\mathcal}{\OMScal}%
+}
+\usepackage{enumitem}
+\usepackage{fontspec}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{multicol}
+\setmainfont[Numbers={Proportional,OldStyle}]{Adobe Garamond Pro}
+%NATBIB
+\usepackage[comma]{natbib}
+%HYPERREF PACKAGE
+\usepackage{xcolor}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[backref=page,linktocpage=true,colorlinks]{hyperref}
+\renewcommand{\backrefxxx}[3]{[\hyperlink{page.#1}{#1}]}
+\hypersetup{
+    colorlinks = true,
+    citecolor = blue,
+    urlcolor = blue,
+    filecolor = blue,
+    linkcolor = blue,
+}
+%PATCH TO ONLY HYPERLINK YEAR OF CITATION
+\usepackage{etoolbox}
+\makeatletter
+% Patch case where name and year are separated by aysep
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@aysep\NAT@spacechar}{\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@aysep\NAT@spacechar\NAT@hyper@{\NAT@date}}{}{}
+% Patch case where name and year are separated by opening bracket
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi}%
+       {\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi\NAT@hyper@{\NAT@date}}
+  {}{}
+\makeatother
+%
+%Titlesec package
+\usepackage{titlesec}
+%Centering and readjusting size of headings
+\titleformat{\section}[hang]
+{\normalfont\sc\filcenter}{\thesection}{1em}{}
+\titleformat{\subsection}[hang]
+{\normalfont\sc\filcenter}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[hang]
+{\normalfont\sc\filcenter}{\thesubsubsection}{1em}{}
+			% in the document preamble: 
+				\let\endgraf\par % because LaTeX doesn't like \par 
+			% in some command arguments 
+				\let\subtitlefont\normalfont % or whatever 
+				
+%FOOTNOTE SPACING
+\usepackage[hang,multiple,splitrule]{footmisc}
+\setlength{\footnotemargin}{4mm}
+
+\newcommand{\qd}{\begin{quote}\begin{description}  [align=left,style=nextline,leftmargin=*,labelsep=0pt,font=\normalfont]}
+\newcommand{\zd}{\end{description}\end{quote}}
+\newcommand{\qe}{\begin{enumerate}[align=left,style=nextline,leftmargin=17pt,labelsep=5pt,font=\normalfont]}
+\newcommand{\qer}{\begin{enumerate}[align=left,style=nextline,leftmargin=17pt,labelsep=5pt,font=\normalfont , resume]}
+\newcommand{\qei}{\begin{enumerate}[align=left,style=nextline,leftmargin=15pt, labelsep=10pt,font=\normalfont]}
+\newcommand{\ze}{\end{enumerate}}
+\newcommand{\p}{\item}
+\newcommand{\e}{\emph}
+\newcommand{\s}{\textsc}
+\newcommand{\tbf}{\textbf}
+\newcommand{\fn}{\footnote}
+\newcommand{\argu}[2]{\begin{center}\begin{minipage}{#1} \begin{enumerate}
+	#2
+\end{enumerate}
+\end{minipage}  
+\end{center}}
+\newcommand{\qq}[1]{ ~\!^\ulcorner #1  ^\urcorner~\!}
+\newcommand{\V}[1]{\llbracket #1 \rrbracket}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\W}{\mathcal{W}}
+\renewcommand{\u}{\mathfrak{u}}
+\newcommand{\df}{\stackrel{\text{\tiny def}}{=}}
+\newcommand{\fproof}[1]{\begin{center}\begin{fitch} #1 \end{fitch}\end{center}}
+%GRAPHICX PACKAGE
+\usepackage{graphicx}
+\graphicspath{{/Users/jdg83/Desktop/Figures/}}
+\usepackage{xcolor}
+\usepackage{fancybox}
+
+\definecolor{ShadowColor}{RGB}{30,150,190}
+
+\makeatletter
+\newcommand\Cshadowbox{\VerbBox\@Cshadowbox}
+\def\@Cshadowbox#1{%
+  \setbox\@fancybox\hbox{\fbox{#1}}%
+  \leavevmode\vbox{%
+    \offinterlineskip
+    \dimen@=\shadowsize
+    \advance\dimen@ .5\fboxrule
+    \hbox{\copy\@fancybox\kern.5\fboxrule\lower\shadowsize\hbox{%
+      \color{gray}\vrule \@height\ht\@fancybox \@depth\dp\@fancybox \@width\dimen@}}%
+    \vskip\dimexpr-\dimen@+0.5\fboxrule\relax
+    \moveright\shadowsize\vbox{%
+      \color{gray}\hrule \@width\wd\@fancybox \@height\dimen@}}}
+\makeatother
+
+\newcommand{\csbox}[2]{\begin{center}
+\Cshadowbox{
+\begin{minipage}{#1}
+	#2
+\end{minipage}}
+\end{center}
+}
+
+
+\title{The \e{De Se}}
+\date{September 18th, 2018}
+\author{M\e{{\fontspec{Minion Pro} \&}}E Core}
+
+\usepackage{layout}
+\voffset = -40pt
+\textheight = 450pt
+\setlength{\columnsep}{20pt}
+\begin{document}
+%\layout
+\twocolumn[{%
+ \centering
+\maketitle
+}]
+
+\section{Propositions and Properties}
+\qe
+\p Lewis's old view was that propositions (\e{i.e.}, sets of possible worlds) are the objects of attitudes.  He now thinks that the objects of attitudes are \e{properties}.  
+	\qe
+	\p Lewis is a nominalist.  He thinks that the property of being red is just the set of all the red things, the property of being square is the set of all the square things, and so on.\footnote{ If we're careful, we'll want to say that a property is a \e{class}, and not a set.  But if you don't know about this distinction, don't worry; it doesn't matter for our purposes.}
+	\p You may worry: won't this equate the property of being a renate with the property of being a cordate? 
+		\qe
+		\p  It will not.  The reason is that, when Lewis says that the property of being a renate is the set of all things with kidneys, he is not restricting his quantifiers to the actual world.  Lewis is a \e{modal realist}---he believes that all of the merely possible worlds are \e{real} and \e{concrete} (though not, of course, actual).  So the set of all renates is a set which includes many non-actual creatures with kidneys (some of which lack hearts), and the set of all cordates is a set which includes many non-actual creatures with hearts (some of which lack kidneys).
+		\p Note that we don't have to accept Lewis's modal realism in order to appropriate his understanding of properties.  We could think that possibilia are abstract, and still say that a property is a set of possibilia---the property would then just be a set of abstracta, rather than a set of concreta (as it it for Lewis).
+		\ze 
+	\p So: when Lewis says that the objects of attitudes are \e{properties}, what he means is that they are sets of individuals at possible worlds.   What it is to bear an attitude like belief, then, is to self-ascribe the relevant property
+		\qe
+		\p E.g., to believe that you are Hume is to self-ascribe the property of being identical to Hume.  This is a property which contains Hume at every world in which Hume exists.
+		\p Similarly, to believe that Trump is president is to self-ascribe the property of occupying a world in which Trump is president.  This is a property which contains everything which exists at any world in which Trump is president.
+		\ze 
+	\ze 
+\p Lewis's main thesis comes in two parts: anything propositions can do, properties can do, too.  And, moreover, there is work that properties can do which propositions cannot.
+	\qe
+	\p Take any possible worlds proposition, $p$.  $p$ is just a set of possible worlds.  For this set, we may exchange the property of existing in a world which is a member of this set.  This property is the set of all individuals which exist at $p$ worlds.  So anything propositions can do, properties can do also.
+	\p On the other hand, there is work that properties can do which propositions cannot.  When Rudolf Lingens learns who he is, he acquires a new belief---but he does not learn any new \e{proposition}.  The gods may know all of the true propositions about the world without knowing which gods they are.  So there is knowledge they lack.  However, with properties we can handle these cases.  When Lingens acquires his new belief, he comes to self-ascribe the property of \e{being Lingens}.  While the gods are able to locate precisely which possible world they occupy, they are not able to say \e{where} in that possible world they are---they are not able to self-ascribe the property of \e{being on the tallest mountain} or \e{being on the coldest mountain}.
+	\p Here, Lewis gives an argument from ignorance for the need to use properties as the objects of attitudes.  In the case of the two gods, the argument is that there is a kind of ignorance which can survive in the face of propositional omniscience.  But if you can be ignorant even while knowing all propositions, then not all knowledge is knowledge of propositions (knowledge of which world you occupy).  There must be additional knowledge of \e{where you are located} within the world. 
+	\p Propositional knowledge is called knowledge \e{de dicto}.  Self-locational knowledge, on the other hand, Lewis calls knowledge \e{de se}.  His thesis is that knowledge de se subsumes knowledge de dicto.
+	\ze 
+\section{Hume and Heimson}
+\p Hume believes that he is Hume---this is the belief which Hume would express by saying `I am Hume'.  Heimson also believes that he is Hume, and Heimson would also express this belief by saying `I am Hume'.  Do Hume and Heimson believe the same thing?
+	\qe
+	\p Perry says `no'. He draws a distinctions between \e{belief states} and \e{propositions believed}.  While Hume and Heimson occupy the very same \e{belief state}, they believe different propositions.  What Hume believes is that Hume is Hume.  What Heimson believes is that Heimson is Hume.  So even though they occupy the very same belief state, they thereby come to believe different things.  It is not the propositions believed, but rather the belief states, which explain action.
+		\qe
+		\p Perry's proposal isn't very developed in this paper, but we might suggest the following way of cashing it out: the objects of beliefs are standard, possible-worlds propositions.  However, a proposition can be believed in any number of ways, under any number of \e{guises}.  On this proposal, belief isn't just a two-place relation between a subject and a proposition, but rather a \e{three}-place relation between a subject, a proposition, and a \e{guise}, under which the subject believes the proposition.
+		\qd
+		\p[\s{The Guise Theory of Belief}]  Belief is a three-place relation between a subject, $S$, a proposition $\phi$, and a \e{guise} $\gamma$.
+			\[
+			\text{\s{Believes}}(S, \phi, \gamma)
+			\]
+		\zd 
+		\p If we interpret Perry in this way, then his claim is that the guises $\gamma$ individuate the \e{belief state}, whereas the proposition $\phi$ individuates the \e{proposition believed}.  Then, it can be that two subjects believe different propositions under the same guise.  For instance, Perry claims that Hume believes that Hume is Hume, under a \e{first personal} guise, $\gamma_I$.
+				\[
+				\text{\s{Believes}}(\text{Hume, $\langle$`{Hume} $=$ Hume'$\rangle$,} \gamma_I )
+				\]
+		On the other hand, Heimson believes that Heimson is Hume, under the same first personal guise,
+				\[
+				\text{\s{Believes}}(\text{Heimson, $\langle$`{Heimson} $=$ Hume'$\rangle$}, \gamma_I )
+				\]
+		For this reason, Hume and Heimson are in the same \e{belief state}, though they believe different things.  Their belief states relate them each to different propositions.
+		\p It's worth distinguishing guises from Fregean senses, and thereby distinguishing this position from the Fregean position.  The Fregean holds onto a theory according to which belief is a two-place relation between a subject and a proposition (a Fregean thought).  They say that sense determines reference, so the Fregean thought determines its truth-value.  For the Fregean, if the mode of presentation under which Hume believes he is Hume is the same as the mode of presentation under which Heimson believes that he is Hume, then Hume and Heimson must believe the very same thing, and either both of their beliefs are true or both of their beliefs are false.  But Hume's belief is true, while Heimson's belief is false.
+		\ze 
+	\p Lewis says `yes'.  When Hume believes that he is Hume, he self-ascribes the property of being Hume.  When Heimson believes that he is Hume, he also self-ascribes the property of being Hume.  Hume \e{correctly} self-ascribes this property, whereas Heimson \e{incorrectly} self-ascribes this property.
+	\ze 
+\section{Centered Worlds}
+\p In \S10, Lewis introduces an equivalent way of thinking about the \e{de se}, due to Quine.  This way of thinking about the \e{de se} has become commonplace, and so it's worth taking some time to introduce it here.
+\p 	\qe \p Let's go back to our intentional semantics from earlier in the semester.  To refresh your memory, we denoted the \e{meaning} of an expression $\qq{\xi}$ with $\qq{\V{\xi}}$.  
+	\p Given a possible world $w$, an \e{extensional} semantics assigned to every \e{sentence}, $s$, a meaning, $\V{s}^w$.  This meaning is just the truth-value of the sentence $s$ at world $w$.
+	\p To get an \e{intensional} semantics, we let the meaning of a sentence be, not a  truth-value, but rather a function from possible worlds to  truth-values,
+		\[
+		\V{s} = \lambda w \,.\, \V{s}^w
+		\]
+	\p Quine had the idea of replacing worlds with what he called \e{centered worlds}.  Intuitively, a centered world is a possible world with a `You are here' label, telling you  where and when you are located at that world.  Formally, we can take a centered world, $c$, to be a triple of a possible world, $w$, a place, $x$, and a time, $t$.\footnote{ There are other ways of making sense of centered worlds.  See Shen-yi Liao (2012), ``What are centered worlds?'', \e{The Philosophical Quarterly}. 62 (247): 294--316 .}
+			\[
+			c = < w, x, t>
+			\]
+	\p Then, we can re-construct our intensional semantics so that, rather than saying that the meaning of a sentence is a function from whole possible \e{worlds} to truth-value, they are instead functions from \e{centered} possible worlds to truth-value,
+			\[
+			 \V{s} = \lambda c \,.\, \V{s}^c    \qquad \text{ or, } \qquad\V{s} = \lambda <w, i, t> \,.\, \V{s}^{<w, x, t>} 
+			\]
+			\qe
+			\p As an aside, we saw during our discussion of Modal Logic that we could understand modal operators like `Necessarily' and `Possibly' as \e{shifting} the world-index.  That is, 
+				\[
+				\V{\text{ Possibly, } \phi }^{<w, x, t>} = 1 \quad \text{ iff } \quad \exists w^* \,:\, \V{\phi}^{<w^*, x, t>}
+				\]
+			And, once we move to a semantics involving \e{centered} worlds, we can understand temporal operators like `Always' and `Sometimes' as shifting the \e{time}-index.  That is,
+				\[
+				\V{\text{ Sometimes, } \phi }^{<w, x, t>} = 1 \quad \text{ iff } \quad \exists t^* \,:\, \V{\phi}^{<w, x, t^*>}
+				\]
+			\ze 
+
+	\p When we were dealing with a semantics involving only possible worlds, we let the \e{proposition} expressed by a sentence $s$, $\qq{\langle s \rangle}$, just be the set of worlds which get mapped to true by the meaning of $s$, $\V{s}$.  That is,
+					\[
+					\langle s \rangle \stackrel{\text{\tiny def}}{=} \{ w \mid \V{s}^w = 1\}
+					\]
+	And, similarly, once we've moved to a semantics with \e{centered} worlds, we can let the \e{centered proposition} expressed by a sentence, $s$, be the set of \e{centered worlds} which get mapped to true by the meaning of the sentence $s$, $\V{s}$.  That is,
+					\[
+					\langle s \rangle \df \{ <w, x, t> \mid \V{s}^{<w, x, t>} = 1 \}
+					\]
+	\p According to this new semantics, sentences are not true or false everywhere and everywhen throughout a world.  Rather, they could express something true at one place and time, and express something false at another place and time, even within the same world.  Moreover, not just the sentence, but \e{what you say} with the sentence could be true at one place and one time and false at another.  
+	\p Thus, Hume and Heimson could both believe the very same centered proposition---this is just the proposition which is true at all centered worlds which have Hume at the center.  However, this one proposition is true for Hume and false for Heimson.
+	\ze 
+	
+\section{The Doctrine of Propositions and Explaining Actions}
+\p Perry sets as his target what he calls `the doctrine of propositions'.  This doctrine is, more or less, the Fregean position.  As Perry frames it, the doctrine has three components:
+	\qd
+	\p[\s{The Doctrine of Propositions}] ~~
+		\qe
+		\p Belief is a two-place relation between a subject, $S$, and a proposition, $\phi$.
+						\[
+						\text{\s{Believes}}(S, \phi)
+						\]
+		\p Propositions fine-grained---\e{e.g.}, they are individuated in part by conceptual content, modes of presentation, or Fregean senses.   (That is, there may be distinct propositions with the very same truth-conditions; so, \e{e.g.}, `Hesperus $=$ Hesperus' may express a different proposition than `Hesperus $=$ Phosphorus'.)
+		\p Propositions are true or false absolutely within any possible world.
+		\ze 
+	\zd 
+\p There is another important assumption which Perry makes, which is that actions are to be explained in part by what the subject believes, and in part by what the agent desires.
+		\qd
+		\p[\s{Belief-Desire Explanation}] Any two subjects with the same beliefs and the same desires will act in the same manner.
+		\zd 
+\p Perry thinks that cases of self-locating belief are supposed to pose a problem for the Doctrine of Propositions.  Unlike Lewis, Perry's cases don't focus on \e{ignorance}, but rather on explaining changes in behavior.  The problem he sees is this:
+		\qe
+		\p We want to explain why Perry suddenly straightened the sugar in his cart.  His desires did not change.  So what explains his change in behavior must have been some change in his beliefs.  
+		\p According to the Doctrine of Propositions (a), a change in Perry's beliefs must correspond to a new proposition believed by Perry.
+		\p According to the Doctrine of Propositions (b), this new proposition, which Perry would express by uttering `I am making a mess', must have some concept/mode of presentation/sense, $\sigma(\text{`I'})$, as a part of its meaning.
+		\p If this concept/mode of presentation/sense is shared by all users of the English word `I', then, if the proposition Perry expresses by saying `I am making a mess' is true, then the proposition which \e{you} express when you say `I am making a mess' would also have to be true---by the Doctrine of Propositions (c).  Since you are not making a mess, this cannot be correct.
+		\p So, the concept/mode of presentation/sense of `I' in the proposition Perry expresses by saying `I am making a mess' cannot be shared by all users of the English world `I'.  It must be a concept/mode of presentation/sense which picks out Perry uniquely.  Call that concept/mode of presentation/sense `$\alpha$'.  
+		\p But Perry's change in behavior will not be adequately explained by the fact that he came to believe that $\alpha$ is making a mess.  For we must also suppose that Perry believes that \e{he} is the referent determined by $\alpha$.  Otherwise, his change in behavior will not be explained.
+		\ze  
+\p As we've seen, Perry gives up on the first part of the Doctrine of Propositions.  He thinks that we must distinguish between \e{beliefs} and \e{belief states}.   On our suggested way of making sense of this distinction (in terms of the Guise Theory of Belief), belief is actually a three-place relation between a subject, a proposition, and a guise. 
+	\qe
+	\p Note that, once we deny the first component of the Doctrine of Propositions, we should probably also deny the second.  For guises are well suited to do all of the work that Fregean senses/concepts/modes of presentation were meant to do.
+	\p With guises in hand, we could say that the \e{proposition} expressed by (\tbf{H}) is the same as the \e{proposition} expressed by (\tbf{P})
+		\qe
+		\p[(\tbf{H})] Hesperus $=$ Hesperus 
+		\p[(\tbf{P})] Hesperus $=$ Phosphorus
+		\ze 
+	However, even though these \e{propositions} are the same, these sentences express them under different \e{guises}.  And therefore, we may \e{believe} this one proposition under the first guise, but not under the second.  That is, it may be true that 
+			\[
+			\text{\s{Believes}}(\text{Dmitri}, \langle\text{\tbf{H}}\rangle, \gamma_H)
+			\]
+	even while it is false that 
+			\[
+			\text{\s{Believes}}(\text{Dmitri}, \langle\text{\tbf{H}}\rangle, \gamma_P)
+			\]
+	(where `$\gamma_H$' is the guise corresponding to the sentence `Hesperus $=$ Hesperus' and `$\gamma_P$' is the guise corresponding to the sentence `Hesperus $=$ Phosphorus'.)
+	\ze 
+\p While Perry gives up on parts (a) and (b) of the Doctrine of Propositions, Lewis gives us on parts (b) and (c).  
+	\qe
+	\p On Lewis's view, there is no difference between believing that you are Mark Twain and believing that you are Sam Clemens.  In both cases, you are self-ascribing the very same property.  So propositions are not fine-grained.
+	\p However, the objects of belief---centered propositions---are not true or false absolutely within any possible world.  The centered proposition expressed by `I am Hume' is true at a Hume-center and false at a Heimson-center in the very same world.
+	\ze 
+\p In the section titled `Relativized Propositions', Perry argues against the centered worlds approach of Lewis.
+\p In section 6 (p.~526), and in section 12 (and \S13), Lewis argues against Perry's approach.
+\ze 
+
+\end{document}

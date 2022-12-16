@@ -1,0 +1,385 @@
+\documentclass[landscape, two column, full page,reqno]{article}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,amsthm,stmaryrd}
+\usepackage[adobe-garamond]{mathdesign}
+\AtBeginDocument{%
+  \let\mathbb\relax
+  \DeclareMathAlphabet\PazoBB{U}{fplmbb}{m}{n}%
+  \newcommand{\mathbb}{\PazoBB}%
+  \let\mathcal\relax
+  \DeclareMathAlphabet{\OMScal}{OMS}{cmsy}{m}{n}
+  \newcommand{\mathcal}{\OMScal}%
+}
+\usepackage{fontspec}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{multicol}
+\setmainfont[Numbers={Proportional,OldStyle}]{Adobe Garamond Pro}
+%
+%NATBIB
+\usepackage[comma]{natbib}
+%HYPERREF PACKAGE
+\usepackage{xcolor}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[backref=page,linktocpage=true,colorlinks]{hyperref}
+\renewcommand{\backrefxxx}[3]{[\hyperlink{page.#1}{#1}]}
+\hypersetup{
+    colorlinks = true,
+    citecolor = blue,
+    urlcolor = blue,
+    filecolor = blue,
+    linkcolor = blue,
+}
+%PATCH TO ONLY HYPERLINK YEAR OF CITATION
+\usepackage{etoolbox}
+\makeatletter
+% Patch case where name and year are separated by aysep
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@aysep\NAT@spacechar}{\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@aysep\NAT@spacechar\NAT@hyper@{\NAT@date}}{}{}
+% Patch case where name and year are separated by opening bracket
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi}%
+       {\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi\NAT@hyper@{\NAT@date}}
+  {}{}
+\makeatother
+%
+%FOOTNOTE SPACING
+\usepackage[hang,multiple,splitrule]{footmisc}
+\setlength{\footnotemargin}{4mm}
+
+%Titlesec package
+\usepackage{titlesec}
+%Centering and readjusting size of headings
+\titleformat{\section}[hang]
+{\normalfont\sc\filcenter}{\thesection}{1em}{}
+\titleformat{\subsection}[hang]
+{\normalfont\sc\filcenter}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[hang]
+{\normalfont\bf}{\thesubsubsection}{1em}{}
+			% in the document preamble: 
+				\let\endgraf\par % because LaTeX doesn't like \par 
+			% in some command arguments 
+				\let\subtitlefont\normalfont % or whatever 
+				
+\usepackage{enumitem}
+
+\newcommand{\qd}{\begin{quote}\begin{description}  [align=left,style=nextline,leftmargin=*,labelsep=0pt,font=\normalfont]}
+\newcommand{\zd}{\end{description}\end{quote}}
+\newcommand{\qe}{\begin{enumerate}[align=left,style=nextline,leftmargin=17pt,labelsep=5pt,font=\normalfont]}
+\newcommand{\qer}{\begin{enumerate}[align=left,style=nextline,leftmargin=17pt,labelsep=5pt,font=\normalfont , resume]}
+\newcommand{\qei}{\begin{enumerate}[align=left,style=nextline,leftmargin=15pt, labelsep=10pt,font=\normalfont]}
+
+\newcommand{\e}{\emph}
+\newcommand{\fn}{\footnote}
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\tbf}{\textbf}
+\newcommand{\ze}{\end{enumerate}}
+\newcommand{\p}{\item}
+\newcommand{\qq}[1]{ \ulcorner #1 \urcorner}
+\newcommand{\thus}{
+
+\vspace{5pt}
+\hrule
+}
+\newcommand{\I}{\mathscr{T}}
+\newcommand{\T}{[\mathscr{T}}
+\newcommand{\V}[1]{\llbracket #1 \rrbracket}
+\newcommand{\SV}[1]{S\hspace{-0.5pt}V_\mathscr{I}( #1 )}
+\DeclareRobustCommand*{\modeled}{%
+  \Relbar\joinrel\mathrel{|}
+ %
+}
+\newcommand{\s}{\textsc}
+\newcommand{\argu}[2]{\begin{center}\begin{minipage}{#1} \begin{enumerate}
+	#2
+\end{enumerate}
+\end{minipage}  
+\end{center}}
+
+\title{Material Constitution and \e{De Re} Modal Predication}
+\author{M\&E Core}
+\date{}
+
+
+\usepackage{layout}
+\voffset = -40pt
+\textheight = 450pt
+\setlength{\columnsep}{20pt}
+\begin{document}
+%\layout
+\twocolumn[{%
+ \centering
+\maketitle
+}]
+
+
+
+\qe
+\p Michelangelo took a lump of clay and sculpted it into the statue of David.  After the statue is sculpted, there is still a lump of clay (now statue shaped).  And there is also a statue, composed out of the clay.  Let's call the lump of clay which exists post-sculpting `Lump'.  And let's call the statue `David'.   What is the relationship between Lump and David?  David is \e{constituted by} Lump---but are David and Lump one and the same?  
+	\qe
+	\p Here is an argument that David and Lump must be distinct: Lump existed outside of Michelangelo's studio, before Michelangelo started sculpting, but David did not.  By Leibniz's Law, then, David and Lump cannot be identical.
+	\p Here's a slightly more formal presentation of that argument which presupposes the endurantist's time-indexing strategy 
+			\argu{130pt}{
+		\p[P1.] $O_{t} l$
+		\p[P2.] $\neg O_{t} d$
+		\thus
+		\p[C1.] $l \neq d$		\hfill [P1, P2]
+		}
+	Here $\qq{O_tx}$ is $\qq{x \text{ is outside of Michelangelo's studio at $t$}}$, `$l$' is Lump and `$d$' is David.   C1 follows from P1, P2, and \e{Leibniz's Law},
+		\[\tag{\e{Leibniz's Law}}
+		 \forall x, y \left[ x=y \to  \forall F (Fx \leftrightarrow Fy)\right]
+		\]
+	Or, equivalently,
+		\[\tag{\e{Leibniz's Law}}
+		\forall x, y \left[ \exists F (Fx \wedge \neg Fy) \to x \neq y \right]
+		\]
+	Since Lump has the property $O_t$ and David lacks the property $O_t$, Lump and David must be distinct.
+	\p We could alternatively present the argument with the endurantist's tensing strategy, but we'll need some fancier footwork (in particular, we'll have to suppose that we can make sense of \e{de re} temporal predication):
+		\argu{130pt}{
+		\p[P1.] $\text{\s{Was}} \, O l $
+		\thus
+		\p[C1.] $(\lambda x. \text{\s{Was}} \, Ox) l $ \hfill [P1]
+		\p[P2.] $\neg \text{\s{Was}} \, Od $
+		\thus
+		\p[C2.] $\neg (\lambda x. \text{\s{Was}} \, Ox)d$ \hfill [P2]
+		\thus
+		\p[C3.] $l \neq d $		\hfill [C1, C2]
+		}
+	Here, `$(\lambda x. \text{\s{Was}} \, Ox)$' denotes the temporal property which an object has in virtue of it being true that it \e{was} outside of Michelangelo's studio.  
+		\qe
+		\p The difference between $\text{\s{Was}} \, O l$ and $(\lambda x. \text{\s{Was}} \, O x) l$ is the difference between \e{de dicto} and \e{de re} temporal predication.  
+		\p The difference between \e{de dicto} and \e{de re} temporal predication has to do with the \e{scope} of the prediction.  For instance, there is a difference in the scope of the existential quantifier in the following two claims:
+			\begin{align*}
+			\text{\s{Was}} \,\exists x \, Fx & \qquad & \exists x\, \text{\s{Was}} \, Fx
+			\end{align*}
+		While the first says, of a certain proposition, namely `$\exists x Fx$', that it was true, the second says \e{of some thing}, that it has the property of being such that it was $F$.  The first claim is temporal predication \e{de dicto}; whereas the second is temporal predication \e{de re}.  
+		\p The same scope ambiguity differentiates P1 from C1 (and P2 from C2).
+		\ze 	
+\p The move from P1 to C1 (and the move from P2 to C2) relies upon us being able to $\lambda$-abstract from within tensing operators.  But you may worry about $\lambda$-abstracting from within temporal operators in this way.  
+	\qe
+	\p To see the problem, let $\qq{Rx}$ be $\qq{x \text{ is a large reptile }}$, and let $d$ be a dinosaur.  Then, a presentist serious tenser might want to accept the premise of the following argument while rejecting its conclusion:
+				\argu{80pt}{
+				 \p[] $\text{\s{Was}} \, Rd$
+				 \thus
+				 \p[] $\exists x \, \text{\s{Was}} \, R x$
+				}
+	Even though it \e{was} the case that the dinosaur is a large reptile, it's not true that there \e{is} anything such that it \e{Was} a large reptile.  So quantifying into temporal operators in this way is illegitimate.  
+	\p And, similarly, a presentist tenser might want to reject the inference 
+				\argu{100pt}{
+				\p[] $\text{\s{Was}} \, Rd$
+				\thus
+				\p[] $(\lambda x. \text{\s{Was}} \, Rx) d$
+				}
+	Even though it \e{was} the case that the dinosaur was a large reptile, that doesn't mean that the dinosaur \e{now} has the property of being such that it was a large reptile---for the dinosaur no longer exists, so it doesn't have any properties.
+	\ze 
+	\p Maybe we can get around this worry.  Suppose that the presentist serious tenser accepts a \e{(positive) free logic}---this logic will invalidate the inference from \s{Was}$(Fa)$ to $\exists x \, \text{\s{Was}}Fx$; however, it will still validate the following inference:
+				\argu{120pt}{
+				\p[] $\exists x \, x=a \wedge \text{\s{Was}} \, Fa$
+				\thus
+				\p[] $\exists x \, \text{\s{Was}} \, Fx$
+				}
+So we should similarly accept the following inference:
+				\argu{140pt}{
+				\p[] $\exists x \, x=a \wedge \text{\s{Was}} \,Fa$
+				\thus
+				\p[] $(\lambda x. \text{\s{Was}} \, Fx ) a$
+				}
+	\p Then, we may re-formulate our argument as follows:
+		\argu{160pt}{
+		\p[P1.] $\exists x \, x=l  \wedge \text{\s{Was}} \, O l $
+		\thus
+		\p[C1.] $(\lambda x. \text{\s{Was}} \, Ox)l$ \hfill [P1]
+		\p[P2.] $\exists x \, x=d \wedge \neg \text{\s{Was}} \, Od $
+		\thus
+		\p[C2.] $\neg (\lambda x. \text{\s{Was}} \, Ox)d$ \hfill [P2]
+		\thus
+		\p[C3.] $l \neq d$		\hfill [C1, C2]
+		}
+	\ze 
+\p What should we say about this argument?  One thing we could do is simply accept the conclusion.  Lump and David are distinct.  \p Some potential problems for that kind of account:\label{1}
+	\qe
+	\p Lump and David occupy the same place at the same time.  So saying that Lump and David are distinct means saying that there are \e{co-located} objects.
+		\qe
+		\p The objector doesn't have to object to the \e{possibility} of co-located objects; they merely have to object to the idea that, \e{actually}, two objects occupy the same place at the same time.
+		\ze 
+	\p It appears that Lump and David share all the same parts.  But then, if we accept the principle of classical mereology \e{Extensionality}:
+		\[\tag{\e{Extensionality}}
+		\forall x, y \left[ \forall z (Pzx \leftrightarrow Pzy) \leftrightarrow x=y \right]
+		\]
+	it follows that Lump and David must be identical.
+		\qe
+	\p One possible response: we could accept an Aristotlean \e{hylomorphism}.  The hylomorphist thinks that objects are \e{form-matter} compounds.  But then, David will have his \e{form} as one of his parts; and Lump will lack this part.  So, contrary to initial appearances, Lump and David do not share all the same parts.
+	\p Alternatively, we could just reject classical mereology.  In particular, if we take this route, we could reject that Parthood is an \e{anti-symmetric} relation,
+		\[\tag{\e{Anti-symmetry}}
+		\forall x, y \left[ (Pxy \wedge Pyx) \to x = y \right]
+		\]
+		\ze 
+	\p There's a worry that, once we start saying that Lump and David exist and are distinct from each other, we're going to have an explosion of co-located objects.
+		\qe
+		\p What distinguishes Lump from David is their different \e{persistence conditions}---Lump can survive smooshings, though David cannot.  But there are a great many persistence conditions we could associate with the matter composing Lump and David.  
+		\p Why not say that there is a \e{lit statue}, which could not survive being in the dark; or an \e{in statue}, which could not survive being moved outdoor?
+		\p It begins to look as though there will be, for any possible persistence condition, an associated object co-located with Lump.  There is, in other words, an \e{explosion of reality}.
+		\ze 
+	\ze 
+\p Suppose that we are persuaded by these worries to reject the argument's conclusion.  We don't wish to say that Lump and David are distinct.  What then?
+\p We could reject P1.  How could we do this?  Well, we might want to deny that there is any such thing as Lump---that is, we may wish to deny that there is any such thing as a lump of clay which exists after Michelangelo is finished sculpting.
+	\qe
+	\p One way of rejecting P1 would be to deny that there are any composite objects.  This position is known as \e{mereological nihilism}.  Recall the composition question discussed in Sider: when do several objects come together to compose a new object?  The mereological \e{universalist} says `always'---composition is unrestricted, any collection of objects has a \e{fusion}.  The mereological nihilist, on the other hand, says `never'---no collection of objects have a fusion.  There are only simples, no more.  (A simple is an object which has no proper parts, only improper parts).
+		\qe
+		\p This view does not only reject P1---it rejects P2 as well.  Just as there is no lump, there is no David.
+		\p The view will still insist that there are simples arranged statue-wise, and simples arranged clay-wise.  But they'll deny that there is any such thing as the statue or the clay.
+		\p This entails that you cannot survive the loss of any of your parts.
+		\p It also rules out the possibility of a \e{gunky} world---a world in which everything has proper parts (so, there are no simples).
+		\ze 
+	\p Another way of rejecting P1 would be to accept that Lump exists, but deny that Lump was once outside of the studio.  Why?  Because, even though Lump is a lump of clay, it is also a statue, statue-hood is its most \e{dominant} kind, and no statue existed outside of the studio.
+		\qe
+		\p On this view, objects can belong to many different kinds, and each kind has its own persistence conditions.  However, the object only inherits the persistence conditions of its \e{dominant} kind.
+		\p The \e{dominant} kind is the one which entails the widest range of properties.  (Could there be ties?)
+		\p If the statue-kind is dominant, then Lump will not have existed prior to being formed in a statue-shape, and thus, will not have ever existed outside of the studio.
+		\p This view doesn't help with other problems involving persistence conditions---\e{e.g.}, the Ship of Theseus puzzle.
+		\ze 
+	\ze  
+\p Alternatively, we could reject \e{Leibniz's Law}.
+	\qe
+	\p Geach endorses the view that the identity relation is not 2-place.  Rather, it is a \e{3}-place relation between an entity, an entity, and a \e{sortal}, or a \e{kind}.  (Call this the \e{relative identity} view.)
+	\p For instance, Jesus and the Holy Spirit are the same \e{god}, but different \e{persons}.  $a_0$ is the same \e{acorn} as $a_1$, but $a_0$ and $a_1$ are different pieces of \e{matter}.  The CEO of the Trump Organization and the President of the United States are the same \e{person}, but different \e{offices}. 
+	\p In general, the logical form of an identity claim is 
+				\[
+				a =_K b
+				\]
+		where $K$ is a \e{sortal} or \e{kind}. And it could be that $a =_K b$, even though $a \neq_{K^*} b$.
+	\p Importantly, the relative identity theorist will not only say that we can make claims about $x$ and $y$ being \e{the same $K$}.  They \e{additionally} claim that there is no sensible notion of \e{absolute} identity.  It doesn't make sense to say that $a=b$, \e{full stop}, without reference to any sortal.
+	\p Why does this mean that Leibniz's Law is false?  Because Leibniz's Law presupposes that identity is absolute. Okay, but we could still formulate a principle \e{like} Leibniz's Law---\e{e.g.},
+		\[
+		\forall x, y, K \left[ x =_K y \to \forall F(Fx \leftrightarrow Fy) \right]
+		\]
+	And this would allow us to conclude that Lump and David are not the same statue, nor the same lump of clay.  So it's not clear how relative identity helps us.  Perhaps we should accept a different formulation of Leibniz's Law---like, \e{e.g.}, if $x =_K y$, then $x$ and $y$ have all the same $K$-properties, where we suppose that there are some properties characteristic of every particular sortal.
+	\p Let's define up a relation, $\approx$, (pronounced `is Leibniz equivalent to') as follows:
+			\[
+			x \approx y \stackrel{\text{\tiny def}}{=} \forall F (Fx \leftrightarrow Fy) 
+			\]  
+	It's then trivial that $\approx$ is a two-place equivalence relation which satisfies Leibniz's Law.  Why not just run our arguments with $\approx$ in place of $=$, allowing us to conclude that Lump $\not\approx$ David?
+	\p Note also that we could define up the relation $\equiv$ (pronounced `the same as'), as follows:
+			\[
+			x \equiv y \stackrel{\text{\tiny def}}{=} \forall K ( \exists z z =_K y \to x =_K y )
+			\]
+		$x$ is the same as $y$ iff, for all sortals $K$, if \e{anything} is the same $K$ as $y$, then $x$ is the same $K$ as $y$.
+		Is this relation empty?  How could it be?  Surely, for any sortal $K$, if \e{anything} is the same $K$ as Sabeen, then Sabeen is the same $K$ as Sabeen.  So shouldn't Sabeen be the same as Sabeen?  And doesn't this provide us with a notion of \e{absolute} identity?
+	\ze  
+\p   Note that a metaphysics of temporal parts gives us a different diagnosis of the puzzle.
+			\qe
+			\p Consider matters from the perspective of the perdurantist first.  The perdurantist will think that Lump and David are different spacetime worms.  Lump has the property of being outside the studio because Lump has a temporal part which is outside of the studio.  David lacks this property because David lacks any such temporal part.  Nevertheless, Lump and David have many temporal parts in common.  The perdurantist accepts the argument's conclusion.
+			
+			They are , however, in a position to respond to the objections raised in point \ref{1} above.
+				\qe
+				\p Though Lump and David occupy the same place at the same time, this is just in virtue of them having temporal parts in common.  From the perdurantist's perspective, this should be no more mysterious than New York City and New York State overlapping, or Buford Highway and State Road 29 overlapping.
+				\p The perdurantist needn't reject the mereological principle of extensionality.  For even though David and Lump share all the same parts \e{at the times they overlap}, they do not share all the same parts \e{simpliciter}. 
+				\p The perdurantist can accept the existence of lit statues, in statues, and so on, since these will just correspond to different regions of spacetime.  For each region of spacetime, there is an object.
+				\ze 
+			\p Next, consider matters from the perspective of the exdurantist.  The exdurantist will think that Lump and David are, in fact, identical---they are one and the same stage/time slice.  Nevertheless, when we call this time slice `Lump', we bring to salience a certain \e{temporal counterpart relation}---one that the stage bears to earlier time slices which are outside of the studio.  And, when we call this time slice `David', we bring to salience a different temporal counterpart relation---one that the stage does not bear to earlier time slices outside of the studio.
+	
+	So the exdurantist thinks that the logical form of our original argument is this (where $C_L$ is the Lump-counterpart relation and $C_D$ is the David-counterpart relation):
+			\argu{110pt}{
+			\p[P1.] $\exists x \left( O_t x \wedge C_L x l \right)$
+			\p[P2.] $\neg \exists x \left( O_t x \wedge C_D x d \right)$
+			\thus
+			\p[C1.] $l \neq d$
+			}
+	But this argument is invalid.
+			\ze 
+\p So the metaphysics of temporal parts is in a position to help solve the puzzle.  But wait---consider Allan Gibbard's example of Lumpl and Goliath.  Goliath is a statue composed of the lump of clay Lumpl.  But Lumpl and Goliath came into existence at precisely the same time, and they went out of existence at exactly the same time.   Nevertheless, Lumpl and Goliath look like they have different \e{modal} properties.  And these different \e{modal} properties look to be enough to show that Lumpl and Goliath are distinct.  Consider the following argument, where $\qq{ Sx }$ is $\qq{\text{$x$ is smooshed}}$, `$l$' is Lumpl, and `$g$' is Goliath.
+		\argu{150pt}{
+		\p[P1.] $\Diamond S l$
+		\thus
+		\p[C1.] 	$(\lambda x. \Diamond Sx) l$ \hfill [P1]
+		\p[P2.] $\neg \Diamond S g$
+		\thus
+		\p[C2.]  $\neg (\lambda x. \Diamond Sx) g$ \hfill [P2]
+		\thus
+		\p[C3.] $l \neq g$ \hfill [C1, C2]
+		}
+Here `$(\lambda x. \Diamond S x)$' denotes the modal property which an object has in virtue of it being true that it \e{could} be smooshed.  
+	\qe
+	\p As with the temporal version of the argument, we must here suppose that we can make sense of \e{de re} modal predication.
+	\p Consider the  following two claims:
+		\begin{align*}
+		\Box \, \exists x \, Fx  &\qquad& \exists x \, \Box\, Fx 
+		\end{align*}
+	The first says, of a certain proposition, namely `$\exists x Fx$', that it is necessary.  The second says \e{of some thing} that it has the property of being necessarily $F$.  The first claim is an example of modal predication \e{de dicto}.  The second is an example of modal predication \e{de re}.
+	\p Similarly, P1 is an example of modal predication \e{de dicto}, and C1 is an example of modal predication \e{de re}.
+	\p Quine was very worried about modal predication \e{de re}.   He thought that the underlying notion didn't make any sense, for he thought that which modal properties an object has depends upon our way of referring to or describing that object.  For this reason, modal operators create opaque contexts within which co-referring terms may not be substituted for one another \e{salva veritatae}.  For instance, consider the true modal claim
+		\[
+		\Box \text{ the number of the planets numbers the planets }
+		\]
+	This claim is true, and 8 is the number of the planets, yet the following claim is false:
+		\[
+		\Box \text{ 8 numbers the planets } 
+		\]
+	So, if we allowed ourselves to quantify into modal contexts in the way the inference from P1 to P2 does, then we could reason as follows:
+		\argu{270pt}{
+		\p[] $\Box$ the number of the planets numbers the planets 
+		\thus
+		\p[] $(\lambda x.\Box  x \text{ numbers the planets})$ the number of the planets
+		\p[] the number of the planets $=$ 8
+		\thus
+		\p[] $(\lambda x.\Box  x \text{ numbers the planets})$ 8
+		\thus
+		\p[] $\Box \text{ 8 numbers the planets } $
+		}
+			\qe
+			\p With Kripke under our belts, we can diagnose what's going on here: `the number of the planets' is not a rigid designator.  
+			\p We should only accept inferences like the one from P1 to C1 (and from P2 to C2) if the designators involved are rigid designators.
+			\p But if the names `Lumpl' and `Goliath' are rigid (as Kripke argued they are), then we shouldn't be worried about the argument that Lumpl $\neq$ Goliath.
+			\ze 
+\p Analogously to the temporal version of this argument, the move from P1 to C1 (and the move from P2 to C2) relies upon the idea that we may $\lambda$-abstract from within modal operators.  But you may worry about $\lambda$-abstracting from within modal operators in this way.  
+	\qe
+	\p To see the problem, let $\qq{Dx}$ be  $\ulcorner$ $x$ is a daughter of Queen Elizabeth I $\urcorner$, and let $a$ be a possible daughter of Queen Elizabeth I.  Then, an actualist\footnote{ Just as the presentist thinks that only the present is real, the actualist thinks that only the actual world is real.} might want to accept the premise of the following argument while rejecting its conclusion:
+				\argu{70pt}{
+				\p[] $\Diamond Da$
+				\thus
+				\p[] $\exists x \Diamond Dx$
+				}
+	Even though it's \e{possible} that $a$ is the daughter of Queen Elizabeth I, that doesn't mean that there is anything which \e{actually} has the property of being possibly the daughter of Queen Elizabeth I.  For $a$ doesn't \e{actually} exist.  So quantifying into modal operators in this way is illegitimate.
+	\p And, similarly, an actualist might want to reject the inference
+			\argu{90pt}{
+			\p[] $\Diamond  Da $
+			\thus
+			\p[] $(\lambda x. \Diamond D x ) a$
+			}
+	Even though it is \e{possibly} the case that $a$ is the daughter of Queen Elizabeth I, that doesn't mean that $a$ \e{actually} has the property of being a possible daughter of Queen Elizabeth I---for $a$ doesn't exist, so it doesn't have any properties.  
+	\ze 
+\p As in the temporal case, I think we can get around this worry.  If the actualist accepts a positive free logic, then this logic will invalidate the inference from $\Diamond Da$ to $\exists x \Diamond Dx$.  However, it will still validate the following inference:
+		\argu{120pt}{
+		\p[] $\exists x \, x=a \wedge \Diamond Da$
+		\thus
+		\p[] $\exists x \Diamond Dx$
+		}
+So, we should similarly accept the following inference:
+		\argu{120pt}{
+		\p[] $\exists x \, x=a \wedge \Diamond Da$
+		\thus
+		\p[] $(\lambda x. \Diamond Dx) a$
+		}
+\ze 
+\p If we accept the conclusion of this new argument, then the old worries come back with the same force:
+	\qe
+	\p There is now the worry that we will have an explosion of co-located objects---for there will be as many objects as there are \e{modal profiles}.
+		\qe
+		\p Just a \e{persistence condition} told us which kinds of changes an object can survive, a \e{modal profile} tells us in which possible conditions an object could exist.
+		\p So there will be incars and outcars and litstatues and Sabeens which could only exist in a world in which Caesar crossed the Rubicon, and so on and so forth.
+		\ze 
+	\p There is the worry that we will have to deny the mereological axiom of extensionality, since Lumpl and Goliath have all the same parts, even if we are perdurantists.
+	\ze 
+\ze 
+
+\end{document}

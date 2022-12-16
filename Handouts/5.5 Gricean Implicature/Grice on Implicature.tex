@@ -1,0 +1,381 @@
+\documentclass[landscape, two column, full page,reqno]{article}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[adobe-garamond]{mathdesign}
+\AtBeginDocument{%
+  \let\mathbb\relax
+  \DeclareMathAlphabet\PazoBB{U}{fplmbb}{m}{n}%
+  \newcommand{\mathbb}{\PazoBB}%
+  \let\mathcal\relax
+  \DeclareMathAlphabet{\OMScal}{OMS}{cmsy}{m}{n}
+  \newcommand{\mathcal}{\OMScal}%
+}
+\usepackage{enumitem}
+\usepackage{fontspec}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{multicol}
+\setmainfont[Numbers={Proportional,OldStyle}]{Adobe Garamond Pro}
+%NATBIB
+\usepackage[comma]{natbib}
+%HYPERREF PACKAGE
+\usepackage{xcolor}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[backref=page,linktocpage=true,colorlinks]{hyperref}
+\renewcommand{\backrefxxx}[3]{[\hyperlink{page.#1}{#1}]}
+\hypersetup{
+    colorlinks = true,
+    citecolor = blue,
+    urlcolor = blue,
+    filecolor = blue,
+    linkcolor = blue,
+}
+%PATCH TO ONLY HYPERLINK YEAR OF CITATION
+\usepackage{etoolbox}
+\makeatletter
+% Patch case where name and year are separated by aysep
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@aysep\NAT@spacechar}{\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@aysep\NAT@spacechar\NAT@hyper@{\NAT@date}}{}{}
+% Patch case where name and year are separated by opening bracket
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi}%
+       {\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi\NAT@hyper@{\NAT@date}}
+  {}{}
+\makeatother
+%
+%Titlesec package
+\usepackage{titlesec}
+%Centering and readjusting size of headings
+\titleformat{\section}[hang]
+{\normalfont\sc\filcenter}{\thesection}{1em}{}
+\titleformat{\subsection}[hang]
+{\normalfont\sc\filcenter}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[hang]
+{\normalfont\sc\filcenter}{\thesubsubsection}{1em}{}
+			% in the document preamble: 
+				\let\endgraf\par % because LaTeX doesn't like \par 
+			% in some command arguments 
+				\let\subtitlefont\normalfont % or whatever 
+				
+%FOOTNOTE SPACING
+\usepackage[hang,multiple,splitrule]{footmisc}
+\setlength{\footnotemargin}{4mm}
+
+\newcommand{\qd}{\begin{quote}\begin{description}  [align=left,style=nextline,leftmargin=*,labelsep=0pt,font=\normalfont]}
+\newcommand{\zd}{\end{description}\end{quote}}
+\newcommand{\qe}{\begin{enumerate}[align=left,style=nextline,leftmargin=17pt,labelsep=5pt,font=\normalfont]}
+\newcommand{\qer}{\begin{enumerate}[align=left,style=nextline,leftmargin=17pt,labelsep=5pt,font=\normalfont , resume]}
+\newcommand{\qei}{\begin{enumerate}[align=left,style=nextline,leftmargin=15pt, labelsep=10pt,font=\normalfont]}
+\newcommand{\ze}{\end{enumerate}}
+\newcommand{\p}{\item}
+\newcommand{\e}{\emph}
+\newcommand{\s}{\textsc}
+\newcommand{\tbf}{\textbf}
+\newcommand{\fn}{\footnote}
+\newcommand{\argu}[2]{\begin{center}\begin{minipage}{#1} \begin{enumerate}
+	#2
+\end{enumerate}
+\end{minipage}  
+\end{center}}
+\newcommand{\qq}[1]{~\ulcorner #1  \urcorner~}
+\newcommand{\V}[1]{\llbracket #1 \rrbracket}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\W}{\mathcal{W}}
+\renewcommand{\u}{\mathfrak{u}}
+\newcommand{\df}{\stackrel{\text{\tiny def}}{=}}
+\newcommand{\fproof}[1]{\begin{center}\begin{fitch} #1 \end{fitch}\end{center}}
+%GRAPHICX PACKAGE
+\usepackage{graphicx}
+\graphicspath{{/Users/jdg83/Desktop/Figures/}}
+\usepackage{xcolor}
+\usepackage{fancybox}
+
+\definecolor{ShadowColor}{RGB}{30,150,190}
+
+\makeatletter
+\newcommand\Cshadowbox{\VerbBox\@Cshadowbox}
+\def\@Cshadowbox#1{%
+  \setbox\@fancybox\hbox{\fbox{#1}}%
+  \leavevmode\vbox{%
+    \offinterlineskip
+    \dimen@=\shadowsize
+    \advance\dimen@ .5\fboxrule
+    \hbox{\copy\@fancybox\kern.5\fboxrule\lower\shadowsize\hbox{%
+      \color{gray}\vrule \@height\ht\@fancybox \@depth\dp\@fancybox \@width\dimen@}}%
+    \vskip\dimexpr-\dimen@+0.5\fboxrule\relax
+    \moveright\shadowsize\vbox{%
+      \color{gray}\hrule \@width\wd\@fancybox \@height\dimen@}}}
+\makeatother
+
+\newcommand{\csbox}[2]{\begin{center}
+\Cshadowbox{
+\begin{minipage}{#1}
+	#2
+\end{minipage}}
+\end{center}
+}
+
+
+\title{Grice on Implicature}
+\date{September 25th, 2018}
+\author{M\e{{\fontspec{Minion Pro} \&}}E Core}
+
+\usepackage{layout}
+\voffset = -40pt
+\textheight = 450pt
+\setlength{\columnsep}{20pt}
+\begin{document}
+%\layout
+\twocolumn[{%
+ \centering
+\maketitle
+}]
+
+\section{Semantics and Pragmatics}
+\qe
+\p We should distinguish between two topics in the philosophy of language and linguistics.
+	\qe
+	\p \e{Semantics} is the study of what utterances (literally) \e{mean}---if the utterance is a declarative sentence (our paradigm case), then semantics studies the  \e{truth-conditional content} of that utterance.
+		\qe
+		\p The {literal meaning}, or {truth-conditional content}, of an utterance is called its \e{semantic content}.
+		\ze 
+	\p \e{Pragmatics} is the study of what we do with utterances beyond communicating their literal meanings.
+	\ze 
+\p One area of pragmatics: \e{speech act theory}.	
+	\qei
+	\p In the appropriate context, when I say `I promise to repay you', `I do (marry you)', or `Nice family you got there; be a shame if anything happened to them', I don't merely \e{describe} the world as being a certain way.  I don't merely \e{say} something with my words.  I additionally \e{do} something with my words.
+		\qe
+		\p In the case of `I promise', I \e{make a promise}.  (I could hardly try to get out of the promise by claiming to have lied.)
+		\p In the case of `I do', I \e{marry someone}.
+		\p In the case of `Nice family you got there...', I \e{make a threat}.
+		\ze 
+	\p Though there's something about the meaning of these expressions which allows us to perform these actions with them, the actions we perform are not a part of what the sentences \e{literally} say.  (That's in part \e{why} `Nice family you got there...' is used, rather than `I'll kill you if you squeal'---it affords a kind of deniability.)
+	\ze 
+\p Talk of what our utterances \e{mean} is usually ambiguous between their semantic content and what we may call their \e{pragmatic meaning}: what those utterances are used to do or communicate.
+\p Note: this way of drawing the distinction between semantics and pragmatics isn't universal.  Other say: semantics is the study of meaning abstracted from any particular context of utterance, whereas pragmatics is the study of how meaning is influenced by features of the context of utterance.  
+	\qe
+	\p One case where these two understandings come apart: \e{context-sensitive expressions}.  
+	\p Consider `tall'.  In a third grade classroom, I may say:
+			\qe
+			\p[$\star$)] Jack is  tall. 
+			\ze 
+	What I say is true, because Jack is at least a foot taller than every other third grader.  Then, suppose Jack is playing basketball with people much older and taller than him.  To explain why Jack can't dunk, I say:
+			\qe
+			\p[$\dagger$)] Jack's not tall.
+			\ze 
+	\p Theory: what `$x$ is tall' means is something like $x$'s height is above a contextually salient threshold.
+				%	\[\tag{$\star$}\label{star}
+				%	\V{\text{ is tall } } = \lambda x . x\text{'s height is above a contextually salient threshold}
+				%	\]
+	\p Then: given our terminology, ($\star$) and ($\dagger$) differ in \e{semantic} meaning.  However, according to the alternative terminology, they have the same semantic meaning, but differ in \e{pragmatic} meaning.
+	\ze 
+
+\section{Impliciatures}
+\p Another area of pragmatics focuses on \e{implicatures}.  An \e{implicature} is a something which is communicated by an utterance, even though it is not a part of the utterance's semantic  content.
+	\qe
+	\p If an utterance of $\qq{p}$ implicates that $q$, then I will write $\qq{p \leadsto q}$.
+	\ze 
+\p Consider the following conversations:
+	\qe
+	\p \qe \p[A:] What's the weather going to be like?
+			\p[B:] You should bring an umbrella.  [$\leadsto$ It will rain.]
+	\ze 
+	\p \qe \p[C:] Are you going to the party?
+			\p[D:] I should work. [$\leadsto$ I am not going to the party.]
+			\ze
+	\ze 
+\p An argument that these are not part of the literal meaning of what is said: these implicatures are \e{cancellable}.  That is, the speaker may come right out and affirm the negation of the implicated proposition without thereby contradicting themselves or retracting anything they've said.
+\qe
+\p Consider these conversations:
+	\qe
+	\p[A:] What's the weather going to be like?
+				\p[B:] You should bring an umbrella---though I don't mean to say that it will rain;  it's just better to be safe than sorry.
+ \p[C:] Are you going to the party?
+				\p[D:] I should work---but, yeah, I'll probably go.
+	\ze 
+ Contrast them with these conversations:
+	\qe
+ \p[A:] What's the weather going to be like?
+				\p[B:] \#  It's going to rain---though I don't mean to say that it will rain;  it's just better to be safe than sorry.
+	\p[C:] Are you going to the party?
+	\p[D:] \# No---but, yeah, I'll probably go.
+	\ze 
+\ze 
+\p Another argument that implicatures are not part of the semantic content of what it said: the implicatures are \e{reinforcable}.  That is, the speaker may come out and affirm the implicated proposition without redundancy.
+	\qe
+	\p Consider this implicature:
+		\qe
+		\p[E:] Did you finish your homework?
+		\p[F:] I finished some of it. [$\leadsto$ I didn't finish all of it.]
+		\ze 
+	The implicature here may be \e{reinforced} without any sense of redundancy:
+		\qe
+		\p[E:] Did you finish your homework?
+		\p[F:] I finished some of it, but I didn't finish it all.
+		\ze 
+	\p Contrast this with:
+		\qe
+		\p[E:] Did you finish your homework?
+		\p[F:] \# I finished some but not all of it, but I didn't finish it all.
+		\ze 
+	\ze 
+\p Cancellability and reinforability are not only arguments that implicature is a pragmatic, rather than a semantic, phenomenon.  They are also frequently used as \e{diagnostic tests} for whether something which has been communicated in an utterance is part of the semantic content of that utterance or is, instead, implicated.
+	\qe
+	\p Though this is a good diagnostic test, it's not foolproof.  Consider:	
+			\qe
+			\p[] It's going to rain. [$\leadsto$ I believe it's going to rain.]
+			\p[\#] It's going to rain---but I don't mean to imply that I believe it's going to rain.
+			\p[??] It's going to rain---and I believe it's going to rain.
+			\p[] He's a man, but he's kind. [$\leadsto$ Men are not generally kind.]
+			\p[\#] He's a man, but he's kind---of course, I don't mean to imply that men aren't generally kind.
+			\p[\# ] He's a man, but he's kind---and men aren't generally kind.
+			\p[] He's an Englishman; therefore, he is brave. [$\leadsto$ The English are generally brave.]
+			\p[\#]  He's an Englishman; therefore, he is brave---of course, the English aren't generally brave.
+			\p[\#] He's an Englishman; therefore, he is brave---and the English are generally brave.
+			\ze 
+	\ze 
+\subsection{Conventional versus Conversational Implicature}
+\p Grice distinguishes between two kinds of implicatures: \e{conversational} and \e{conventional}.
+	\begin{description}
+	\item[Conventional Implicature] The implicature of an utterance is \e{conventional} if it is generated because of the conventional meanings of the words appearing in the utterance.
+	\end{description}
+	\qe
+	\p For instance, the implicatures generated by `but' and `therefore' and conventional implicatures.  It is part of the conventional meaning of `$p$, but $q$' that there is a contrast of some kind between $p$ and $q$.  And it is part of the conventional meaning of  `$p$; therefore, $q$' that $p$ implies $q$.
+	\ze 
+	\begin{description}
+	\item[Conversational Implicature]  The implicature of an utterance is \e{conversational} if it is generated by the interaction of the context of utterance and what it said.
+	\end{description}
+	\qe
+	\p The implicatures generated by `You should bring an umbrella' and `I should work' are like this.  In other contexts, those sentences would not implicate that it will rain or that I'm not going to the party.
+	\ze 
+	
+\section{Conversational Implicature and the Cooperative Principle}
+\p Grice provides a general theory of when and how conversational implicatures are generated.
+\p This theory appeals to the idea that, when we are communicating with each other, we are engaged in a cooperative endeavor (either to discover the truth, or to decide upon a plan, or to amuse ourselves, or what-have-you), and this endeavor is subject to rational norms of appraisal.
+	\qe
+	\p Given our conversational goals, there are more and less rational ways of achieving them.
+	\p What it is for you to be a \e{cooperative} interlocutor is for you to go about achieving the conversational goals in a \e{rational} way.   Call this `the cooperative principle':
+		\begin{description}
+		\item[The Cooperative Principle]  ``Make your conversational contribution such as it is required, at the stage at which it occurs, by the accepted purpose or direction of the talk exchange in which you are engaged''\footnote{Grice, \e{Logic and Conversation}, p.~45.}
+		\end{description}
+	\ze   
+\p The Cooperative principle is the \"uber-norm.  However, Grice thinks that, if you are following this norm, then you will generally---though not \e{invariably}---follow four additional norms.  The subsidiary norms---or `maxims'---are:
+	\begin{description}
+	\item[Maxim of Quantity] Make your contribution as informative as is required, and no more.
+	\item[Maxim of Quality] Make your contribution true.
+			\qe
+			\p Don't say things you believe to be false.
+			\p Don't say things for which you lack adequate evidence.
+			\ze 
+	\item[Maxim of Relevance] Make your contribution relevant.
+	\item[Maxim of Manner] Be perspicacious.
+			\qe
+			\p Don't be obscure or ambiguous.
+			\p Be brief and orderly.
+			\ze 
+	\end{description}
+Grice thinks that these aren't just the maxims we follow when talking to each other.  They are maxims governing our contributions to \e{any} collaborative endeavor.
+\p We needn't always follow these maxims.  
+	\qe
+	\p Sometimes, when we violate the maxims, this is because we do not want to contribute to the collaborative endeavor of the conversation.  For instance, we may lie or `opt out' of the cooperative principle entirely---\e{i.e.}, we may make it clear that we are not contributing to the collaborative endeavor.  
+		\qe
+		\p[G:] What's up with Jan?  
+		\p[H:] I'm not at liberty to say.
+		\ze 
+	\p Other times, we may \e{flout} the maxims.  That is: we may violate them in a \e{blatant} manner without giving any indication that we are not adhering to the cooperative principle.  For instance,
+		\qe
+		\p[I:] Is he attractive?
+		\p[J:] He's got a great personality.
+		\ze  
+	J violates the maxims (relevance and quantity).  And there's nothing subtle about the violation.  J is in a position to know that I will know that J has violated these maxims.
+	\ze 
+\p When a maxim is \e{flouted}, Grice thinks that listeners go through a process of \e{repair}.  
+	\qe
+	\p What J says violates the usual norms governing a cooperative endeavor, but there's no indication that J has opted out of being cooperative.
+	\p So I needs to find some alternative explanation of why J has said what they've said.
+	\p A natural hypothesis: J thinks he is unattractive, but does not want to say so.  But J believes that I will be able to work out her opinion by the fact that she has flouted the maxim of relevance.
+	\p Thus, for Grice, conversational implicature is the result of a tension between a listener's recognition that a speaker is (1)  trying to be conversationally cooperative, yet (2) violating a conversational maxim.
+	\ze 
+\p More generally:
+	\begin{description}
+	\item[Grice's Theory of Conversational Implicature] An utterance of $\qq{p}$ conversationally implicates that $q$ if:
+		\qe
+		\p[1)] The speaker is being cooperative.
+		\p[2)] In order to make sense of the fact that the utterance of $\qq{p}$ was cooperative, the listener must suppose that the speaker believes $q$. 
+		\p[3)] The speaker believes that it is clear that  the listener can work out both (1) and (2)
+		\ze 
+	\end{description}
+\p B's utterance of `You should bring an umbrella' and D's utterance of `I have to work' are both quantity implicatures.
+		\qe
+		\p B  blatantly fails to provide enough information to answer A's question, but is still being cooperative.  But A can reason: they must have said that I should bring an umbrella because they believe that it will rain.  And B took it to  be clear that A could work this out.
+		\p D blatantly fails to provide enough information to answer C's question, but is still being cooperative.  But C can reason: they must have said that they have work because they don't think they'll go to the party.  And D took it to be clear that C could work this out.
+		\ze 
+\p A quantity implicature: `I am writing to recommend $X$ for a job.  They have excellent handwriting and always arrived to meetings on time'.  [$\leadsto$ $X$ is not a strong candidate.]
+	\qe
+	\p The author does not provide enough information to decide whether $X$ is capable of performing the job.  This violates the maxim of quantity, and obviously so.  If we suppose that the author believes $X$ to be incapable of performing the job, this explains why they only praise $X$'s handwriting.  And the author took the reader to be able to figure this out.    
+	\ze 
+\p A quality implicature: `He's a fine friend', said of someone who has just betrayed you. [$\leadsto$ he's not a fine friend.]
+	\qe
+	\p The speaker has said something obviously false.  This violates the maxim of quality---and obviously so.  If the listener supposes that the speaker believes that he's not a fine friend and was being sarcastic, this explains why they said what they did.  And the speaker thinks the listener can work this out.  So `He's a fine friend' implicates that he's not a fine friend.
+	\ze 
+\p Another quality implicature: `You are the cream of my coffee'.
+	\qe
+	\p The speaker has said something obviously false.  This violates the maxim of quality---and obviously so.  If the listener supposes that the speaker believes that they are \e{like} the cream of their coffee in relevant respects, this explains why they said what they did.  And the speaker thinks that the listener can work this out.  So `You are the cream of my coffee' implicates that you are like the cream of my coffee in certain salient respects.
+	\ze 
+\p A manner implicature: `She produced a series of sounds corresponding closely with `Home Sweet Home''. [$\leadsto$ She didn't sing well.]
+	\qe
+	\p The speaker could have just said `She sang `Home Sweet Home''.  Their additional prolixity violates the maxim of manner---and obviously so.   The speaker could still be cooperative if, by using the long-winded expression, they intended to communicate that she didn't sing well.  So the speaker implicates that she didn't sing well.
+	\ze 
+\p Note: in \tbf{Grice's Theory of Conversational Implicature}, we have an `if', and not an `if and only if'.  There are other kinds of conversational implicatures.   You can conversationally implicate something even when you've flouted no maxim.  In general, an utterance of $\qq{p}$ implicates that $q$ if: you are being cooperative, and not \e{blantantly} flouting any maxim, but, if you believed that $\neg q$, then your utterance of $\qq{p}$ would not have been cooperative.
+
+\p  Here's a special case of that (for the case of implicatures generated by the assumption that  you are cooperatively following the maxim of quality): if you cooperatively utter $\qq{p}$, and if $q$ would be roughly as brief to assert, and strictly more informative than $p$ for the purposes at hand, then your utterance implicates that you don't know that $q$, or that you know that $q$ is false.
+	\qe
+	\p They failed to say that $q$, which is more informative, thereby violating the maxim of quantity---and they did so blatantly.  Why?  It must be because they think they don't know whether $q$, or they think they know not $q$.
+	\ze  
+\p This explains the following implicatures:
+	\qe
+	\p `I finished some of my homework'. [$\leadsto$ I didn't finish all of it.]
+	\p `I have three dogs.' [$\leadsto$ I have exactly three dogs.]
+	\ze 
+
+\section{Applications}
+\p Some think that English `or' has an exclusive reading.  For instance:
+		\qe
+		\p ``Either you eat your lima beans or you will be grounded''\label{a}
+		\ze 
+The thought: if you are grounded after eating your lima beans, then the speaker was lying.  So it can't be that the sentence is true when both `you eat your lima beans' and `you will be grounded' are true.  So the `or' is exclusive.  So the meaning of `or' in English is not---or not always---the same as the logical truth-function $\vee$.
+\p Grice allows us to resist this conclusion.  The \e{semantic} content of \ref{a} is just 
+		\begin{center}
+		You eat your lima beans $\vee$ you will be grounded.
+		\end{center}
+However, there is a quantity implicature from \ref{a} to 
+		\begin{center}
+		$\neg$( You eat your lima beans $\wedge$ you will be grounded) 
+		\end{center}
+	For, if you were to be grounded no matter what, the speaker is in a position to know this.  In that case, the maxim of quality would have compelled them to say simply `you will be grounded'.  The fact that they didn't say this implicates that  they don't know it to be true.
+\p Grice thinks that the same kind of pragmatic explanation allows us to explain away the `paradoxes of material implication'.  
+	\qe
+	\p The paradoxes: If we suppose that the indicative conditional is just the material conditional, then it turns out to be true that 	
+				\qe
+				\p[($\ast$)]  If John Quincy Adams was the first president, then eating soap cures cancer.
+				\ze
+	since it's false that John Quincy Adams was the first president.
+	\p Grice: the \e{semantic} content of an indicative condition is just the corresponding material conditional.  However, it is misleading to utter sentences  like ($\ast$), because they implicate something false.
+	\p If you know that the conditional is true, then you know that John Quincy Adams is not the first American president.  But then, you should have said \e{that}, by the maxim of quantity.  So you were violating the cooperative principle, if you said ($\ast$).
+	\p In general, Grice's diagnosis of the paradoxes of material implication will go like this: \qe \p $p \to q$ is logically equivalent to $\neg p \vee q$.  \p So uttering $\qq{\text{ if } p, \text{ then } q}$ implicates that you don't know either $\neg p$ or $q$ on its own (in which case, you should have said \e{that}, by the maxim of quantity).  \p  But it also implicates that you know the disjunction $\qq{\neg p \vee q}$, by the maxim of quality.  \p So, uttering a conditional $\ulcorner$ if $p$, then $q$ $\urcorner$  implicates that you know that either the antecedent is false or the consequent is true, though you don't know anything stronger.
+	\p In cases where there is no connection between the antecedent and the consequent, this will not be so.   And that's why we find conditionals where there's no connection between the antecedent and the consequent odd.  They're not odd because they are \e{false}.  Rather, they are odd because they \e{implicate} something false.
+	\ze 
+	\ze 
+\ze 
+
+\end{document}

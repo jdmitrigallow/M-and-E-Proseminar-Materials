@@ -1,0 +1,588 @@
+\documentclass[12pt]{beamer}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{kbordermatrix}
+\usepackage[adobe-garamond]{mathdesign}
+\usepackage{fontspec}
+\usetheme[titleformat=regular,sectionpage=progressbar, subsectionpage=progressbar, background=light]{metropolis}
+\setsansfont[Ligatures=TeX,Numbers={Proportional,OldStyle}]{Minion Pro}
+\setmonofont[Ligatures=TeX,Numbers={Proportional,OldStyle}]{Minion Pro}
+\AtBeginDocument{%
+  \let\mathbb\relax
+  \DeclareMathAlphabet\PazoBB{U}{fplmbb}{m}{n}%
+  \newcommand{\mathbb}{\PazoBB}%
+  \let\mathcal\relax
+  \DeclareMathAlphabet{\OMScal}{OMS}{cmsy}{m}{n}
+  \newcommand{\mathcal}{\OMScal}%
+}
+\usepackage{appendixnumberbeamer}
+%GRAPHICX PACKAGE
+\usepackage{graphicx}
+\graphicspath{{/Users/jdg83/Dropbox/0000Desktop/Figures/}}
+
+\usepackage[normalem]{ulem}
+\usepackage{xcolor}
+\newcommand\redsout{\bgroup\markoverwith{\textcolor{red}{\rule[0.5ex]{2pt}{1pt}}}\ULon}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+%\usepackage{natbib}
+
+\newcommand{\argu}[2]{\begin{center}\begin{minipage}{#1} \begin{enumerate}[<+->]
+	#2
+\end{enumerate}
+\end{minipage}  
+\end{center}}
+\newcommand{\thus}{
+
+\vspace{10pt}
+
+\hrule
+
+\vspace{5pt}
+
+}
+\newcommand{\qq}[1]{~\ulcorner #1  \urcorner~}
+\newcommand{\V}[1]{\llbracket #1 \rrbracket}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\K}{\mathcal{K}}
+\renewcommand{\u}{\mathfrak{u}}
+\newcommand{\df}{\stackrel{\text{\tiny def}}{=}}
+\newcommand{\s}{\textsc}
+\newcommand{\e}{\emph}
+\newcommand{\tbf}{\textbf}
+\definecolor{dblue}{HTML}{0913c6}
+\definecolor{dred}{HTML}{990707}
+\renewcommand{\b}[1]{\textcolor{dblue}{#1}}
+\renewcommand{\r}[1]{\textcolor{dred}{#1}}
+\newcommand{\g}[1]{\textcolor{gray!75}{#1}}
+\renewcommand{\o}[1]{\textcolor{orange}{#1}}
+\newcommand\Fontbig{\fontsize{15}{20}\selectfont}
+%%%%%%%
+\newcommand{\qe}{\begin{itemize}[<+->]}
+\newcommand{\p}{\item}
+\newcommand{\ze}{\end{itemize}}
+
+\newcommand{\qf}[2]{\begin{frame}{#1}
+#2
+\end{frame}
+}
+
+\DeclareMathOperator*{\argmax}{\text{arg\,max}}
+
+\title{\emph{Skepticism {\&} Contextualism}}
+\date{November 6th, 2018}
+\author{}
+\institute{}
+% \titlegraphic{\hfill\includegraphics[height=1.5cm]{pitt}}
+
+\begin{document}
+
+\maketitle
+
+%\begin{frame}[standout]
+%  Please interrupt when I stop making sense.
+%\end{frame}
+
+\section{A Modal Logic for Knowledge}
+
+\qf{Symbolization}{
+\qe
+\p Represent
+	\begin{center}
+	$S$ is in a position to know that $\phi$
+	\end{center}
+with
+	\[
+	\alt<3->{\K \phi}{\K_{\alert<2>{S}} \phi }
+	\]
+\ze 
+}
+
+\qf{`In a position to know'}{
+	\begin{alertblock}
+	{Closure}
+	For any propositions $\phi$ and $\psi$,
+		\[
+		[\K\phi \wedge \alt<3, 4>{\alert<3>{\K(\phi \text{ entails } \psi) }}{\alert<2>{\phi \text{ entails } \psi}}] \to \K \psi
+		\]
+	\end{alertblock}
+}
+
+\qf{Kripke Models}{
+	\qe
+	\p A \e{Kripke model} $< \W, R, V>$ contains:
+		\qe
+		\p A set $\W$ of possible worlds.
+		\p A binary relation $R \subset \W \times \W$.
+		\p A function $V$ from atomic propositions to subsets of $\W$.
+		\ze 
+	\ze 
+}
+
+\qf{Kripke Models}{
+\begin{center}
+{\LARGE
+\begin{tikzpicture}[scale=3.5,>=stealth']
+\tikzset{
+    p1/.style={%
+        draw=blue, thick,
+        rectangle,
+        rounded corners=10pt,
+        minimum height=160pt,
+        minimum width=60pt
+        },
+    q1/.style={%
+        draw=red, thick,
+        rectangle,
+        rounded corners=10pt,
+        minimum height=70pt,
+        minimum width=160pt
+        },
+}
+%%%PROPOSITIONS
+\node[p1, fill=blue, fill opacity=0.1] (c2) at (0,0.5) {};
+\node[q1, fill=red, fill opacity=0.1] (c1)  at (0.5,-0.05) {};
+\filldraw[red]  (1.6, -0.05) node[anchor=east] { $q$ };
+\filldraw[blue]  (-0.55, 1) node[anchor=west] { $p$ };
+%%%WORLDS
+\filldraw [black] 
+(0,0) circle (0.5pt) node[anchor=north, below=4pt] { $w_1$ } 
+(0, 1) circle (0.5pt)   node[anchor=south, above=4pt] { $w_2$ } 
+(1,1) circle (0.5pt) node[anchor=south, above=4pt] { $w_3$ } 
+(1,0) circle (0.5pt)   node[anchor=north, below=4pt] { $w_4$ } 
+;
+%%%ACCESSIBILITY RELATIONS 
+\draw[->,thick] (0, 0.1) -- (0, 0.9);
+\draw[<-, thick] (0.1,1) -- (0.9, 1);
+\draw[->, thick] (0.08, 0.08) -- (0.92, 0.92);
+\draw[<-, thick] (-0.05,0.05) .. controls (-0.3, 0.2) and (-0.3, -0.2) .. (-0.05, -0.05);
+\draw[<-, thick] (1.05,0.05) .. controls (1.3, 0.2) and (1.3, -0.2) .. (1.05, -0.05);
+\end{tikzpicture}
+}
+\end{center}
+}
+
+\qf{Kripke Models}{
+	\begin{center}
+	{\LARGE
+	\begin{tikzpicture}[scale=3.5,>=stealth']
+\tikzset{
+    p1/.style={%
+        draw=blue, thick,
+        rectangle,
+        rounded corners=10pt,
+        minimum height=80pt,
+        minimum width=70pt
+        },
+    q1/.style={%
+        draw=red, thick,
+        rectangle,
+        rounded corners=10pt,
+        minimum height=80pt,
+        minimum width=150pt
+        },
+}
+%%%PROPOSITIONS
+\node[p1, fill=blue, fill opacity=0.1] (c2) at (-1,0.05) {};
+\node[q1, fill=red, fill opacity=0.1] (c1)  at (0.5,0.05) {};
+\filldraw[red]  (1.6, 0) node[anchor=east] { $q$ };
+\filldraw[blue]  (-1.6, 0) node[anchor=west] { $p$ };
+%%%WORLDS
+\filldraw [black] 
+(-1,0) circle (0.5pt) node[anchor=south, above=4pt] { $w_1$ } 
+(0, 0) circle (0.5pt)   node[anchor=south, above=4pt] { $w_2$ } 
+(1,0) circle (0.5pt) node[anchor=south, above=4pt] { $w_3$ } 
+;
+%%%ACCESSIBILITY RELATIONS 
+\draw[->,thick] ( -0.1, 0) -- (-0.9,0);
+%\draw[<-, thick] (0.1,1) -- (0.9, 1);
+%\draw[->, thick] (0.08, 0.08) -- (0.92, 0.92);
+\draw[<-, thick] (-1.05,-0.05) .. controls (-1.3, -0.3) and (-0.7, -0.3) .. (-0.95, -0.05);
+\draw[->, thick] (1.05,-0.05) .. controls (1.3, -0.3) and (0.7, -0.3) .. (0.95, -0.05);
+\end{tikzpicture}
+	}
+	\end{center}
+}
+
+\qf{Kripke Models}{
+	\begin{center}
+	{\LARGE
+	\begin{tikzpicture}[scale=3.5,>=stealth']
+\tikzset{
+    p1/.style={%
+        draw=blue, thick,
+        rectangle,
+        rounded corners=10pt,
+        minimum height=70pt,
+        minimum width=150pt
+        },
+    q1/.style={%
+        draw=red, thick,
+        rectangle,
+        rounded corners=10pt,
+        minimum height=70pt,
+        minimum width=150pt
+        },
+}
+%%%PROPOSITIONS
+\node[p1, fill=blue, fill opacity=0.1] (c2) at (-0.5,0.05) {};
+\node[q1, fill=red, fill opacity=0.1] (c1)  at (0.5,0.05) {};
+\filldraw[red]  (1.6, 0) node[anchor=east] { $q$ };
+\filldraw[blue]  (-1.6, 0) node[anchor=west] { $p$ };
+%%%WORLDS
+\filldraw [black] 
+(-1,0) circle (0.5pt) node[anchor=south, above=4pt] { $w_1$ } 
+(0, 0) circle (0.5pt)   node[anchor=south, above=4pt] { $w_2$ } 
+(1,0) circle (0.5pt) node[anchor=south, above=4pt] { $w_3$ } 
+;
+%%%ACCESSIBILITY RELATIONS 
+\draw[->,thick] ( -0.1, 0) -- (-0.9,0);
+%\draw[<-, thick] (0.1,1) -- (0.9, 1);
+%\draw[->, thick] (0.08, 0.08) -- (0.92, 0.92);
+\draw[<-, thick] (-1.05,-0.05) .. controls (-1.3, -0.3) and (-0.7, -0.3) .. (-0.95, -0.05);
+\draw[->, thick] (1.05,-0.05) .. controls (1.3, -0.3) and (0.7, -0.3) .. (0.95, -0.05);
+\draw[->, thick] (.05,-0.05) .. controls (0.3, -0.3) and (-0.3, -0.3) .. (-0.05, -0.05);
+\end{tikzpicture}
+	}
+	\end{center}
+}
+
+
+\qf{Kripke Models}{
+	\begin{center}
+	{\LARGE
+	\begin{tikzpicture}[scale=3.5,>=stealth']
+\tikzset{
+    p1/.style={%
+        draw=blue, thick,
+        rectangle,
+        rounded corners=10pt,
+        minimum height=80pt,
+        minimum width=250pt
+        },
+    q1/.style={%
+        draw=red, thick,
+        rectangle,
+        rounded corners=10pt,
+        minimum height=80pt,
+        minimum width=90pt
+        },
+}
+%%%PROPOSITIONS
+\node[p1, fill=blue, fill opacity=0.1] (c2) at (0,0.02) {};
+\node[q1, fill=red, fill opacity=0.1] (c1)  at (0,-1) {};
+\filldraw[red]  (-0.45, -1) node[anchor=east] { $q$ };
+\filldraw[blue]  (-1.6, 0) node[anchor=west] { $p$ };
+%%%WORLDS
+\filldraw [black] 
+(-1,0) circle (0.5pt) node[anchor=south, above=4pt] { $w_1$ } 
+(0, -1) circle (0.5pt)   node[anchor=west, right=4pt] { $w_2$ } 
+(1,0) circle (0.5pt) node[anchor=south, above=4pt] { $w_3$ } 
+(2,0) circle (0.5pt) node[anchor=south, above=4pt] { $w_4$ } 
+;
+%%%ACCESSIBILITY RELATIONS 
+\draw[<->,thick] ( -0.05, -0.95) -- (-0.9,-0.04);
+\draw[<->, thick] (0.05,-0.95) -- (0.87, -0.04);
+\draw[<->, thick] (-0.9,0) -- (0.87, 0);
+%\draw[->, thick] (0.08, 0.08) -- (0.92, 0.92);
+\draw[<-, thick] (-1.05,-0.05) .. controls (-1.3, -0.3) and (-0.7, -0.3) .. (-0.95, -0.05);
+\draw[<-, thick] (1.05,-0.05) .. controls (1.3, -0.3) and (0.7, -0.3) .. (0.95, -0.05);
+\draw[->, thick] (.05,-1.05) .. controls (0.3, -1.3) and (-0.3, -1.3) .. (-0.05, -1.05);
+\draw[->, thick] (2.05,-0.05) .. controls (2.3, -0.3) and (1.7, -0.3) .. (1.95, -0.05);
+\end{tikzpicture}
+	}
+	\end{center}
+}
+
+\qf{Semantics for $\K$}{
+	\qe
+	\p We then define an \e{interpretation function}, $\V{\phi}^w$, from sentences, $\phi$, and worlds, $w$, to truth-value, $\{ 0, 1 \}$
+	\p For any atomic sentence $\alpha$, $\V{\alpha}^w = 1$ iff $w \in V(\alpha)$.
+	\p For any sentence $\phi$, $\V{\neg \phi }^w = 1$ iff $\V{\phi}^w = 0$.
+	\p For any sentences $\phi$, $\psi$, $\V{ \phi \to \psi }^w  = 1$ iff $\V{\phi}^w = 0$ or $\V{\psi}^w = 1$.
+	\ze 
+}
+
+\qf{Semantics for $\K$}{
+	\qe
+	\p For any sentence $\phi$, 
+	
+	\p<1->[]	$\V{\K \phi}^{\alert<2>{w}} = 1$ iff $\V{\phi}^{\alert<2>{w^*}} = 1$ for all $w^*$ such that $Rww^*$. 
+	\ze 
+}
+
+\qf{Propositions}{
+	\qe
+	\p For any sentence $\phi$,
+				\[
+				\langle \phi \rangle \df \{ w \in \W \mid \V{\phi}^w = 1 \}
+				\]
+	\ze 
+}
+
+\qf{Semantics for $\K$}{
+	\qe
+	\p A Kripke model: $< \W, R, V>$.
+	\p We should think of the worlds $\W$ as \e{centered} possibilities to allow for knowledge \e{de se}
+	\p We should think of $R$ like this:
+		\qe
+		\p $R w w^*$ iff $w^*$ is consistent with $S$'s evidence at $w$.
+		\ze 
+	\p So, our semantics says:
+		\qe
+		\p \alt<7->{$S$ knows that $\phi$ iff $\phi$ is entailed by $S$'s evidence.}{$S$ knows that $\phi$ iff $\neg \phi$ is inconsistent with $S$'s evidence}
+		\ze 
+	\ze 
+}
+
+\qf{Semantics for $\K$}{
+	\qe
+	\p Let $E_w \df \{ w^* \in \W \mid  Rww^* \}$.
+	\p Then, for any sentence $\phi$,
+			\[
+			\V{\K \phi}^w = 1 \quad \text{ iff } \quad E_w \subseteq \langle \phi \rangle 
+			\]
+	\ze 
+}
+
+\qf{Semantics for $\K$}{
+	\begin{center}
+\alt<2->{
+\includegraphics[scale=0.27]{know.eps}
+}{	\includegraphics[scale=0.27]{noknow.eps}
+}
+	\end{center}
+}
+
+\qf{Semantics for $\K$}{
+	\begin{alertblock}
+	{Reflexivity}
+	
+	For any $w$, $Rww$ 
+	
+	 [For any $w$, $w \in E_w$]
+	\end{alertblock}
+
+\uncover<2->{	\begin{alertblock}
+	{Symmetry}
+	
+	For any $w$, $w^*$,  if $Rww^*$, then $Rw^*w$. 
+	
+	 [For any $w$, $w^*$, if $w^* \in E_w$, then $w \in E_{w^*}$]
+	\end{alertblock}}
+	
+\uncover<3->{	\begin{alertblock}
+	{Transitivity}
+	
+	For any $w, w^*, w^{**}$, if $Rww^*$ and $Rw^* w^{**}$, then $Rww^{**}$.
+	
+	[For any $w, w^*, w^{**}$, if $w^* \in E_w$ and $w^{**} \in E_{w^*}$, then $w^{**} \in E_w$]
+	\end{alertblock}}
+}
+
+\qf{Semantics for $\K$}{
+	\begin{alertblock}
+	{Factivity} 
+	$\K \phi \to \phi$   \hfill [(T)]
+	\end{alertblock}
+	
+\uncover<2->{	\begin{alertblock}
+	{Brouwer}
+	
+	$\neg \K \neg \K \phi \to \phi$ \hfill [(B)]
+	\end{alertblock}}
+	
+\uncover<3->{	\begin{alertblock}
+	{Positive Introspection}
+	
+$\K \phi \to \K \K \phi$ \hfill [(S4)]
+\end{alertblock}	 }
+
+\uncover<4->{
+	\begin{alertblock}
+	{Negative Introspection}
+	
+	$\neg \K \phi \to \K \neg \K \phi$ \hfill [(S5)]
+	\end{alertblock}
+}
+}
+
+\section{A Skeptical Argument}
+
+\qf{A Skeptical Argument}{
+		\argu{250pt}{
+	\p[P1.] $S$ knows that they have hands only if they know that they are not a handless brain in a vat.
+	\p[P2.] $S$ does not know that they are not a handless brain in a vat.
+	\thus
+	\p[C1.] $S$ does not know that they have hands.
+	}
+}
+
+\qf{A Skeptical Argument}{
+		\argu{90pt}{
+		\p[P1.] \alert<4>{$\K p \to \K \neg s$}
+		\p[P2.] \alert<5>{$\neg \K \neg s$}
+		\thus
+		\p[C1.] \alert<6>{$\neg \K p$}
+		} 
+		\qe
+		\p<4-> \alert<4>{Deny P1}
+		\p<5-> \alert<5>{Deny P2}
+		\p<6-> \alert<6>{Accept C1}
+		\ze 
+}
+
+\qf{Accept C1?  \hfill  $\neg \K p$}{
+	\qe
+	\p Knowledge plays important normative roles.
+		\qe
+		\p Excuses
+		\p Assertion
+		\ze 
+	\ze 
+}
+
+\qf{Deny P2? \hfill $\K \neg s$}{
+\argu{290pt}{
+	\p<2->[P3.] A handless brain-in-a-vat, being stimulated to have experiences indistinguishable from the experiences of $S$, doesn't know that they have hands.
+	\p<3->[P4.] A handless brain-in-a-vat, being stimulated to have experiences indistinguishable from the experiences of $S$, has exactly the same evidence that $S$ has.
+	\p<4->[P5.] If two people have exactly the same evidence, then either both  know that $\phi$ or neither does.
+	\thus
+	\p<5->[C2.] $S$  doesn't know that they have hands.
+	}
+}
+
+\qf{Deny P2? \hfill $\K \neg s$}{
+\argu{290pt}{
+	\p<2->[P6.] At $w_s$, $S$'s evidence does not rule out $w$.
+	\p<3->[P7.] \tbf{Symmetry}
+	\thus
+	\p<4->[C3.] At $w$, $S$'s evidence does not rule out $w_s$.
+	\p<5->[P8.] $S$ knows that $\phi$ only if $S$'s evidence rules out all $\neg \phi$ possibilities.
+	\thus
+	\p<6->[C4.] $S$ doesn't know that they're not a handless brain-in-a-vat.
+	}
+}
+
+\qf{Deny P1? \hfill $\K p \wedge \neg \K \neg s$}{
+\uncover<2->{	\begin{alertblock}
+	{Closure}
+	For any propositions $\phi$ and $\psi$,
+		\[
+		[\K\phi \wedge \K(\phi \text{ entails } \psi)] \to \K \psi
+		\]
+	\end{alertblock}}
+}
+
+\section{A Contextualist Modal Logic for Knowledge}
+
+\qf{Kripke Models}{
+	\qe
+	\p A \e{Kripke model} $< \W, R, V>$ contains:
+		\qe
+		\p A set $\W$ of possible worlds.
+		\p A binary relation $R \subset \W \times \W$.
+		\p A function $V$ from atomic propositions to subsets of $\W$.
+		\ze 
+	\ze 
+}
+
+\qf{Contextualist Semantics for $\K$}{
+	\qe
+	\p We then define a \e{contextualized} interpretation function, $\V{}$, which is a function from a sentence $\phi$, a \e{context of utterance} $\mathcal{C}$, and a possible world $w$, to truth-value, $\{ 1, 0 \}$.
+\p $\mathcal{C}$ is a \e{set of contextually relevant worlds}.
+	\ze 
+}
+
+\qf{Contextualist Semantics for $\K$}{
+	\qe
+	\p For any atomic sentence $\alpha$, $\V{\alpha}^{\mathcal{C}, w} = 1$ iff $w \in V(\alpha)$.
+	\p For any sentence $\phi$, $\V{\neg \phi }^{\mathcal{C}, w} = 1$ iff $\V{\phi}^{\mathcal{C}, w} = 0$.
+	\p For any sentences $\phi$, $\psi$, $\V{ \phi \to \psi }^{\mathcal{C}, w}  = 1$ iff $\V{\phi}^{\mathcal{C}, w} = 0$ or $\V{\psi}^{\mathcal{C}, w} = 1$.
+	\ze 
+}
+
+\qf{Contextualist Semantics for $\K$}{
+	\qe
+	\p For any sentence $\phi$, 
+	
+	\p<1->[]	$\V{\K \phi}^{\mathcal{C}, w} = 1$ \quad iff \quad $E_w \alert<2>{\cap \mathcal{C} }\subseteq \langle \phi \rangle^{\mathcal{C}}$.
+	\ze 
+}
+
+\qf{Contextualist Semantics for $\K$}{
+	\begin{center}
+\alt<2->{
+\includegraphics[scale=0.27]{noknowC.eps}
+}{	\includegraphics[scale=0.27]{knowC.eps}
+}
+	\end{center}
+}
+
+\section{Lewis's Contextualism}
+
+\qf{Lewis's Contextualism}{
+	\qe
+	\p $E_w$ is the set of worlds in which $S$ has the same experience they actually have.
+	\p Lewis characterizes $\mathcal{C}$ by way of a series of \e{rules} about which possibilities may and may not be properly ignored.
+	\ze 
+}
+
+\qf{Rules of Prohibition}{
+\uncover<2->{	\begin{alertblock}
+	{Rule of Actuality}
+	
+	Do not ignore $S$'s actual world---that world must be included in $\mathcal{C}$.
+	\end{alertblock} }
+	
+\uncover<3->{		\begin{alertblock}
+	{Rule of Belief}
+	
+Do not ignore worlds that $S$ believes (or ought to believe) to obtain---those worlds must be included in $\mathcal{C}$.
+	\end{alertblock}}
+	
+\uncover<4->{		\begin{alertblock}
+	{Rule of Resemblance}
+	
+Do not ignore worlds that saliently resemble worlds you have already not ignored---those worlds must be included in $\mathcal{C}$.
+	\end{alertblock}}
+}
+
+\qf{Rules of Permission}{
+\uncover<2->{	\begin{alertblock}
+	{Rule of Reliability}
+	
+So long as doing so doesn't violate the preceeding rules, possibilities in which reliable processes like perception, memory, and testimony fail may be properly ignored---they may be excluded from $\mathcal{C}$.
+	\end{alertblock} }
+	
+\uncover<3->{		\begin{alertblock}
+	{Rule of Method}
+	
+So long as doing so doesn't violate the preceeding rules, possibilities in which inductive inference or inference to the best explanation fail may be properly ignored---they may be excluded from $\mathcal{C}$.
+	\end{alertblock}}
+
+}
+
+\qf{Rules of Permission}{
+\begin{alertblock}
+	{Rule of Conservativism}
+	
+If it is common knowledge in our linguistic community that we standardly \e{do} ignore possibilities, then these possibilities may be ignored---they may be excluded from $\mathcal{C}$.
+	\end{alertblock}
+}
+
+\qf{Rule of Attention}{
+\begin{alertblock}
+	{Rule of Attention}
+A possibility which is not being ignored is not being properly ignored.
+	\end{alertblock}
+}
+
+
+\end{document}

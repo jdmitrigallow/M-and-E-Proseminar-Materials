@@ -1,0 +1,102 @@
+\documentclass[10pt]{article}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[adobe-garamond]{mathdesign}
+\AtBeginDocument{%
+  \let\mathbb\relax
+  \DeclareMathAlphabet\PazoBB{U}{fplmbb}{m}{n}%
+  \newcommand{\mathbb}{\PazoBB}%
+  \let\mathcal\relax
+  \DeclareMathAlphabet{\OMScal}{OMS}{cmsy}{m}{n}
+  \newcommand{\mathcal}{\OMScal}%
+}
+\usepackage{fontspec}
+\setmainfont{Adobe Garamond Pro}
+\usepackage{enumitem}
+\newcommand{\qe}{\begin{enumerate}[align=left,style=nextline,leftmargin=17pt,labelsep=5pt,font=\normalfont, topsep=10pt, itemsep=20pt]}
+\newcommand{\qee}{\begin{enumerate}[align=left,style=nextline,leftmargin=17pt,labelsep=5pt,font=\normalfont, topsep=10pt]}
+\newcommand{\ze}{\end{enumerate}}
+\newcommand{\p}{\item}
+\newcommand{\e}{\emph}
+\newcommand{\s}{\textsc}
+\newcommand{\tbf}{\textbf}
+\newcommand{\thus}{
+
+\vspace{5pt}\hrule
+
+}
+\newcommand{\qd}{\begin{quote} \begin{description}
+    [align=left,style=nextline,leftmargin=*,labelsep=0pt,font=\normalfont]}
+\newcommand{\zd}{\end{description} \end{quote}}
+\usepackage{lipsum}
+\title{Second Paper Guidelines and Prompts}
+\author{Phil 2400: M\&E Core Seminar}
+\date{Due: October 30th, 2018}
+
+\begin{document}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{10pt}
+\maketitle
+
+Papers should be somewhere between 1400 and 2500 words.  (This is approximately 5 to 9 pages, 12pt., double spaced.)  They need not include an introduction, but they should at some point state \e{clearly} what thesis you take yourself to be defending.  \underline{\textbf{This thesis statement should be underlined and bolded}}.
+
+You may write on any topic we have discussed in class.  (Extra-mural paper topics are not permitted---that is to say, you should only cite and discuss readings which have been assigned.  You should also only \e{read} the readings which have been assigned for class (unless the prompt explicitly directs you to read something extramural).  The point of these papers is for you to engage philosophically with the ideas we have encountered, and not to report on what others who have engaged with the work have said, or engage with what others who have engaged with the work have said.  The paper is not a book report---it is an opportunity for you to think through some complicated material and report the fruits of those intellectual labors.)
+
+If you would like some guidance, then here are some suggestions for paper topics.  (If you are not going to write on one of these topics, then please meet with me to discuss your proposed paper topic.)
+\newpage 
+	\qe
+	\p Perry's account of the de se---as we developed it in class, at least---gives a guise-theoretic account of belief and distinguishes \e{belief states} (which are individuated by concepts/Fregean senses/modes of presentation) and the propositions believed (which are not).  Lewis gives a coarse-grained, (centered) possible worlds account of  propositions and says that \e{de se} propositions can vary in truth-value within a given possible world.  In the section titled `Relativized Propositions', Perry argues against Lewis's account.  In section 6 (p.~526) and sections 12 and 13, Lewis argues against  Perry's account.  
+	
+	Your mission, should you choose to accept it, is to defend one of these philosophers from the other by explaining where the opposing argument goes wrong.  (You may think that \e{both} philosophers are wrong; you may think that some other account is superior to either Perry's or Lewis's.  That's fine, but defending that position isn't your mission.  Your mission is to stick up for either Lewis or Perry.)
+	
+	\p Williamson argues against the supervaluationist theory of vagueness (or, more generally, any theory according to which there are some propositions which are neither true nor false) on the grounds that, if the supervaluationist accepts the $T$-schema, then, by applying a few classical inference rules, we may reach an explicit contradiction.  
+	
+	Your mission, should you choose to accept it, is to defend the supervaluationist from this objection of Williamson's.
+	\p Williamson defends an epistemicist theory of vagueness from some of the standard initial objections to it.  Your mission, should you choose to accept it, is to either a) respond to Williamson, explaining why the initial objections are still persuasive, despite Williamson's replies; or b) raise a new objection to epistemicism.  
+	\p Gareth Evans, in \e{Can there be vague objects?}, has an argument against the position that there could be vague objects (that is, that there is a certain kind of ontic vagueness).  This argument has been the subject of a bit of confusion, but it was nicely explicated by David Lewis, in \e{Vague identity: Evans misunderstood}.  
+	
+	Your mission, should you choose to accept it, is to read the Evans and Lewis articles (they are both very short), and defend the position that there are vague objects from Evans's and Lewis's attacks.
+	\p In class, we saw an objection to the endurantist theory of persistence.  The endurantist is committed to saying that the acorn at $t_0$, which we may denote with `$a_0$', is strictly identical to the acorn at $t_1$, which we may denote with `$a_1$'.  If we say that $a_0$ is green while $a_1$ is not green, then we have landed in a contradiction; for the premises
+		\begin{enumerate}
+		\p[] $G a_{0} \& \neg G a_1$ (The acorn at $t_0$ is green, but the acorn at $t_1$ is not green.)
+		\p[] $a_0 = a_1$ (The acorn at $t_0$ is identical to the acorn at $t_1$.)
+		\ze 
+	entail 
+		\begin{enumerate}
+		\p[] $Ga_0 \& \neg Ga_0$
+		\ze 
+	which is an explicit contradiction.  The endurantist's solution is to say one of the following things:
+		\qd
+		\p[\s{Time-Indexed Properties}]  At all times, the following two claims are true:
+			\begin{enumerate}
+			\p[] $G_{t_0} a_0 \& \neg G_{t_1} a_1$ (The acorn at $t_0$ is green-at-$t_0$, but the acorn at $t_1$ is not green-at-$t_1$.)
+			\p[] $a_0 = a_1$ (The acorn at $t_0$ is identical to the acorn at $t_1$.)
+			\ze
+		These claims entail that $G_{t_0} a_0 \& \neg G_{t_1} a_0$, but this is not a contradiction.
+		\p[\s{Serious Tensing}] At $t_0$, the following two claims are true:
+			\begin{enumerate}
+			\p[] $G a_0 \& \text{\s{Will}} (G a_1)$
+			\p[] $a_0 = a_1$
+			\ze 
+		This claims entail that $G a_0 \& \text{\s{Will}} (G a_0)$, but this is not a contradiction.
+		\zd 
+	The two objection to endurantism  were these: 
+		\qe
+		\p If the acorn travels back in time to $t_0$ after becoming brown, then it looks like it should still be identical to its past self according to the endurantist.  However, the tensing and time-indexing strategies will no longer  allow the endurantist to avoid contradiction, since  on the time-indexing approach, the following two claims will be true:
+		\begin{enumerate}
+		\p[] $G_{t_0} a_0 \& \neg G_{t_0} a_1$
+		\p[] $a_0 = a_1$
+		\ze 
+And, on the serious tensing approach, the following two claims will be true at $t_0$:
+		\begin{enumerate}
+		\p[] $G a_0 \& \neg G a_1$
+		\p[] $a_0 = a_1$
+		\ze 
+and both of these entail an explicit contradiction.
+	\p At $t_0$, we place the acorn, $a_0$, in a transporter which ends up accidentally materializing two new acorns at $t_1$---call them $a_1$ and $a_1'$.  The endurantist says that $a_1 = a_0$ and that $a_1' = a_0$.  Therefore, by the Euclidean property of identity, $a_1 = a_1'$.  But $a_1$ and $a_1'$ have different properties.  For instance, $a_1$ is on the left, $L a_1$, whereas $a_1'$ is not on the left, $\neg L a_1'$.  But from these claims we can derive an explicit contradiction, $La_1 \& \neg La_1$.
+	\ze
+Your mission, should you choose to accept it, is to defend the endurantist from these two objections (without rejecting the possibility of time travel or duplication).  
+	\ze 
+	
+
+\end{document}

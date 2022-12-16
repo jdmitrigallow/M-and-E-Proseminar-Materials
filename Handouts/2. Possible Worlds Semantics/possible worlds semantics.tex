@@ -1,0 +1,405 @@
+\documentclass[landscape, two column, full page,reqno]{article}
+\usepackage{mathrsfs}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[adobe-garamond]{mathdesign}
+\AtBeginDocument{%
+  \let\mathbb\relax
+  \DeclareMathAlphabet\PazoBB{U}{fplmbb}{m}{n}%
+  \newcommand{\mathbb}{\PazoBB}%
+  \let\mathcal\relax
+  \DeclareMathAlphabet{\OMScal}{OMS}{cmsy}{m}{n}
+  \newcommand{\mathcal}{\OMScal}%
+}
+\usepackage{enumitem}
+\usepackage{fontspec}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{multicol}
+\setmainfont[Numbers={Proportional,OldStyle}]{Adobe Garamond Pro}
+%NATBIB
+\usepackage[comma]{natbib}
+%HYPERREF PACKAGE
+\usepackage{xcolor}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[backref=page,linktocpage=true,colorlinks]{hyperref}
+\renewcommand{\backrefxxx}[3]{[\hyperlink{page.#1}{#1}]}
+\hypersetup{
+    colorlinks = true,
+    citecolor = blue,
+    urlcolor = blue,
+    filecolor = blue,
+    linkcolor = blue,
+}
+%PATCH TO ONLY HYPERLINK YEAR OF CITATION
+\usepackage{etoolbox}
+\makeatletter
+% Patch case where name and year are separated by aysep
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@aysep\NAT@spacechar}{\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@aysep\NAT@spacechar\NAT@hyper@{\NAT@date}}{}{}
+% Patch case where name and year are separated by opening bracket
+\patchcmd{\NAT@citex}
+  {\@citea\NAT@hyper@{%
+     \NAT@nmfmt{\NAT@nm}%
+     \hyper@natlinkbreak{\NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi}%
+       {\@citeb\@extra@b@citeb}%
+     \NAT@date}}
+  {\@citea\NAT@nmfmt{\NAT@nm}%
+   \NAT@spacechar\NAT@@open\if*#1*\else#1\NAT@spacechar\fi\NAT@hyper@{\NAT@date}}
+  {}{}
+\makeatother
+%
+%Titlesec package
+\usepackage{titlesec}
+%Centering and readjusting size of headings
+\titleformat{\section}[hang]
+{\normalfont\sc\filcenter}{\thesection}{1em}{}
+\titleformat{\subsection}[hang]
+{\normalfont\sc\filcenter}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}[hang]
+{\normalfont\sc\filcenter}{\thesubsubsection}{1em}{}
+			% in the document preamble: 
+				\let\endgraf\par % because LaTeX doesn't like \par 
+			% in some command arguments 
+				\let\subtitlefont\normalfont % or whatever 
+				
+%FOOTNOTE SPACING
+\usepackage[hang,multiple,splitrule]{footmisc}
+\setlength{\footnotemargin}{4mm}
+
+\newcommand{\qd}{\begin{quote}\begin{description}  [align=left,style=nextline,leftmargin=*,labelsep=0pt,font=\normalfont]}
+\newcommand{\zd}{\end{description}\end{quote}}
+\newcommand{\qe}{\begin{enumerate}[align=left,style=nextline,leftmargin=17pt,labelsep=5pt,font=\normalfont]}
+\newcommand{\qei}{\begin{enumerate}[align=left,style=nextline,leftmargin=15pt, labelsep=10pt,font=\normalfont]}
+\newcommand{\ze}{\end{enumerate}}
+\newcommand{\p}{\item}
+\newcommand{\e}{\emph}
+\newcommand{\s}{\textsc}
+\newcommand{\tbf}{\textbf}
+\newcommand{\fn}{\footnote}
+\newcommand{\argu}[2]{\begin{center}\begin{minipage}{#1} \begin{enumerate}
+	#2
+\end{enumerate}
+\end{minipage}  
+\end{center}}
+\newcommand{\qq}[1]{ ~\!^\ulcorner #1  ^\urcorner~\!}
+\newcommand{\V}[1]{\llbracket #1 \rrbracket}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\W}{\mathcal{W}}
+\renewcommand{\u}{\mathfrak{u}}
+\newcommand{\df}{\stackrel{\text{\tiny def}}{=}}
+%GRAPHICX PACKAGE
+\usepackage{graphicx}
+\graphicspath{{/Users/jdg83/Desktop/Figures/}}
+\usepackage{xcolor}
+\usepackage{fancybox}
+
+\definecolor{ShadowColor}{RGB}{30,150,190}
+
+\makeatletter
+\newcommand\Cshadowbox{\VerbBox\@Cshadowbox}
+\def\@Cshadowbox#1{%
+  \setbox\@fancybox\hbox{\fbox{#1}}%
+  \leavevmode\vbox{%
+    \offinterlineskip
+    \dimen@=\shadowsize
+    \advance\dimen@ .5\fboxrule
+    \hbox{\copy\@fancybox\kern.5\fboxrule\lower\shadowsize\hbox{%
+      \color{gray}\vrule \@height\ht\@fancybox \@depth\dp\@fancybox \@width\dimen@}}%
+    \vskip\dimexpr-\dimen@+0.5\fboxrule\relax
+    \moveright\shadowsize\vbox{%
+      \color{gray}\hrule \@width\wd\@fancybox \@height\dimen@}}}
+\makeatother
+
+\newcommand{\csbox}[2]{\begin{center}
+\Cshadowbox{
+\begin{minipage}{#1}
+	#2
+\end{minipage}}
+\end{center}
+}
+
+
+\title{Possible Worlds Semantics}
+\date{September 4th, 2018}
+\author{M\e{{\fontspec{Minion Pro} \&}}E Core}
+
+\usepackage{layout}
+\voffset = -40pt
+\textheight = 450pt
+\setlength{\columnsep}{20pt}
+\begin{document}
+%\layout
+\twocolumn[{%
+ \centering
+\maketitle
+}]
+
+%\section{Preamble: the Possible Worlds Model of Content}
+\qe
+\p Consider the following claims:\footnote{ We suppose that `star' means any body visible in the night sky.}
+		\qe
+		\p The first star visible at night $=$ the first star visible at night.\label{c}
+		\p The first star visible at night $=$ the last star visible in the morning.\label{d}
+		\ze 
+\eqref{c} is \e{a priori} and \e{analytic}.  \eqref{d} is not.  Discovering \eqref{d} constituted an advance in our knowledge.  Not so for \eqref{c}.  So \eqref{c} and \eqref{d} must differ in meaning.
+\p It turns out (let's suppose) that all creatures that have hearts also have kidneys, and \e{vice versa}.  A creature with a heart is called a `cordate', and a creature with a kidney is called a `renate'.  So, it turns out that all cordates are renates, and all renates are cordates.
+Now, consider the following claims:
+		\qe
+		\p All renates are renates. \label{a}
+		\p All renates are cordates. \label{b}
+		\ze 
+\eqref{a} is \e{a priori} and \e{analytic}.  \eqref{b} is not.  Discovering \eqref{b} was an advance in our  knowledge.  Not so for \eqref{a}.  So \eqref{a} and \eqref{b} must differ in meaning.
+\p Frege dealt with sentences like these by distinguishing two different aspects of meaning: \e{sense}, on the one hand, and \e{reference}, on the other.  Since Frege, another method for distinguishing the meanings of these expressions has become pervasive: a \e{possible worlds} semantics.
+\p To set the stage for the possible worlds semantics, consider the following presentation of Frege's puzzle:
+	\qe
+	\p On analogy with a standard semantics for first-order logic, let's suppose that the logical form of \eqref{a} is $(\forall x) (x \text{ is a renate} \to x \text{ is a renate})$, the logical form of \eqref{b} is $(\forall x)( x \text{ is a renate } \to x \text{ is a cordate} )$, and let's suppose that the meaning of a  predicate like `is a renate' is just the set of things which are renates.
+	\p We can use \e{interpretation brackets} `$\V{~}$' as a function from expressions of the language to the meanings of those expressions.   Then, the standard assumption of first-order logic is that the meaning of a predicate like `is a renate' is given by the set of things which satisfy the predicate, which we can notate as follows:
+		\[
+		\V{\text{ is a renate }} = \{ x \mid x \text{ is a renate } \}
+		\]
+	And similarly, we will say that the meaning of the predicate `is a cordate' is given by the set of things which satisify the predicate:
+		\[
+		\V{\text{ is a cordate }} = \{ x \mid x \text{ is a cordate } \}
+		\]
+	 But, since we've seen that all and only renates are cordates, 
+		\[
+		\{ x \mid x \text{ is a renate } \} = \{ x \mid x \text{ is a cordate } \}
+		\]
+	 it follows that the meaning of `is a renate' is the same as the meaning of `is a cordate'.
+		\[
+		\V{\text{ is a renate }} = \V{\text{ is a cordate }}
+		\]
+	So, given compositionality of meaning, \eqref{a} and \eqref{b} will have the same meaning,
+		\[
+		\V{ \text{ All renates are renates }} = \V{ \text{ All renates are cordates} } 
+		\]
+	(On a referential Fregean semantics, this meaning will just be \e{the True}.)
+	\ze 
+	\p Let's call these kinds of meanings---\e{e.g.}, the set $\{ x \mid x \text{ is a renate} \}$ for the meaning of `is a renate'---\e{extensions}. Then, the problem is that expressions which plainly differ in meaning---`is a renate' and `is a cordate', \e{e.g.}---nevertheless have the same extensions.   Possible worlds semantics solves this problem, not by admitting a new aspect of meaning for `is a renate', \e{in addition} to its extension (as with Frege), but rather by \e{generalizing} extensions.
+		\qe
+		\p Begin with the notion of a \e{possible world}.  There are metaphysical debates to be had about what exactly a possible world is, but, at the least, a possible world is a \e{maximal} way things could be.    One way for things to be is that I don't wear socks on September 4th---that's a possible way for things to be, but it's not a possible world, since it's not a \e{maximal} way for things to be.  At the least, a possible world should settle the truth-value of every sentence in the language of interest.
+		\p Predicates like `is a renate' don't just have extensions \e{at the actual world}.  They will also have extensions \e{at every possible world}.  Call something which specifies the extension of `is a renate' at every possible world the \e{intension} of `is a renate'.
+		\p More formally, we can let an intension be a \e{function} from possible worlds to extensions.  And we can represent the meaning of `is a renate' and `is a cordate' with their \e{intensions}.   As a bit of notation, if `$P$' is a predicate, then we can let `$\V{P}^w$' denote the \e{extension} of the predicate `$P$' at the possible world $w$.  And, still using `$\V{P}$' to stand for the \e{meaning} of the predicate `$P$', we can say that the meaning of `$P$' is its intension,
+					\[
+					\V{P} = \lambda w. \V{P}^w
+					\]
+			\qe
+			\p Here, `$\lambda w. \V{P}^w$' denotes a \e{function}---the function \e{from} possible worlds $w$ \e{to} `$P$''s extension at $w$.
+			\p In general, we can denote a function $f$ as follows: $\lambda x. f(x)$.  The way to read `$\lambda x. f(x)$' is like this: `the function from $x$ to $f(x)$.'   It is thus a name for a function.  For instance, $\lambda x. x$ is the identity function, $\lambda x . x + 1$ is the function \e{plus one}, and $\lambda x . \sqrt{x}$ is the square root function. 
+			\ze 
+		\ze 
+\p To get a sense of how the notion of an \e{intension} can be applied in general, let's consider a simple language.
+	\qe
+	\p The vocabulary of this language is simple: there are two \e{singular terms}, 
+		$a$ and $b$,
+		there are two 1-place predicates, $P$ and $Q$, and there is one 2-place predicate of identity, $=$.
+	 %	\[
+	 %	A^N, B^N, C^N, \dots, X^N, Y^N, Z^N
+	 %	\]
+%	there are two \e{truth-functional connectives}
+%	 	 	$
+%	 	 	\neg$ and $\to
+%	 	 	$,
+%	 	 and there are parenthases, $(, )$.
+	 \p The syntactic rules are the familiar ones:
+	 	\qe
+	 	\p If $\qq{\tau}$ is a singular term and $\qq{\Pi}$ is a one-place predicate, then 
+	 				$\qq{
+	 				\Pi \tau
+	 				}$
+	 		is a sentence.
+	 	\p If $\qq{ \tau_1}$ and $\qq{\tau_2}$ are terms, then 
+	 				$\qq{ \tau_1 = \tau_2 }$ is a sentence.
+%	 	\p If $\qq{\phi}$ and $\qq{\psi}$ are sentences, then $\qq{ \neg \phi }$ and $\qq{ (\phi \to \psi) }$ are sentences.
+	 	\ze 
+	 \p Now, an \e{extensional} semantics for our simple first-order language would work like this: we have a set of entities $\D = \{ u, v \}$, known as the \e{domain}.  
+	 	\qe
+	 	\p The meaning of a singular term is some entity from the domain.  For instance, it could be that 
+	 				\[
+	 				\V{a} = v \quad\text{ and } \quad \V{b} = v
+	 				\]
+	 	\p The meaning of a one-place predicate is a \e{set} of entities from the domain.  For instance, it could be that
+	 				\[
+	 				\V{P} = \{ v \}  \quad \text{ and } \quad \V{Q} = \{ v \}
+	 				\]
+	 	\p The meaning of a \e{sentence} is either $0$ (the false) or $1$ (the true).  The meaning of a sentence is determined compositionally from the meaning of its parts, according to the familiar rules:  
+	 		\qe
+	 		\p if $\qq{\tau}$ is a term and $\qq{\Pi}$ is a one-place predicate, then 
+	 				\[
+	 				\V{\Pi \tau } = \left\{ \begin{array}{l l}
+	 				1		& \text{ if } \V{\tau} \in \V{\Pi}		\\
+	 				0		&	\text{ if } \V{\tau} \notin \V{\Pi}
+	 				\end{array} \right.
+	 				\]
+	 		\p if $\qq{\tau_1}$ and $\qq{\tau_2}$ are terms, then
+	 				\[
+	 				\V{ \tau_1 = \tau_2 } = \left\{ \begin{array}{l l}
+	 				1			&	\text{ if } \V{\tau_1} = \V{ \tau_2 }		\\
+	 				0			&	\text{ if } \V{\tau_1} \neq \V{ \tau_2 }
+	 				\end{array} \right.
+	 				\]
+	 		\ze 
+	  For instance, given the stipulations above, $\V{a}  \in \V{Q}$, so
+	 				\[
+	 				\V{Qa} = 1
+	 				\]
+	 Similarly, $\V{a} = \V{b}$, wherefore
+	 				\[
+	 				\V{a = b} = 1
+	 				\]
+	 	\ze 
+	 \p To get an \e{intensional} semantics, we may take our extensional semantics and outfit it with an additional set of \e{worlds}, $\W = \{ w_1, w_2 \}$.  For each world $w \in \W$, we provide an \e{extensional} interpretation $\V{~}^w$.  Finally, we let the \e{meaning} of any expression $\qq{\xi}$ just be its intension---a function from worlds $w \in \W$ to the expression $\qq{\xi}$'s extension in the world $w$, $\V{\xi} = \lambda w. \V{\xi}^w$.
+	 	\qe
+	 	\p As before, at a world $w$, the extension of a singular term is some entity from the domain $\D$.  For instance, it could be that 
+	 			\[
+	 			\begin{array}{c}
+	 			\V{a}^{w_1} = v		\\
+	 			\V{b}^{w_1}	= v		
+	 			\end{array}
+	 			\qquad \text{ and } \qquad
+	 			\begin{array}{c}
+	 			\V{a}^{w_2} = v		\\
+	 			\V{b}^{w_2}	= u		
+	 			\end{array}
+	 			\]
+	 	However, the \e{meaning} of a singular term isn't its extension, but rather its \e{intension}---a function from worlds to its extension in that world.  
+	 	  For instance, the meaning of `$b$' is a function from worlds in $\W$ to entities in the domain $\D$.
+	 			\[
+	 			\V{b} = \lambda w. \V{b}^w
+	 			\]
+	 		We can represent this function by showing where it maps every world in $\W$:
+	 			\[
+	 			\V{b} : \left\{ \begin{array}{c}
+	 			w_1 \mapsto v		\\
+	 			w_2 \mapsto u
+	 			\end{array} \right.
+	 			\]
+	 	\p As before, at a world $w$, the extension of a one-place predicate is a set of entities from the domain $\D$.  For instance, it could be that 
+	 			\[
+	 			\begin{array}{c}
+	 			\V{P}^{w_1} = \{ v	\}	\\
+	 			\V{Q}^{w_1}	= \{ v \}		
+	 			\end{array}
+	 			\qquad \text{ and } \qquad
+	 			\begin{array}{c}
+	 			\V{P}^{w_2} = \{ v \}		\\
+	 			\V{Q}^{w_2} = \{ u \}		
+	 			\end{array}
+	 			\]
+	 	However, the \e{meaning} of a one-place predicate isn't  its extension, but rather its \e{intension}---a function from worlds to the predicate's extensions in that world.  For instance, the meaning of `$Q$' is a function from worlds in $\W$ to subsets of $\D$.
+	 			\[
+	 			\V{Q} = \lambda w.\V{Q}^w
+	 			\]
+	 	We can represent this function by showing where it maps every world in $\W$:
+	 			\[
+	 			\V{Q} : \left\{ \begin{array}{c}
+	 			w_1 \mapsto \{ v \}		\\
+	 			w_2 \mapsto \{ u \}
+	 			\end{array} \right.
+	 			\]
+	 	\p Finally, as before, at any world $w$, the extension of a \e{sentence} is a truth-value---either $1$ or $0$.  This truth-value is determined at each world in the usual way.  So, for instance, 
+	 			\[
+	 			\begin{array}{c}
+	 			\V{Pb }^{w_1} = 1\\
+	 			\V{Qb }^{w_1}	= 1	
+	 			\end{array}
+	 			\qquad \text{ and } \qquad
+	 			\begin{array}{c}
+	 			\V{Pb}^{w_2} = 1	\\
+	 			\V{Qb}^{w_2} = 0	
+	 			\end{array}
+	 			\]
+	 	while
+	 			\[
+	 			\V{a = b}^{w_1} = 1 \qquad \text{ and } \qquad \V{a=b}^{w_2} = 0
+	 			\]
+	 	However, the \e{meaning} of a sentence  isn't its extension, but rather its \e{intension}---a function from worlds to its extension in that world.  For instance, the meaning of `$Qb$' is a function from worlds in $\W$ to $\{ 0, 1 \}$.  We can represent this function by showing where it maps every world,
+	 			\[
+	 			\V{Qb} : \left\{ \begin{array}{c}
+	 			w_1 \mapsto	1								\\
+	 			w_2 \mapsto	0
+	 			\end{array} \right.
+	 			\]
+	 	\ze 
+	 \p We can use the tables below to summarize some of the information contained in this simple intensional semantics.
+	 		\[
+	 		\begin{array}{r c c}
+	 								&			w_1			&		w_2				\\\hline
+	 		\V{a}				&		v						&			v					\\
+	 		\V{b}				&		v						&			u					\\
+	 		\V{P}				&		\{ v \}				& \{ v \}			\\
+	 		\V{Q}				&		\{ v \}				&		\{ u \}				
+	 		\end{array}
+	 		\qquad\qquad
+	 		\begin{array}{r c c}
+	 								&			w_1			&		w_2				\\\hline
+	 		\V{Pa}			&			1					&			1					\\
+	 		\V{Qa}			&			1					&			0					\\
+	 		\V{a=a}				&		1			& 1		\\
+	 		\V{a=b}				&		1			&		0		
+	 		\end{array}
+	 		\]
+	\ze  
+\p 	\qe \p An intensional semantics can distinguish the meanings of \eqref{c} and \eqref{d}
+				\qe
+				\p[1a)] The first star visible at night $=$ the first star visible at night.
+				\p[1b)] The first star visible at night $=$ the last star visible in the morning.
+				\ze 
+	in precisely the way that our simple semantics above distinguished the meanings of `$a=a$' and `$a=b$'.  Though `the first star visible at night' and `the last star visible in the morning' co-refer at the \e{actual} world, there are possible worlds at which they refer to different entities.  So, while \eqref{c} is true at every possible world, \eqref{d} is false at some possible worlds.  Since the meanings of `the first star visible at night' and `the last star visible in the morning' isn't just their referents, but rather a function from possible worlds to referents, \eqref{c} and \eqref{d} can be true at different worlds, and thereby have different meanings.
+	\p Similarly, an intensional semantics can distinguish the meanings of \eqref{a} and \eqref{b}
+				\qe
+				\p[2a)] All renates are renates.
+				\p[2b)] All renates are cordates.
+				\ze 
+	in precisely the way that our simple semantics distinguished the meaning of `$Pa$'  and `$Qa$'.  Though everything in the \e{actual} world which is a renate is also a cordate, there are possible worlds at which there are creatures with hearts but not kidneys, and there are possible worlds at which there are creatures with kidneys but not hearts.  Since the meaning of `is a renate' and `is a cordate' isn't just the set of renates/cordates, but rather a function from possible worlds to sets of renates/cordates at those worlds, \eqref{a} and \eqref{b} can be true at different worlds, and thereby have different meanings.
+	\p In this way, a possible worlds semantics is able to solve (at least some instances of) Frege's puzzle without needing to introduce \e{sense}.  All meaning is reference---it is just reference, not only at the actual world, but additionally at \e{possible} worlds.  		
+	\ze 
+\p We've just seen that, on a possible worlds semantics, the meaning of a sentence $\qq{\phi}$, $\V{\phi}$, is a function from possible worlds to $\{ 1, 0 \}$.  Given such a function, we could construct a corresponding \e{set} of worlds---the worlds which get mapped to $1$ by the function $\V{\phi}$.
+		\qe
+		\p Let's call the set of worlds mapped to $1$ by $\V{\phi}$ the \e{proposition} expressed by the sentence $\qq{\phi}$.  And let's denote it with $\qq{\langle \phi \rangle}$.  
+				\[
+				\langle \phi \rangle \df \{ w \in \mathcal{W} \mid \V{\phi}^w = 1 \}
+				\]
+		\p We'll say that a proposition $\langle \phi \rangle$ is true at a world $w$ iff $w \in \langle \phi \rangle$.
+		\p One nice thing about this semantics is that it allows us to relate the the logical connectives $\neg, \wedge, \vee,$ and $\to$ to standard set-theoretic operations.  Note:
+				\qe
+				\p $\langle \phi \wedge \psi \rangle = \langle \phi \rangle \cap \langle \psi \rangle$.
+				\p $\langle \phi \vee \psi \rangle = \langle \phi \rangle \cup \langle \psi \rangle$.
+				\p $\langle \neg \phi \rangle = \langle \phi \rangle^c$.
+				\p $\langle \phi \to \psi \rangle = \langle \phi \rangle^c \cup \langle \psi \rangle$
+				\ze 
+		\p In a possible worlds semantics, \e{propositions} play the theoretical roles which Frege associated with the senses of sentences (thoughts).  They: 
+			\qe
+			\p Explain (some) differences in cognitive significance (\e{i.e.}, \eqref{a} and \eqref{b}).
+			\p Are the primary bearers of truth and falsehood.
+			\p Are what's preserved in translation.
+			\p Are the objects of belief---that is, they are the referents of \e{that}-clauses in belief reports.
+			\ze 
+		\ze  
+\p How much difference in cognitive significance can a possible worlds proposition account for?  That depends.  Suppose that we take `Hesperus' to be synonymous with the definite description  `the first star visible at night', and we take `Phosphorus' to be synonymous with the definite description `the last star visible in the morning.  Then, \eqref{c} and \eqref{d} will be synonymous with (\tbf{A}) and (\tbf{B})
+	\qe
+	\p[\tbf{A})] Hesperus $=$ Hesperus
+	\p[\tbf{B})] Hesperus $=$ Phosphorus
+	\ze 
+Then, the possible worlds semantics would solve Frege's puzzle applied to proper names.
+		\qe
+		\p Notice that this solution depended crucially upon our supposition that proper names like `Hesperus' and `Phosphorus' were synonymous with some kind of definite descriptions.  We will revisit this assumption next week.
+		\ze 
+\p However, even if we grant that `Hesperus' is synonymous with `the first star visible at night'---and that, more generally, each proper name is synonymous with some definite description---it still looks as though there will be sentences with different cognitive significances which express the very same possible worlds proposition.  For instance:\label{19}
+	\qe
+	\p On this theory, there can be only one necessarily true proposition.  Since `$2+2=4$', `$997$ is a lucky prime', and `torturing babies for fun is wrong' are all necessarily, true, they will all express the very same possible worlds proposition---they  each express the set of all possible worlds.
+	\p Similarly, on this theory, there can be only one necessarily false proposition.  Since `$2+2=5$', `Not every commutative ring has a prime ideal', and `torturing babies for fun is obligatory' are each not only false, but \e{necessarily} false, they will all express the very same possible worlds proposition---they all express the empty set.
+	\p Just as there are co-extensional predicates which nevertheless differ in meaning---like `is a renate' and `is a cordate'---there are \e{co-intensional} predicates which nevertheless appear to differ in meaning---like `is triangular' and `is trilateral'.
+	\p Similarly, consider the sentences `Socrates exists' and `the singleton set containing Socrates exists'.  These will be true in exactly the same worlds.  But they appear to be saying different things.
+	\ze 
+\p The differences in meaning between \eqref{c} and \eqref{d} (and \eqref{a} and \eqref{b}) were \e{intensional} differences in meaning.  In order to bring out their differences, we had to move to the level of intensions.  If you think that there is meaning more fine-grained than this---if you think that the co-intensional sentences in \eqref{19} above have different meanings, then you think that there are \e{hyper-intensional} differences in meaning.  
+\ze 
+
+
+
+\end{document}
